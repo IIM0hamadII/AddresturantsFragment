@@ -92,7 +92,7 @@ public class AddRestaurantFragment extends Fragment {
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String name=etName.getText().toString();
                 String description=etDescription.getText().toString();
                 String address=etAddress.getText().toString();
@@ -102,20 +102,22 @@ public class AddRestaurantFragment extends Fragment {
                     Toast.makeText(getActivity(), "some fields aare empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Restaurant rest=new Restaurant(name,description,address,phone);
+                Restaurant rest= new Restaurant(name,description,address,phone);
 
-                fbs.getFire().collection("restaurants").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                fbs.getFire().collection("restaurant ").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(getActivity(), "successfully added", Toast.LENGTH_SHORT).show();
+
                     }
-                }).addOnFailureListener(new OnFailureListener() {
+                  }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e("failed to add",e.getMessage());
+
                     }
                 });
             }
         });
-    }
+   }
 }
