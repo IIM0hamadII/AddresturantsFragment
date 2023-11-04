@@ -12,11 +12,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gotoAddFragment();
+        gotoAllRestsFragment();
     }
-    private void gotoAddFragment(){
-        FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.FrameLayout,new AddRestaurantFragment());
+
+    private void gotoAddFragment() {
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AddRestaurantFragment());
+        ft.commit();
+    }
+
+    private void gotoAllRestsFragment() {
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllRestaurantsFragment());
         ft.commit();
     }
 }

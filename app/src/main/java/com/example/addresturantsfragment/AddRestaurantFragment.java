@@ -24,10 +24,9 @@ import com.google.firebase.firestore.DocumentReference;
  */
 public class AddRestaurantFragment extends Fragment {
 
-    private firebase fbs;
-    private EditText etName,etAddress,etPhone,etDescription;
+    private FirebaseServices fbs;
+    private EditText etName, etDescription, etAddress, etPhone;
     private Button btnAdd;
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,45 +78,53 @@ public class AddRestaurantFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         connectComponents();
+
     }
 
     private void connectComponents() {
-        fbs=firebase.getInstance();
-        etName=getView().findViewById(R.id.etNameAddRestaurant);
-        etDescription=getView().findViewById(R.id.etAddDescriptionResturant);
-        etAddress=getView().findViewById(R.id.etAddAddressRestaurant);
-        etPhone=getView().findViewById(R.id.etAddPhoneRestaurant);
-        btnAdd=getView().findViewById(R.id.buttonAddRestaurant);
+        fbs = FirebaseServices.getInstance();
+        etName = getView().findViewById(R.id.etNameAddRestaurantFragment);
+        etDescription = getView().findViewById(R.id.etDescAddRestaurantFragment);
+        etAddress = getView().findViewById(R.id.etAddressAddRestaurantFragment);
+        etPhone = getView().findViewById(R.id.etPhoneAddRestaurantFragment);
+        btnAdd = getView().findViewById(R.id.btnAddAddRestaurantFragment);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name=etName.getText().toString();
-                String description=etDescription.getText().toString();
-                String address=etAddress.getText().toString();
-                String phone=etPhone.getText().toString();
+                // get data from screen
+                String name = etName.getText().toString();
+                String description = etDescription.getText().toString();
+                String address = etAddress.getText().toString();
+                String phone = etPhone.getText().toString();
 
-                if (name.trim().isEmpty()|| description.trim().isEmpty()||address.trim().isEmpty()||phone.trim().isEmpty()){
-                    Toast.makeText(getActivity(), "some fields aare empty", Toast.LENGTH_SHORT).show();
+                // data validation
+                if (name.trim().isEmpty() || description.trim().isEmpty() ||
+                        address.trim().isEmpty() || phone.trim().isEmpty())
+                {
+                    Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Restaurant rest= new Restaurant(name,description,address,phone);
 
-                fbs.getFire().collection("restaurant ").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                // add data to firestore
+                Restaurant rest = new Restaurant(name, description, address, phone);
+
+                fbs.getFire().collection("restaurants").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getActivity(), "successfully added", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(getActivity(), "Successfully added your restaurant!", Toast.LENGTH_SHORT).show();
                     }
-                  }).addOnFailureListener(new OnFailureListener() {
+                }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("failed to add",e.getMessage());
-
+                        Log.e("Failure AddRestaurant: ", e.getMessage());
                     }
                 });
+
+
             }
         });
-   }
+    }
 }
