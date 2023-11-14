@@ -87,7 +87,6 @@ public class AddHotelFragment extends Fragment {
         super.onStart();
 
         connectComponents();
-
     }
 
     private void connectComponents() {
@@ -98,7 +97,9 @@ public class AddHotelFragment extends Fragment {
         etPhone = getView().findViewById(R.id.etPhoneAddRestaurantFragment);
         btnAdd = getView().findViewById(R.id.btnAddAddRestaurantFragment);
         utils = Utils.getInstance();
-        img = getView().findViewById(R.id.ivCarAddCarFragment);
+        img = getView().findViewById(R.id.ivupload);
+
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +116,8 @@ public class AddHotelFragment extends Fragment {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_LONG).show();
                     return;
                 }
+
+
 
                 // add data to firestore
                 Hotel rest = new Hotel(name, description, address, phone);
