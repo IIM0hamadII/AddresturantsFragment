@@ -16,14 +16,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="77dp"
-            android:layout_marginBottom="33dp"
+            android:layout_marginBottom="405dp"
             android:ems="10"
             android:hint="name..."
             android:inputType="text"
-            app:layout_constraintBottom_toTopOf="@+id/etDescAddRestaurantFragment"
+            app:layout_constraintBottom_toTopOf="@+id/ivCarAddCarFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivCarAddCarFragment"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="104dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etNameAddRestaurantFragment" />
 
         <EditText
             android:id="@+id/etDescAddRestaurantFragment"
@@ -72,5 +83,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPhoneAddRestaurantFragment" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

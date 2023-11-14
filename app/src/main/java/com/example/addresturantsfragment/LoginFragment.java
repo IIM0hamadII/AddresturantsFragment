@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link LoginFragment#newInstance} factory method to
@@ -24,6 +26,7 @@ public class LoginFragment extends Fragment {
     private TextView tvForgotPassLink;
     private Button btnLogin;
     private FirebaseServices fsb;
+    private FloatingActionButton btn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +85,7 @@ public class LoginFragment extends Fragment {
         tvSignupLink=getView().findViewById(R.id.tvSignupLinkLogin);
         tvForgotPassLink= getView().findViewById(R.id.tvForgotPasswordLinkLogin);
         btnLogin=getView().findViewById(R.id.etButtomLogin);
-
+        btn=getView().findViewById(R.id.floatinglogin);
 
         tvForgotPassLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +109,17 @@ public class LoginFragment extends Fragment {
                     return;
                 }
             }
+        });
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,new AllHotelsFragment());
+                ft.commit();
+                }
+
         })
         ;}
     private void gotoSignupFragment(){

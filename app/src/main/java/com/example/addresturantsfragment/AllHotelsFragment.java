@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -30,6 +32,7 @@ public class AllHotelsFragment extends Fragment {
     private ArrayList<Hotel> rests;
     private RecyclerView rvRests;
     private HotelAdapter adapter;
+    private FloatingActionButton btn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,11 +84,11 @@ public class AllHotelsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        btn=getView().findViewById(R.id.floatingbtn);
         fbs = FirebaseServices.getInstance();
         rests = new ArrayList<>();
         rvRests = getView().findViewById(R.id.rvRestaurantsRestFragment);
-        fbs.getFire().collection("restaurants").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        fbs.getFire().collection("hotels").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
@@ -102,8 +105,20 @@ public class AllHotelsFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getActivity(), "No data available", Toast.LENGTH_SHORT).show();
-                Log.e("AllRestaurantsFragment", e.getMessage());
+                Log.e("AllHotelsFragment", e.getMessage());
+
             }
+
         });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,new AddHotelFragment());
+                ft.commit();
+                }
+
+        })
+        ;}
     }
-}
+

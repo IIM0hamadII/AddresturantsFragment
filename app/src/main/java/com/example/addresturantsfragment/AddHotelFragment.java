@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,6 +32,8 @@ public class AddHotelFragment extends Fragment {
     private EditText etName, etDescription, etAddress, etPhone;
     private Button btnAdd;
     private Utils utils;
+    private static final int GALLERY_REQUEST_CODE = 123;
+    ImageView img;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,6 +98,7 @@ public class AddHotelFragment extends Fragment {
         etPhone = getView().findViewById(R.id.etPhoneAddRestaurantFragment);
         btnAdd = getView().findViewById(R.id.btnAddAddRestaurantFragment);
         utils = Utils.getInstance();
+        img = getView().findViewById(R.id.ivCarAddCarFragment);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,15 +119,15 @@ public class AddHotelFragment extends Fragment {
                 // add data to firestore
                 Hotel rest = new Hotel(name, description, address, phone);
 
-                fbs.getFire().collection("restaurants").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                fbs.getFire().collection("hotels").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getActivity(), "Successfully added your restaurant!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("Failure AddRestaurant: ", e.getMessage());
+                        Log.e("Failure hotel: ", e.getMessage());
                     }
                 });
 
@@ -147,4 +151,7 @@ public class AddHotelFragment extends Fragment {
             utils.uploadImage(getActivity(), selectedImageUri);
         }
     }
+    public void toBigImg(View view) {
+    }
+
 }

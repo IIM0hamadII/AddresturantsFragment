@@ -11,19 +11,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    gotoAddFragment();
+          gotoLoginFragment();
 
     }
 
-    private void gotoAddFragment() {
+    private void gotoLoginFragment() {
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AddHotelFragment());
+        ft.replace(R.id.frameLayout,new LoginFragment());
         ft.commit();
     }
 
-    private void gotoAllRestsFragment() {
-        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AllHotelsFragment());
-        ft.commit();
-    }
+
 }
