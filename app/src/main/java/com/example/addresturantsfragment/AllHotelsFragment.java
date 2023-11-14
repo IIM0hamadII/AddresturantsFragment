@@ -21,15 +21,15 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AllRestaurantsFragment#newInstance} factory method to
+ * Use the {@link AllHotelsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllRestaurantsFragment extends Fragment {
+public class AllHotelsFragment extends Fragment {
 
     private FirebaseServices fbs;
-    private ArrayList<Restaurant> rests;
+    private ArrayList<Hotel> rests;
     private RecyclerView rvRests;
-    private RestaurantAdapter adapter;
+    private HotelAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +40,7 @@ public class AllRestaurantsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AllRestaurantsFragment() {
+    public AllHotelsFragment() {
         // Required empty public constructor
     }
 
@@ -53,8 +53,8 @@ public class AllRestaurantsFragment extends Fragment {
      * @return A new instance of fragment AllRestaurantsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AllRestaurantsFragment newInstance(String param1, String param2) {
-        AllRestaurantsFragment fragment = new AllRestaurantsFragment();
+    public static AllHotelsFragment newInstance(String param1, String param2) {
+        AllHotelsFragment fragment = new AllHotelsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -90,12 +90,12 @@ public class AllRestaurantsFragment extends Fragment {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                 for (DocumentSnapshot dataSnapshot: queryDocumentSnapshots.getDocuments()){
-                    Restaurant rest = dataSnapshot.toObject(Restaurant.class);
+                    Hotel rest = dataSnapshot.toObject(Hotel.class);
 
                     rests.add(rest);
                 }
 
-                adapter = new RestaurantAdapter(getContext(), rests);
+                adapter = new HotelAdapter(getContext(), rests);
                 rvRests.setAdapter(adapter);
             }
         }).addOnFailureListener(new OnFailureListener() {

@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RestaurantsFragment#newInstance} factory method to
+ * Use the {@link HotelsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RestaurantsFragment extends Fragment {
+public class HotelsFragment extends Fragment {
 
     private RecyclerView rvRestaurants;
 
@@ -27,7 +27,7 @@ public class RestaurantsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public RestaurantsFragment() {
+    public HotelsFragment() {
         // Required empty public constructor
     }
 
@@ -40,8 +40,8 @@ public class RestaurantsFragment extends Fragment {
      * @return A new instance of fragment RestaurantsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RestaurantsFragment newInstance(String param1, String param2) {
-        RestaurantsFragment fragment = new RestaurantsFragment();
+    public static HotelsFragment newInstance(String param1, String param2) {
+        HotelsFragment fragment = new HotelsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

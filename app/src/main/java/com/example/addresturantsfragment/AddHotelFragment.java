@@ -22,10 +22,10 @@ import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AddRestaurantFragment#newInstance} factory method to
+ * Use the {@link AddHotelFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddRestaurantFragment extends Fragment {
+public class AddHotelFragment extends Fragment {
 
     private FirebaseServices fbs;
     private EditText etName, etDescription, etAddress, etPhone;
@@ -41,7 +41,7 @@ public class AddRestaurantFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AddRestaurantFragment() {
+    public AddHotelFragment() {
         // Required empty public constructor
     }
 
@@ -54,8 +54,8 @@ public class AddRestaurantFragment extends Fragment {
      * @return A new instance of fragment AddRestaurantFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddRestaurantFragment newInstance(String param1, String param2) {
-        AddRestaurantFragment fragment = new AddRestaurantFragment();
+    public static AddHotelFragment newInstance(String param1, String param2) {
+        AddHotelFragment fragment = new AddHotelFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -113,7 +113,7 @@ public class AddRestaurantFragment extends Fragment {
                 }
 
                 // add data to firestore
-                Restaurant rest = new Restaurant(name, description, address, phone);
+                Hotel rest = new Hotel(name, description, address, phone);
 
                 fbs.getFire().collection("restaurants").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

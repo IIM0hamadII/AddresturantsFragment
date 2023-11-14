@@ -5,7 +5,7 @@
     android:id="@+id/fl1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddRestaurantFragment">
+    tools:context=".AddHotelFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

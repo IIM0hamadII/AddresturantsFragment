@@ -1,25 +1,22 @@
 package com.example.addresturantsfragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.MyViewHolder> {
+public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder> {
     Context context;
-    ArrayList<Restaurant> restList;
+    ArrayList<Hotel> restList;
     private FirebaseServices fbs;
 
-    public RestaurantAdapter(Context context, ArrayList<Restaurant> restList) {
+    public HotelAdapter(Context context, ArrayList<Hotel> restList) {
         this.context = context;
         this.restList = restList;
         this.fbs = FirebaseServices.getInstance();
@@ -27,14 +24,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
 
     @NonNull
     @Override
-    public RestaurantAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public HotelAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View v= LayoutInflater.from(context).inflate(R.layout.rest_item,parent,false);
-        return  new RestaurantAdapter.MyViewHolder(v);
+        return  new HotelAdapter.MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RestaurantAdapter.MyViewHolder holder, int position) {
-        Restaurant rest = restList.get(position);
+    public void onBindViewHolder(@NonNull HotelAdapter.MyViewHolder holder, int position) {
+        Hotel rest = restList.get(position);
         holder.tvName.setText(rest.getName());
         holder.tvPhone.setText(rest.getPhone());
     }

@@ -2,16 +2,16 @@ package com.example.addresturantsfragment;
 
 
 
-public class Restaurant {
+public class Hotel {
    private String name;
    private String description;
    private String address;
    private String phone;
 
-   public Restaurant() {
+   public Hotel() {
    }
 
-   public Restaurant(String name, String description, String address, String phone) {
+   public Hotel(String name, String description, String address, String phone) {
       this.name = name;
       this.description = description;
       this.address = address;

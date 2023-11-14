@@ -17,13 +17,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void gotoAddFragment() {
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AddRestaurantFragment());
+        ft.replace(R.id.frameLayout,new AddHotelFragment());
         ft.commit();
     }
 
     private void gotoAllRestsFragment() {
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AllRestaurantsFragment());
+        ft.replace(R.id.frameLayout,new AllHotelsFragment());
         ft.commit();
     }
 }
