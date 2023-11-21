@@ -33,7 +33,7 @@ public class AddHotelFragment extends Fragment {
     private Button btnAdd;
     private Utils utils;
     private static final int GALLERY_REQUEST_CODE = 123;
-    ImageView img;
+    private ImageView img ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,8 +99,13 @@ public class AddHotelFragment extends Fragment {
         utils = Utils.getInstance();
         img = getView().findViewById(R.id.ivupload);
 
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery();
+            }
+        });
+                btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // get data from screen
@@ -119,7 +124,9 @@ public class AddHotelFragment extends Fragment {
 
 
 
-                // add data to firestore
+                // add data to
+                //
+                // firestore
                 Hotel rest = new Hotel(name, description, address, phone);
 
                 fbs.getFire().collection("hotels").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -136,6 +143,7 @@ public class AddHotelFragment extends Fragment {
 
 
             }
+
         });
 
     }
