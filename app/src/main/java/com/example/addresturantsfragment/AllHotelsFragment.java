@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class AllHotelsFragment extends Fragment {
-
+    private RecyclerView recyclerView;
     private FirebaseServices fbs;
     private ArrayList<Hotel> rests;
     private RecyclerView rvRests;
@@ -88,6 +89,8 @@ public class AllHotelsFragment extends Fragment {
         fbs = FirebaseServices.getInstance();
         rests = new ArrayList<>();
         rvRests = getView().findViewById(R.id.rvRestaurantsRestFragment);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         fbs.getFire().collection("hotels").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
