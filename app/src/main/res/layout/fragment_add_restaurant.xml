@@ -84,5 +84,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPhoneAddRestaurantFragment" />
 
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="13dp"
+            android:text="back"
+            app:layout_constraintBottom_toTopOf="@+id/etNameAddRestaurantFragment"
+            app:layout_constraintEnd_toStartOf="@+id/etNameAddRestaurantFragment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

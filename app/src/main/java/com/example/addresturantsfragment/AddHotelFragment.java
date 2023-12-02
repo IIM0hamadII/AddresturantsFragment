@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class AddHotelFragment extends Fragment {
 
     private FirebaseServices fbs;
     private EditText etName, etDescription, etAddress, etPhone;
-    private Button btnAdd;
+    private Button btnAdd,btnBack;
     private Utils utils;
     private static final int GALLERY_REQUEST_CODE = 123;
     private ImageView img ;
@@ -98,7 +99,7 @@ public class AddHotelFragment extends Fragment {
         btnAdd = getView().findViewById(R.id.btnAddAddRestaurantFragment);
         utils = Utils.getInstance();
         img = getView().findViewById(R.id.ivupload);
-
+      btnBack=getView().findViewById(R.id.btnBack);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +146,14 @@ public class AddHotelFragment extends Fragment {
             }
 
         });
-
+               btnBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+                        ft.commit();
+                               }
+                      });
     }
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

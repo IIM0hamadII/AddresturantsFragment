@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,12 +29,13 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class AllHotelsFragment extends Fragment {
-    private RecyclerView recyclerView;
+
     private FirebaseServices fbs;
     private ArrayList<Hotel> rests;
     private RecyclerView rvRests;
     private HotelAdapter adapter;
     private FloatingActionButton btn;
+    private Button hbtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,12 +87,13 @@ public class AllHotelsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        hbtn=getView().findViewById(R.id.hbtn2);
         btn=getView().findViewById(R.id.floatingbtn);
         fbs = FirebaseServices.getInstance();
         rests = new ArrayList<>();
         rvRests = getView().findViewById(R.id.rvRestaurantsRestFragment);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvRests.setHasFixedSize(true);
+        rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
         fbs.getFire().collection("hotels").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -113,6 +116,7 @@ public class AllHotelsFragment extends Fragment {
             }
 
         });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +125,21 @@ public class AllHotelsFragment extends Fragment {
                 ft.commit();
                 }
 
+        });
+
+        hbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,new LoginFragment());
+                ft.commit();
+            }
+
         })
         ;}
+
+
+
+
     }
 
