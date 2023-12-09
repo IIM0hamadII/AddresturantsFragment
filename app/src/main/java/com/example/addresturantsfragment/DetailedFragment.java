@@ -76,10 +76,7 @@ public class DetailedFragment extends Fragment {
 
         Name=bundle.getString("Car");
         Phone=bundle.getString("Phone");
-
         Photo=bundle.getString("Photo");
-
-
 
         return view;
     }
@@ -93,9 +90,6 @@ public class DetailedFragment extends Fragment {
         tvName=getView().findViewById(R.id.DetailedMan);
         tvdescreption=getView().findViewById(R.id.tvdescreption);
          tvadress=getView().findViewById(R.id.tvadress);
-
-
-
         tvName.setText(Name);
         tvPhone.setText("Contact: " + Phone);
 

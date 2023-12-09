@@ -7,16 +7,27 @@ public class Hotel {
    private String description;
    private String address;
    private String phone;
+   private String photo;
+
 
    public Hotel() {
    }
 
-   public Hotel(String name, String description, String address, String phone) {
+   public Hotel(String name, String description, String address, String phone,String photo) {
       this.name = name;
       this.description = description;
       this.address = address;
       this.phone = phone;
+      this.photo = photo;
+
    }
+
+   public String getPhoto() {
+      return photo;
+   }
+
+   public void setPhoto(String photo) {this.photo = photo;}
+
 
    public String getName() {
       return name;
@@ -57,6 +68,7 @@ public class Hotel {
               ", description='" + description + '\'' +
               ", address='" + address + '\'' +
               ", phone='" + phone + '\'' +
+              ", photo='" + photo + '\'' +
               '}';
    }
 }

@@ -35,7 +35,7 @@ public class AddHotelFragment extends Fragment {
     private Utils utils;
     private static final int GALLERY_REQUEST_CODE = 123;
     private ImageView img ;
-
+    private String imageStr;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -128,7 +128,7 @@ public class AddHotelFragment extends Fragment {
                 // add data to
                 //
                 // firestore
-                Hotel rest = new Hotel(name, description, address, phone);
+                Hotel rest = new Hotel(name, description, address, phone,imageStr);
 
                 fbs.getFire().collection("hotels").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
