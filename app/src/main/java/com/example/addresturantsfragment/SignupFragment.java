@@ -14,8 +14,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +28,7 @@ import com.google.firebase.auth.AuthResult;
 public class SignupFragment extends Fragment {
 
     private EditText etUsername,etPassword;
-    private Button btnSignup;
+    private Button btnSignup,btnBack;
     private FirebaseServices fsb;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,6 +85,13 @@ public class SignupFragment extends Fragment {
         etUsername=getView().findViewById(R.id.etUsernameSignup);
         etPassword=getView().findViewById(R.id.etPasswordSignup);
         btnSignup=getView().findViewById(R.id.etButtonSignup);
+        btnBack=getView().findViewById(R.id.back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoLoginFragment();
+            }
+        });
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,21 +101,66 @@ public class SignupFragment extends Fragment {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 fsb.getAuth().createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(getActivity(),"You have successfully signed up!", Toast.LENGTH_SHORT).show();
+//
+//                            // TODO: create new object from User class
+//                            // TODO: add the created object to firestore
+                            try {
+                                fsb.getFire().collection("ddd").add("mmm").addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(getActivity(), "ddd", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getActivity(), "ddd", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                            catch(Exception ex)
+                            {
+                                Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
 
-                        }
+//                            fsb.getFire().collection("users").add(username).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                @Override
+//                                public void onSuccess(DocumentReference documentReference) {
+//
+//                                    Toast.makeText(getActivity(),"You have successfully signed up!", Toast.LENGTH_SHORT).show();
+//
+//                                }
+//
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Toast.makeText(getActivity(),"You have successfully signed up!", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+
+                    }
                         else {
                             Toast.makeText(getActivity(),"Failed to sign up! check user or password and try again!", Toast.LENGTH_SHORT).show();
                         }
+                };
+            });
+        };
+      });
 
+    }
 
-                    }
-                });
-            }
-        });
+    private void gotoMainFragment(){
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new HotelsFragment());
+        ft.commit();
+    }
+    private void gotoLoginFragment(){
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new LoginFragment());
+        ft.commit();
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ import com.google.android.gms.tasks.Task;
 public class ForgotPasswordFragment extends Fragment {
     private FirebaseServices fbs;
     private EditText etEmail;
-    private Button btnReset;
+    private Button btnReset,btnBack;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,6 +80,14 @@ public class ForgotPasswordFragment extends Fragment {
         fbs = FirebaseServices.getInstance();
         etEmail = getView().findViewById(R.id.etforgot);
         btnReset = getView().findViewById(R.id.button);
+        btnBack=getView().findViewById(R.id.back2);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoLoginFragment();
+            }
+        });
+
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +96,7 @@ public class ForgotPasswordFragment extends Fragment {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 fbs.getAuth().sendPasswordResetEmail(etEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -103,5 +113,10 @@ public class ForgotPasswordFragment extends Fragment {
                 });
             }
         });
+    }
+    private void gotoLoginFragment(){
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new LoginFragment());
+        ft.commit();
     }
 }

@@ -2,6 +2,7 @@ package com.example.addresturantsfragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,7 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.AuthResult;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,7 +112,26 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                fsb.getAuth().signInWithEmailAndPassword(username,password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful())
+                        {
+
+                            Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
+
+
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "failed to login! check user or password", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
             }
+
         });
 
 
@@ -130,6 +153,11 @@ public class LoginFragment extends Fragment {
     private void gotoForgotPasswordFragment(){
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new ForgotPasswordFragment());
+        ft.commit();
+    }
+    private void gotoMainFragment(){
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new HotelsFragment());
         ft.commit();
     }
 }
