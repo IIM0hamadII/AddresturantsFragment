@@ -14,30 +14,28 @@
             android:id="@+id/etUsernameSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="130dp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginTop="172dp"
             android:ems="10"
             android:hint="Email..."
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/etPasswordSignup"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etPasswordSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
+            android:layout_width="208dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="100dp"
-            android:layout_marginBottom="66dp"
             android:ems="10"
             android:hint="password..."
             android:inputType="textPassword"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/etButtonSignup"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/etUsernameSignup"
             app:layout_constraintTop_toBottomOf="@+id/etUsernameSignup" />
 
@@ -45,13 +43,11 @@
             android:id="@+id/etButtonSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="66dp"
-            android:layout_marginBottom="363dp"
+            android:layout_marginBottom="152dp"
             android:text="Signup"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPasswordSignup" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/back"
@@ -64,5 +60,62 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPasswordSignup" />
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="99dp"
+            android:layout_marginEnd="103dp"
+            android:ems="10"
+            android:hint="Name.."
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="50dp" />
+
+        <EditText
+            android:id="@+id/ethobbies"
+            android:layout_width="205dp"
+            android:layout_height="47dp"
+            android:ems="10"
+            android:hint="hobbies.."
+            android:inputType="text"
+            tools:layout_editor_absoluteX="105dp"
+            tools:layout_editor_absoluteY="299dp" />
+
+        <EditText
+            android:id="@+id/etLivingPlace"
+            android:layout_width="206dp"
+            android:layout_height="51dp"
+            android:ems="10"
+            android:hint="living Place.."
+            android:inputType="text"
+            tools:layout_editor_absoluteX="106dp"
+            tools:layout_editor_absoluteY="434dp" />
+
+        <EditText
+            android:id="@+id/etLastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Lastname.."
+            android:inputType="text"
+            tools:layout_editor_absoluteX="100dp"
+            tools:layout_editor_absoluteY="111dp" />
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="108dp"
+            android:layout_marginEnd="94dp"
+            android:ems="10"
+            android:hint="phone.."
+            android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="375dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

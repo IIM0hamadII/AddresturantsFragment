@@ -27,7 +27,7 @@ import com.google.firebase.firestore.DocumentReference;
  */
 public class SignupFragment extends Fragment {
 
-    private EditText etUsername,etPassword;
+    private EditText etUsername,etPassword,etName,etLastName,etPhone,etHobbies,etLivingPlace;
     private Button btnSignup,btnBack;
     private FirebaseServices fsb;
 
@@ -86,6 +86,12 @@ public class SignupFragment extends Fragment {
         etPassword=getView().findViewById(R.id.etPasswordSignup);
         btnSignup=getView().findViewById(R.id.etButtonSignup);
         btnBack=getView().findViewById(R.id.back);
+        etName=getView().findViewById(R.id.etName);
+        etLastName=getView().findViewById(R.id.etLastname);
+        etHobbies=getView().findViewById(R.id.ethobbies);
+        etPhone=getView().findViewById(R.id.etPhone);
+        etLivingPlace=getView().findViewById(R.id.etLivingPlace);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

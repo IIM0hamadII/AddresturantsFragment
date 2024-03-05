@@ -12,15 +12,12 @@ public class User {
 
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", hobbies='" + hobbies + '\'' +
-                ", phone='" + phone + '\'' +
-                ", livingarea='" + livingarea + '\'' +
-                '}';
+    public User(String name, String lastname, String hobbies, String phone, String livingarea) {
+        this.name = name;
+        this.lastname = lastname;
+        this.hobbies = hobbies;
+        this.phone = phone;
+        this.livingarea = livingarea;
     }
 
     public String getName() {
@@ -63,11 +60,14 @@ public class User {
         this.livingarea = livingarea;
     }
 
-    public User(String name, String lastname, String hobbies, String phone, String livingarea) {
-        this.name = name;
-        this.lastname = lastname;
-        this.hobbies = hobbies;
-        this.phone = phone;
-        this.livingarea = livingarea;
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", hobbies='" + hobbies + '\'' +
+                ", phone='" + phone + '\'' +
+                ", livingarea='" + livingarea + '\'' +
+                '}';
     }
 }
