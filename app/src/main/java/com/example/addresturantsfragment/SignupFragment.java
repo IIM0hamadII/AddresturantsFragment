@@ -101,59 +101,28 @@ public class SignupFragment extends Fragment {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO: get all strings from add fragment in addition to username and password
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
+
+                // TODO: check all other fields too
                 if (username.trim().isEmpty() && password.trim().isEmpty()) {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                fsb.getAuth().createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fsb.getAuth().createUserWithEmailAndPassword(username, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-//
-//                            // TODO: create new object from User class
-//                            // TODO: add the created object to firestore
-                            try {
-                                fsb.getFire().collection("ddd").add("mmm").addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Toast.makeText(getActivity(), "ddd", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getActivity(), "ddd", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                            catch(Exception ex)
-                            {
-                                Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-
-//                            fsb.getFire().collection("users").add(username).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                @Override
-//                                public void onSuccess(DocumentReference documentReference) {
-//
-//                                    Toast.makeText(getActivity(),"You have successfully signed up!", Toast.LENGTH_SHORT).show();
-//
-//                                }
-//
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(getActivity(),"You have successfully signed up!", Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
+                    public void onSuccess(AuthResult authResult) {
+                     // TODO: add call for function to add to firestore (do like WeCar)
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
                     }
-                        else {
-                            Toast.makeText(getActivity(),"Failed to sign up! check user or password and try again!", Toast.LENGTH_SHORT).show();
-                        }
-                };
-            });
+                });
+
         };
       });
 
