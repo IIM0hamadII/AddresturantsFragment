@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,25 +105,52 @@ public class SignupFragment extends Fragment {
                 // TODO: get all strings from add fragment in addition to username and password
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
+                String Name= etName.getText().toString();
+                String LastName=etLastName.getText().toString();
+                String Phone= etPhone.getText().toString();
+                String Hobbies = etHobbies.getText().toString();
+                String LivingPlace= etLivingPlace.getText().toString();
 
                 // TODO: check all other fields too
-                if (username.trim().isEmpty() && password.trim().isEmpty()) {
+                if (username.trim().isEmpty() && password.trim().isEmpty() && Name.trim().isEmpty()&& LastName.trim().isEmpty()&&Phone.trim().isEmpty()
+                && Hobbies.trim().isEmpty()&& LivingPlace.trim().isEmpty()) {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                fsb.getAuth().createUserWithEmailAndPassword(username, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                     // TODO: add call for function to add to firestore (do like WeCar)
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
 
-                    }
-                });
+                User user = new User(Name, LastName, username,Phone, LivingPlace);
 
+                fsb.getAuth().createUserWithEmailAndPassword(username,password)
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if (task.isSuccessful())
+                                {
+                                    fsb.getFire().collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            gotoHotelList();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("SignupFragment: signupOnClick: ", e.getMessage());
+                                        }
+                                    });
+                                    // String firstName, String lastName, String username, String phone, String address, String photo) {
+                                    Toast.makeText(getActivity(), "you have succesfully signed up", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getActivity(), "failed to sign up! check user or password", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            }
+                        });
         };
       });
 
@@ -137,5 +165,13 @@ public class SignupFragment extends Fragment {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new LoginFragment());
         ft.commit();
+    }
+
+    public void gotoHotelList()
+    {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+        ft.commit();
+
     }
 }
