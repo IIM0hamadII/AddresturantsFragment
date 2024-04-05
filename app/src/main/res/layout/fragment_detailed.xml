@@ -14,78 +14,104 @@
         <ImageView
             android:id="@+id/DetailedCar"
             android:layout_width="307dp"
-            android:layout_height="246dp"
+            android:layout_height="0dp"
             android:layout_marginStart="23dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="29dp"
             android:layout_marginEnd="23dp"
-            android:layout_marginBottom="175dp"
+            android:layout_marginBottom="385dp"
             android:adjustViewBounds="true"
+
             android:scaleType="centerCrop"
-
-            app:layout_constraintBottom_toTopOf="@+id/DetailedMan"
+            app:layout_constraintBottom_toTopOf="@+id/btnSMS"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/DetailedPhone"
             android:layout_width="220dp"
             android:layout_height="45dp"
-            android:layout_marginBottom="92dp"
+            android:layout_marginBottom="140dp"
             android:gravity="center"
             android:text="Phone"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tvdescreption"
             android:layout_width="220dp"
             android:layout_height="45dp"
-            android:layout_marginBottom="228dp"
+            android:layout_marginBottom="276dp"
             android:text="descreption"
             android:textAlignment="center"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/DetailedMan"
             android:layout_width="219dp"
             android:layout_height="40dp"
-            android:layout_marginBottom="156dp"
+            android:layout_marginBottom="212dp"
             android:text="name"
             android:textAlignment="center"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DetailedCar" />
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tvadress"
             android:layout_width="215dp"
             android:layout_height="40dp"
             android:layout_marginStart="96dp"
-            android:layout_marginTop="41dp"
             android:layout_marginEnd="101dp"
-            android:layout_marginBottom="46dp"
+            android:layout_marginBottom="32dp"
             android:text="address"
             android:textAlignment="center"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tvdescreption"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DetailedCar"
             tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/btnSMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginBottom="23dp"
+            android:text="SMS"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DetailedCar" />
+
+        <Button
+            android:id="@+id/btnWhatsApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:text="Whatsapp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="23dp"
+            android:text="Call"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

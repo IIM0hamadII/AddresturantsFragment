@@ -1,13 +1,17 @@
 package com.example.addresturantsfragment;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -34,6 +38,8 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
         Hotel rest = restList.get(position);
         holder.tvName.setText(rest.getName());
         holder.tvPhone.setText(rest.getPhone());
+        //holder.photo.setImageURI(rest.getPhoto());
+        Picasso.get().load(rest.getPhoto()).into(holder.ivPhoto);
     }
 
     @Override
@@ -43,11 +49,12 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvName, tvPhone;
+        ImageView ivPhoto;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName=itemView.findViewById(R.id.tvNameRestItem);
             tvPhone=itemView.findViewById(R.id.tvPhoneRestItem);
-
+            ivPhoto=itemView.findViewById(R.id.imPhoto);
         }
     }
 }

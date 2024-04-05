@@ -120,7 +120,7 @@ public class LoginFragment extends Fragment {
                         {
 
                             Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
-
+                             gotoHotelList();
 
                         }
                         else
@@ -159,6 +159,13 @@ public class LoginFragment extends Fragment {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new HotelsFragment());
         ft.commit();
+    }
+    public void gotoHotelList()
+    {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+        ft.commit();
+
     }
 }
 

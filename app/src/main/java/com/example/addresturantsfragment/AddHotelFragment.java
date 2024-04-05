@@ -100,6 +100,7 @@ public class AddHotelFragment extends Fragment {
         utils = Utils.getInstance();
         img = getView().findViewById(R.id.ivupload);
       btnBack=getView().findViewById(R.id.btnBack);
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,12 +129,13 @@ public class AddHotelFragment extends Fragment {
                 // add data to
                 //
                 // firestore
-                Hotel rest = new Hotel(name, description, address, phone,imageStr);
+                Hotel rest = new Hotel(name, description, address, phone,fbs.getSelectedImageURL().toString());
 
                 fbs.getFire().collection("hotels").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
+                        gotoHotelList();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -172,5 +174,11 @@ public class AddHotelFragment extends Fragment {
     }
     public void toBigImg(View view) {
     }
+    public void gotoHotelList()
+    {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+        ft.commit();
 
+    }
 }

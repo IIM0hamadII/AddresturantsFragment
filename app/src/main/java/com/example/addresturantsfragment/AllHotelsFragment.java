@@ -3,6 +3,7 @@ package com.example.addresturantsfragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,13 +30,15 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class AllHotelsFragment extends Fragment {
-
+    private ArrayList<Hotel> list, filteredList;
+    private RecyclerView recyclerView;
     private FirebaseServices fbs;
     private ArrayList<Hotel> rests;
     private RecyclerView rvRests;
     private HotelAdapter adapter;
     private FloatingActionButton btn;
     private Button hbtn;
+    private HotelAdapter myAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,6 +90,13 @@ public class AllHotelsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        recyclerView =getView().findViewById(R.id.rvRestaurantsRestFragment);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        list = new ArrayList<>();
+        filteredList = new ArrayList<>();
+        myAdapter = new HotelAdapter(getActivity(), list);
+        recyclerView.setAdapter(myAdapter);
         hbtn=getView().findViewById(R.id.hbtn2);
         btn=getView().findViewById(R.id.floatingbtn);
         fbs = FirebaseServices.getInstance();
@@ -138,8 +148,67 @@ public class AllHotelsFragment extends Fragment {
         })
         ;}
 
+    private void applyFilter(String query) {
+        // TODO: add onBackspace - old and new query
+        if (query.trim().isEmpty())
+        {
+            myAdapter = new HotelAdapter(getContext(), list);
+            recyclerView.setAdapter(myAdapter);
+            //myAdapter.notifyDataSetChanged();
+            return;
+        }
+        filteredList.clear();
+        for(Hotel car : list)
+        {
+            if (car.getPhone().toLowerCase().contains(query.toLowerCase()) ||
+                    car.getAddress().toLowerCase().contains(query.toLowerCase()) ||
+                    car.getDescription().toLowerCase().contains(query.toLowerCase()) ||
+                    car.getName().toLowerCase().contains(query.toLowerCase()) ||
+                    car.getPhoto().toLowerCase().contains(query.toLowerCase()))
+
+
+                {
+                        filteredList.add(car);
+            }
+
+
+        if (filteredList.size() == 0)
+        {
+            showNoDataDialogue();
+            return;
+        }
+        myAdapter = new HotelAdapter(getContext(), filteredList);
+        recyclerView.setAdapter(myAdapter);
+
+        myAdapter.
+
+                /*
+        myAdapter.setOnItemClickListener(new myAdapter.OnItemClickListener())
+        {
+            @Override
+
+            public void onItemClick(int position) {
+                // Handle item click here
+                String selectedItem = filteredList.get(position).getName();
+                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putParcelable("car", filteredList.get(position)); // or use Parcelable for better performance
+               DetailedFragment cd = new DetailedFragment();
+                cd.setArguments(args);
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,cd);
+                ft.commit();
+            }
+        }; */
+    }
 
 
 
     }
-
+    private void showNoDataDialogue() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("No Results");
+        builder.setMessage("Try again!");
+        builder.show();
+    }
+}

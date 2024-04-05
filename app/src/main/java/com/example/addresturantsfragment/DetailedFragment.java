@@ -1,12 +1,21 @@
 package com.example.addresturantsfragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +29,13 @@ import com.squareup.picasso.Picasso;
  */
 public class DetailedFragment extends Fragment {
 
-
-    TextView tvName, tvPhone,tvdescreption,tvadress;
-    ImageView ivCar;
-    String Name,Phone,Photo;
-
+    private static final int PERMISSION_SEND_SMS = 1;
+    private static final int REQUEST_CALL_PERMISSION = 2;
+    private TextView tvName, tvPhone, tvdescreption, tvadress;
+    private ImageView ivCar;
+    private String Name, Phone, Photo;
+    private Button sendSMSButton, btnWhatsapp, btnCall;
+    private Hotel myCar;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -71,12 +82,12 @@ public class DetailedFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detailed, container, false);
 
-        Bundle bundle =this.getArguments();
+        Bundle bundle = this.getArguments();
 
 
-        Name=bundle.getString("Car");
-        Phone=bundle.getString("Phone");
-        Photo=bundle.getString("Photo");
+        Name = bundle.getString("Car");
+        Phone = bundle.getString("Phone");
+        Photo = bundle.getString("Photo");
 
         return view;
     }
@@ -86,25 +97,182 @@ public class DetailedFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        ivCar=getView().findViewById(R.id.DetailedCar);
-        tvName=getView().findViewById(R.id.DetailedMan);
-        tvdescreption=getView().findViewById(R.id.tvdescreption);
-         tvadress=getView().findViewById(R.id.tvadress);
+        ivCar = getView().findViewById(R.id.DetailedCar);
+        tvName = getView().findViewById(R.id.DetailedMan);
+        tvdescreption = getView().findViewById(R.id.tvdescreption);
+        tvadress = getView().findViewById(R.id.tvadress);
         tvName.setText(Name);
         tvPhone.setText("Contact: " + Phone);
 
 
+        Bundle args = getArguments();
+        if (args != null) {
+            myCar = args.getParcelable("car");
+            if (myCar != null) {
+                //String data = myObject.getData();
+                // Now you can use 'data' as needed in FragmentB
+                tvName.setText(myCar.getName());
+                tvPhone.setText(myCar.getPhone());
+                tvdescreption.setText(myCar.getDescription());
+                tvadress.setText(myCar.getAddress());
+                tvPhone.setText(myCar.getPhone());
 
-
-        if ( Photo == null || Photo.isEmpty())
-        {
-            Toast.makeText(getActivity(), "no photo uploaded", Toast.LENGTH_LONG).show();
-
+                if (myCar.getPhoto() == null || myCar.getPhoto().isEmpty()) {
+                    Picasso.get().load(R.drawable.ic_fav).into(ivCar);
+                } else {
+                    Picasso.get().load(myCar.getPhoto()).into(ivCar);
+                }
+            }
         }
-        else {
-            Picasso.get().load(Photo).into(ivCar);
+        sendSMSButton = getView().findViewById(R.id.btnSMS);
+        sendSMSButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkAndSendSMS();            }
+        });
 
+        btnWhatsapp = getView().findViewById(R.id.btnWhatsApp);
+        btnWhatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendWhatsAppMessage(v);
+
+            }
+        });
+
+        btnCall = getView().findViewById(R.id.btnCall);
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall();
+            }
+        });
+    }
+
+
+    private void checkAndSendSMS() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.SEND_SMS}, PERMISSION_SEND_SMS);
+        } else {
+            sendSMS();
+        }
+    }
+
+    private void sendSMS() {
+        String phoneNumber = myCar.getPhone();
+        String message = "I am Interested in your  "+myCar.getName()+"  car: " + myCar.getPhone();
+
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            Toast.makeText(getActivity(), "SMS sent.", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "SMS sending failed.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_SEND_SMS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sendSMS();
+            } else {
+                Toast.makeText(requireContext(), "Permission denied. Cannot send SMS.", Toast.LENGTH_SHORT).show();
+            }
         }
 
+        if (requestCode == REQUEST_CALL_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startCall();
+            }
+        }
+    }
+    // TODO : check Phone number is not correct;
+    public void sendWhatsAppMessage(View view) {
+
+        String smsNumber = "+972"+myCar.getPhone();
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        //  Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, " I am Interested in your  " +myCar.getName()+ "  car:  "  + myCar.getPhone());
+        sendIntent.putExtra("jid", smsNumber + "@s.whatsapp.net"); //phone number without "+" prefix
+        sendIntent.setPackage("com.whatsapp");
+
+        startActivity(sendIntent);
+//        String phoneNumber ="+972"+ myCar.getPhone(); // Replace with the recipient's phone number
+//        String message = "Hello, this is a WhatsApp message!"; // Replace with your message
+//        String phoneNumber2=  phoneNumber;
+//        boolean isWhatsAppInstalled  =isAppInstalled("com.whatsapp");
+//
+//        if(isWhatsAppInstalled ){
+//            Intent intent=new Intent(Intent.ACTION_VIEW);
+//            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+phoneNumber+"&text="+message));
+//            startActivity(intent);
+//        }
+//        else {
+//            Toast.makeText(getActivity(), "whatsapp is not installed", Toast.LENGTH_SHORT).show();
+//        }
+
+//
+//
+//        // Create an intent with the ACTION_SENDTO action and the WhatsApp URI
+//        Intent intent = new Intent(Intent.ACTION_SENDTO);
+//        intent.setData(Uri.parse("smsto:" + phoneNumber));
+//        intent.putExtra("sms_body", message);
+//
+//        // Verify if WhatsApp is installed
+//        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+//            startActivity(intent);
+//        } else {
+//            // WhatsApp is not installed
+//            // You can handle this case as per your app's requirement
+//        }
+    }
+    //  888 whatsapp setting
+    private boolean isAppInstalled(String s) {
+        PackageManager packageManager= getActivity().getPackageManager();
+        boolean is_installed;
+        try{
+            packageManager.getPackageInfo(s,PackageManager.GET_ACTIVITIES);
+            is_installed=true;
+        } catch (PackageManager.NameNotFoundException e) {
+            is_installed=false;
+            throw new RuntimeException(e);
+        }
+        return  is_installed;
+    }
+
+    private void makePhoneCall() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
+        } else {
+            startCall();
+        }
+//        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(),
+//                    new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
+//        } else {
+//            startCall();
+//        }
+    }
+
+    private void startCall() {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + myCar.getPhone()));
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(callIntent);
+        }
+
+
+//        Intent callIntent = new Intent(Intent.ACTION_CALL);
+//        callIntent.setData(Uri.parse(myCar.getPhone()));
+//
+//        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+//            startActivity(callIntent);
+//        }
     }
 }
