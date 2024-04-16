@@ -1,7 +1,8 @@
 package com.example.addresturantsfragment;
 
 import android.content.Context;
-import android.net.Uri;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -25,6 +27,18 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
         this.context = context;
         this.restList = restList;
         this.fbs = FirebaseServices.getInstance();
+        this.itemClickListener = new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                fbs.setSelectedHotel(restList.get(position));
+
+                DetailedFragment cd = new DetailedFragment();
+                FragmentTransaction ft= ((MainActivity)context).getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,cd);
+                ft.commit();
+            }
+        };
     }
 
     @NonNull
@@ -40,8 +54,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
         holder.tvName.setText(rest.getName());
         holder.tvPhone.setText(rest.getPhone());
         //holder.photo.setImageURI(rest.getPhoto());
-        Picasso.get().load(rest.getPhoto()).into(holder.ivPhoto);
-        holder.tvName.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             if (itemClickListener != null) {
                 itemClickListener.onItemClick(position);
             }
@@ -67,7 +80,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
             super(itemView);
             tvName=itemView.findViewById(R.id.tvNameRestItem);
             tvPhone=itemView.findViewById(R.id.tvPhoneRestItem);
-            ivPhoto=itemView.findViewById(R.id.imPhoto);
+            ivPhoto=itemView.findViewById(R.id.ivPhoto);
         }
     }
     public interface OnItemClickListener {

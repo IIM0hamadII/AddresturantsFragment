@@ -9,17 +9,22 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -39,6 +44,7 @@ public class AllHotelsFragment extends Fragment {
     private FloatingActionButton btn;
     private Button hbtn;
     private HotelAdapter myAdapter;
+    private ImageView ivProfile;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,6 +100,7 @@ public class AllHotelsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         list = new ArrayList<>();
+        list= getHotels();
         filteredList = new ArrayList<>();
         myAdapter = new HotelAdapter(getActivity(), list);
         recyclerView.setAdapter(myAdapter);
@@ -104,6 +111,22 @@ public class AllHotelsFragment extends Fragment {
         rvRests = getView().findViewById(R.id.rvRestaurantsRestFragment);
         rvRests.setHasFixedSize(true);
         rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ivProfile=getView().findViewById(R.id.ivPhoto);
+        myAdapter.setOnItemClickListener(new HotelAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Handle item click here
+                String selectedItem = list.get(position).getName();
+                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putParcelable("hotels", (Parcelable) list.get(position)); // or use Parcelable for better performance
+                DetailedFragment cd = new DetailedFragment();
+                cd.setArguments(args);
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,cd);
+                ft.commit();
+            }
+        });
         fbs.getFire().collection("hotels").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -146,6 +169,7 @@ public class AllHotelsFragment extends Fragment {
             }
 
         })
+
         ;}
 
     private void applyFilter(String query) {
@@ -158,17 +182,17 @@ public class AllHotelsFragment extends Fragment {
             return;
         }
         filteredList.clear();
-        for(Hotel car : list)
+        for(Hotel hotel : filteredList)
         {
-            if (car.getPhone().toLowerCase().contains(query.toLowerCase()) ||
-                    car.getAddress().toLowerCase().contains(query.toLowerCase()) ||
-                    car.getDescription().toLowerCase().contains(query.toLowerCase()) ||
-                    car.getName().toLowerCase().contains(query.toLowerCase()) ||
-                    car.getPhoto().toLowerCase().contains(query.toLowerCase()))
+            if (hotel.getPhone().toLowerCase().contains(query.toLowerCase()) ||
+                    hotel.getAddress().toLowerCase().contains(query.toLowerCase()) ||
+                    hotel.getDescription().toLowerCase().contains(query.toLowerCase()) ||
+                    hotel.getName().toLowerCase().contains(query.toLowerCase()) ||
+                    hotel.getPhoto().toLowerCase().contains(query.toLowerCase()))
 
 
                 {
-                        filteredList.add(car);
+                        filteredList.add(hotel);
             }
 
 
@@ -180,26 +204,23 @@ public class AllHotelsFragment extends Fragment {
         myAdapter = new HotelAdapter(getContext(), filteredList);
         recyclerView.setAdapter(myAdapter);
 
-        myAdapter.
-
+            myAdapter.setOnItemClickListener(new HotelAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
                 /*
-        myAdapter.setOnItemClickListener(new myAdapter.OnItemClickListener())
-        {
-            @Override
-
-            public void onItemClick(int position) {
-                // Handle item click here
-                String selectedItem = filteredList.get(position).getName();
+                String selectedItem = list.get(position).getName();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
-                args.putParcelable("car", filteredList.get(position)); // or use Parcelable for better performance
-               DetailedFragment cd = new DetailedFragment();
+                args.putParcelable("Hotel", (Parcelable) list.get(position));
+                DetailedFragment cd = new DetailedFragment();
                 cd.setArguments(args);
                 FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.frameLayout,cd);
-                ft.commit();
-            }
-        }; */
+                ft.commit(); */
+
+                }
+            });
+
     }
 
 
@@ -210,5 +231,37 @@ public class AllHotelsFragment extends Fragment {
         builder.setTitle("No Results");
         builder.setMessage("Try again!");
         builder.show();
+    }
+    public ArrayList<Hotel> getHotels()
+    {
+        ArrayList<Hotel> list = new ArrayList<>();
+
+        try {
+            list.clear();
+            fbs.getFire().collection("hotels")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    list.add(document.toObject(Hotel.class));
+                                }
+
+                                HotelAdapter adapter = new HotelAdapter(getActivity(), list);
+                                recyclerView.setAdapter(adapter);
+                                //addUserToCompany(companies, user);
+                            } else {
+                                //Log.e("AllRestActivity: readData()", "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+        }
+        catch (Exception e)
+        {
+            Log.e("getCompaniesMap(): ", e.getMessage());
+        }
+
+        return list;
     }
 }

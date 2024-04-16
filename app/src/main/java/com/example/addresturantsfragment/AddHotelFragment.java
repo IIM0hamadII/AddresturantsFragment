@@ -99,7 +99,7 @@ public class AddHotelFragment extends Fragment {
         btnAdd = getView().findViewById(R.id.btnAddAddRestaurantFragment);
         utils = Utils.getInstance();
         img = getView().findViewById(R.id.ivupload);
-      btnBack=getView().findViewById(R.id.btnBack);
+        btnBack=getView().findViewById(R.id.btnBack);
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,56 +107,65 @@ public class AddHotelFragment extends Fragment {
                 openGallery();
             }
         });
-                btnAdd.setOnClickListener(new View.OnClickListener() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // get data from screen
-                String name = etName.getText().toString();
-                String description = etDescription.getText().toString();
-                String address = etAddress.getText().toString();
-                String phone = etPhone.getText().toString();
+                addToFirebase();
 
-                // data validation
-                if (name.trim().isEmpty() || description.trim().isEmpty() ||
-                        address.trim().isEmpty() || phone.trim().isEmpty())
-                {
-                    Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-
-
-                // add data to
-                //
-                // firestore
-                Hotel rest = new Hotel(name, description, address, phone,fbs.getSelectedImageURL().toString());
-
-                fbs.getFire().collection("hotels").add(rest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
-                        gotoHotelList();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("Failure hotel: ", e.getMessage());
-                    }
-                });
-
-
-            }
-
-        });
-               btnBack.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.frameLayout,new AllHotelsFragment());
-                        ft.commit();
-                               }
-                      });
+            }});
+       btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,new AllHotelsFragment());
+                ft.commit();
+                       }
+              });
     }
+
+    private void addToFirebase() {
+
+        String name = etName.getText().toString();
+        String description = etDescription.getText().toString();
+        String address = etAddress.getText().toString();
+        String phone = etPhone.getText().toString();
+
+        // data validation
+        if (name.trim().isEmpty() || description.trim().isEmpty() ||
+                address.trim().isEmpty() || phone.trim().isEmpty())
+        {
+            Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // add data to
+        //
+        // firestore
+        Hotel hotel;
+        if (fbs.getSelectedImageURL() == null)
+        {
+            hotel = new Hotel(name, description, address, phone, "");
+        }
+        else
+        {
+            hotel = new Hotel(name, description, address, phone, fbs.getSelectedImageURL().toString());
+            fbs.setSelectedImageURL(null);
+        }
+        fbs.getFire().collection("hotels").add(hotel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
+                gotoHotelList();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("Failure hotel: ", e.getMessage());
+            }
+        });
+    }
+
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
@@ -166,7 +175,7 @@ public class AddHotelFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_REQUEST_CODE && resultCode == getActivity().RESULT_OK && data != null) {
+        if (requestCode == GALLERY_REQUEST_CODE && data != null) {
             Uri selectedImageUri = data.getData();
             img.setImageURI(selectedImageUri);
             utils.uploadImage(getActivity(), selectedImageUri);

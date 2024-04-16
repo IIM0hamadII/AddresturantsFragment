@@ -8,11 +8,22 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    FirebaseServices fbs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gotoLoginFragment();
+
+        fbs = FirebaseServices.getInstance();
+
+        if(fbs.getAuth().getCurrentUser()!=null){
+            GoToAllHotels();
+        }
+        else{
+            gotoLoginFragment();
+        }
+
     }
 
     private void gotoLoginFragment() {
@@ -20,4 +31,16 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.frameLayout,new LoginFragment());
         ft.commit();
     }
+
+    private void GoToAllHotels() {
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+        ft.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
 }

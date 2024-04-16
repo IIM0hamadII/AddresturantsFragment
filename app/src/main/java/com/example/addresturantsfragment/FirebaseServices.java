@@ -13,7 +13,16 @@ public class FirebaseServices {
     private FirebaseStorage storage;
     private Uri selectedImageURL;
 
+    private Hotel selectedHotel;
 
+
+    public Hotel getSelectedHotel() {
+        return selectedHotel;
+    }
+
+    public void setSelectedHotel(Hotel selectedHotel) {
+        this.selectedHotel = selectedHotel;
+    }
 
     public Uri getSelectedImageURL() {
         return selectedImageURL;

@@ -31,11 +31,12 @@ public class DetailedFragment extends Fragment {
 
     private static final int PERMISSION_SEND_SMS = 1;
     private static final int REQUEST_CALL_PERMISSION = 2;
+    FirebaseServices fbs;
     private TextView tvName, tvPhone, tvdescreption, tvadress;
     private ImageView ivHotel;
-    private String Name, Phone, Photo;
     private Button sendSMSButton, btnWhatsapp, btnCall;
     private Hotel myHotel;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,14 +82,6 @@ public class DetailedFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detailed, container, false);
-
-        Bundle bundle = this.getArguments();
-
-
-        Name = bundle.getString("Car");
-        Phone = bundle.getString("Phone");
-        Photo = bundle.getString("Photo");
-
         return view;
     }
 
@@ -97,33 +90,31 @@ public class DetailedFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        fbs = FirebaseServices.getInstance();
         ivHotel = getView().findViewById(R.id.DetailedCar);
         tvName = getView().findViewById(R.id.DetailedMan);
         tvdescreption = getView().findViewById(R.id.tvdescreption);
         tvadress = getView().findViewById(R.id.tvadress);
-        tvName.setText(Name);
         tvPhone=getView().findViewById(R.id.DetailedPhone);
         ivHotel=getView().findViewById(R.id.DetailedCar);
 
-        Bundle args = getArguments();
-        if (args != null) {
-            myHotel = args.getParcelable("Hotel");
-            if (myHotel != null) {
-                //String data = myObject.getData();
-                // Now you can use 'data' as needed in FragmentB
-                tvName.setText(myHotel.getName());
-                tvPhone.setText(myHotel.getPhone());
-                tvdescreption.setText(myHotel.getDescription());
-                tvadress.setText(myHotel.getAddress());
-                tvPhone.setText(myHotel.getPhone());
+        if(fbs.getSelectedHotel()!=null) myHotel = fbs.getSelectedHotel();
 
-                if (myHotel.getPhoto() == null || myHotel.getPhoto().isEmpty()) {
-                    Picasso.get().load(R.drawable.ic_fav).into(ivHotel);
-                } else {
-                    Picasso.get().load(myHotel.getPhoto()).into(ivHotel);
-                }
+        if (myHotel != null) {
+
+            tvName.setText(myHotel.getName());
+            tvPhone.setText(myHotel.getPhone());
+            tvdescreption.setText(myHotel.getDescription());
+            tvadress.setText(myHotel.getAddress());
+            tvPhone.setText(myHotel.getPhone());
+
+            if (myHotel.getPhoto() == null || myHotel.getPhoto().isEmpty()) {
+                Picasso.get().load(R.drawable.ic_fav).into(ivHotel);
+            } else {
+                Picasso.get().load(myHotel.getPhoto()).into(ivHotel);
             }
         }
+
         sendSMSButton = getView().findViewById(R.id.btnSMS);
         sendSMSButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +135,14 @@ public class DetailedFragment extends Fragment {
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makePhoneCall();
+                String phoneNum = "";
+                if(myHotel.getPhone()!=null) {
+
+                    phoneNum = "tel:" + myHotel.getPhone();
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(phoneNum));
+                    startActivity(intent);
+
+                }
             }
         });
     }
@@ -160,7 +158,7 @@ public class DetailedFragment extends Fragment {
 
     private void sendSMS() {
         String phoneNumber = myHotel.getPhone();
-        String message = "I am Interested in your  "+myHotel.getName()+"  car: " + myHotel.getPhone();
+        String message = "I am Interested in your  "+myHotel.getName()+"  hotel: " + myHotel.getPhone();
 
         try {
             SmsManager smsManager = SmsManager.getDefault();
@@ -196,7 +194,7 @@ public class DetailedFragment extends Fragment {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         //  Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
         sendIntent.setType("text/plain");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, " I am Interested in your  " +myHotel.getName()+ "  car:  "  + myHotel.getPhone());
+        sendIntent.putExtra(Intent.EXTRA_TEXT, " I am Interested in your  " +myHotel.getName()+ "  hotel:  "  + myHotel.getPhone());
         sendIntent.putExtra("jid", smsNumber + "@s.whatsapp.net"); //phone number without "+" prefix
         sendIntent.setPackage("com.whatsapp");
 
