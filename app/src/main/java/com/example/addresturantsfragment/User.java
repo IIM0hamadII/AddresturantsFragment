@@ -8,17 +8,20 @@ public class User {
     private String livingarea;
 
 
+
     public User(){
 
     }
 
-    public User(String name, String lastname, String hobbies, String phone, String livingarea) {
+    public User(String name, String lastname, String username, String hobbies, String phone, String livingarea) {
         this.name = name;
         this.lastname = lastname;
+
         this.hobbies = hobbies;
         this.phone = phone;
         this.livingarea = livingarea;
     }
+
 
     public String getName() {
         return name;
