@@ -42,7 +42,7 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    EditText etFirstName, etLastName, etAddress, etPhone;
+    EditText etFirstName, etLastName, etAddress, etPhone,etPassword,etEmail;
     private static final int GALLERY_REQUEST_CODE = 134;
     private Button btnUpdate;
     private ImageView ivUser;
@@ -88,6 +88,8 @@ public class ProfileFragment extends Fragment {
         etLastName=getView().findViewById(R.id.etLastnameUserDetailsEdit);
         etAddress=getView().findViewById(R.id.etAddressUserDetailsEdit);
         etPhone=getView().findViewById(R.id.etPhoneUserDetailsEdit);
+        etPassword=getView().findViewById(R.id.etPassword);
+        etEmail=getView().findViewById(R.id.etEmail);
         ivUser = getView().findViewById(R.id.ivUserUserDetailsEdit);
         btnUpdate = getView().findViewById(R.id.btnUpdateUserDetailsEdit);
         utils = Utils.getInstance();
@@ -101,6 +103,8 @@ public class ProfileFragment extends Fragment {
                 String lastname = etLastName.getText().toString();
                 String address = etAddress.getText().toString();
                 String phone = etPhone.getText().toString();
+                String password= etPassword.getText().toString();
+                String email= etEmail.getText().toString();
                 if (firstname.trim().isEmpty() || lastname.trim().isEmpty() || address.trim().isEmpty() ||
                         phone.trim().isEmpty()) {
                     Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
@@ -114,13 +118,15 @@ public class ProfileFragment extends Fragment {
                             !current.getLastName().equals(lastname)    ||
                             !current.getAddress().equals(address)      ||
                             !current.getPhone().equals(phone)          ||
-                            !current.getPhoto().equals(fbs.getSelectedImageURL().toString()))
+                            !current.getPhoto().equals(fbs.getSelectedImageURL().toString())
+                            || !current.getPassword().equals(password) || !current.getEmail().equals(email) )
+
                     {
                         User user;
                         if (fbs.getSelectedImageURL() != null)
-                            user = new User(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), address, phone, fbs.getSelectedImageURL().toString());
+                            user = new User(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), address, phone, fbs.getSelectedImageURL().toString(),password,email);
                         else
-                            user = new User(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), address, phone,"");
+                            user = new User(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), address, phone,"", password,email);
 
                         fbs.updateUser(user);
                         utils.showMessageDialog(getActivity(), "Data updated succesfully!");

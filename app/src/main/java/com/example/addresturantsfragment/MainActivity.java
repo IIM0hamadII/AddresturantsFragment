@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         //fbs.getAuth().signOut();
         listType = ListFragmentType.Regular;
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
@@ -57,18 +58,23 @@ public class MainActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.action_home) {
                     //selectedFragment = new CarsListFragment();
                     selectedFragment = new AllHotelsFragment();
-                } else if (item.getItemId() == R.id.action_add) {
+                }
+
+                else if (item.getItemId() == R.id.action_add ) {
                     selectedFragment = new AddHotelFragment();
                 }
 
-            /*
-            else if (item.getItemId() == R.id.action_profile) { // Add search bar
-                selectedFragment = new ProfileFragment();
-            } */
+
+            else if (item.getItemId() == R.id.action_profile ) {
+
+                    selectedFragment=new ProfileFragment();
+            }
+
+
                 else if (item.getItemId() == R.id.action_signout) {
                     signout();
                     bottomNavigationView.setVisibility(View.GONE);
-                    //  selectedFragment=new ProfileFragment();
+
                 }
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction()

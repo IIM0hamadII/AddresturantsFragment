@@ -122,14 +122,15 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Data validation
-                String username=etUsername.getText().toString();
+                String email=etUsername.getText().toString();
                 String password=etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
                 String firstname = etFirstname.getText().toString();
                 String lastname = etLastname.getText().toString();
                 String phone = etPhone.getText().toString();
                 String address = etAddress.getText().toString();
-                if (username.trim().isEmpty() || password.trim().isEmpty() || firstname.trim().isEmpty() ||
+
+                if (email.trim().isEmpty() || password.trim().isEmpty() || firstname.trim().isEmpty() ||
                         lastname.trim().isEmpty() || confirmPassword.trim().isEmpty() || phone.trim().isEmpty() ||
                         address.trim().isEmpty())
                 {
@@ -161,9 +162,9 @@ public class SignupFragment extends Fragment {
                 if (selectedImageUri != null) {
                     imageURL = selectedImageUri.toString();
                 }
-                User user = new User(firstname, lastname, username, phone, address, imageURL);
+                User user = new User(firstname, lastname, email, phone, address, imageURL,password,email);
 
-                fbs.getAuth().createUserWithEmailAndPassword(username,password)
+                fbs.getAuth().createUserWithEmailAndPassword(email,password)
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
 
                             @Override

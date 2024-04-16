@@ -11,12 +11,14 @@ public class User {
     private String phone;
     private String address;
     private String photo;
+    private  String password;
+    private String email;
     private ArrayList<String> favorites;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String username, String phone, String address, String photo) {
+    public User(String firstName, String lastName, String username, String phone, String address, String photo, String password,String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -24,9 +26,27 @@ public class User {
         this.address = address;
         this.photo = photo;
         this.favorites = new ArrayList<>();
+        this.password= password;
+        this.email= email;
     }
 
     public User(Parcel in) {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {

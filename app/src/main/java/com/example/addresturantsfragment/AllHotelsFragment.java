@@ -105,7 +105,7 @@ public class AllHotelsFragment extends Fragment {
         myAdapter = new HotelAdapter(getActivity(), list);
         recyclerView.setAdapter(myAdapter);
         hbtn=getView().findViewById(R.id.hbtn2);
-        btn=getView().findViewById(R.id.floatingbtn);
+
         fbs = FirebaseServices.getInstance();
         rests = new ArrayList<>();
         rvRests = getView().findViewById(R.id.rvRestaurantsRestFragment);
@@ -150,15 +150,7 @@ public class AllHotelsFragment extends Fragment {
 
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout,new AddHotelFragment());
-                ft.commit();
-                }
 
-        });
 
         hbtn.setOnClickListener(new View.OnClickListener() {
             @Override
