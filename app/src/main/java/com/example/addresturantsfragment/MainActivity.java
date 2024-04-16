@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Stack<Fragment> fragmentStack = new Stack<>();
     private FrameLayout fragmentContainer;
     private User userData;
+
     public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
     }
@@ -43,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         fbs = FirebaseServices.getInstance();
         //fbs.getAuth().signOut();
         listType = ListFragmentType.Regular;
@@ -54,13 +54,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
-                if (item.getItemId() == R.id.action_home)
-                {
+                if (item.getItemId() == R.id.action_home) {
                     //selectedFragment = new CarsListFragment();
                     selectedFragment = new AllHotelsFragment();
-                }
-
-                else if (item.getItemId() == R.id.action_add) {
+                } else if (item.getItemId() == R.id.action_add) {
                     selectedFragment = new AddHotelFragment();
                 }
 
@@ -79,19 +76,17 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                 }
                 return true;
-            }});
+            }
+        });
         fragmentContainer = findViewById(R.id.frameLayout);
         userData = getUserData();
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.favcheck);// set drawable icon
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (fbs.getAuth().getCurrentUser() == null)
-        {
+        if (fbs.getAuth().getCurrentUser() == null) {
             bottomNavigationView.setVisibility(View.GONE);
             gotoLoginFragment();
             pushFragment(new LoginFragment());
-        }
-        else
-        {
+        } else {
             bottomNavigationView.setVisibility(View.VISIBLE);
             //fbs.getCurrentObjectUser();
             gotoHotelList();
@@ -99,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public User getUserDataObject()
-    {
+    public User getUserDataObject() {
         return this.userData;
     }
 
@@ -112,13 +106,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void gotoLoginFragment() {
-        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new LoginFragment());
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new LoginFragment());
         ft.commit();
     }
+
     public void gotoHotelList() {
-        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new AllHotelsFragment());
         ft.commit();
     }
 
@@ -146,8 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit(); */
     }
 
-    public User getUserData()
-    {
+    public User getUserData() {
         final User[] currentUser = {null};
         try {
             fbs.getFire().collection("users")
@@ -159,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 
                                     User user = document.toObject(User.class);
-                                    if (fbs.getAuth().getCurrentUser() != null && (fbs.getAuth().getCurrentUser().getEmail().equals(user.getUsername()))) {
+                                    if (fbs.getAuth().getCurrentUser() != null ) {
                                         //if (fbs.getAuth().getCurrentUser().getEmail().equals(user.getUsername())) {
                                         currentUser[0] = document.toObject(User.class);
                                         fbs.setCurrentUser(currentUser[0]);
@@ -170,9 +164,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "error reading!" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
@@ -180,3 +172,4 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+}

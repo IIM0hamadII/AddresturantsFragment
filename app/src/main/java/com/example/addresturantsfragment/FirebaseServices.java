@@ -18,13 +18,74 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.ArrayList;
 
 public class FirebaseServices {
-    private static FirebaseServices instance;
-    private FirebaseAuth auth;
+    private  static FirebaseServices instance;
+    private FirebaseAuth  auth;
     private FirebaseFirestore fire;
     private FirebaseStorage storage;
     private Uri selectedImageURL;
     private User currentUser;
     private Hotel selectedHotel;
+    private boolean userChangeFlag;
+    public Hotel getSelectedHotel() {
+        return selectedHotel;
+    }
+
+    public void setSelectedHotel(Hotel selectedHotel) {
+        this.selectedHotel = selectedHotel;
+    }
+
+    public Uri getSelectedImageURL() {
+        return selectedImageURL;
+    }
+
+    public void setSelectedImageURL(Uri selectedImageURL) {
+        this.selectedImageURL = selectedImageURL;
+    }
+
+    public  FirebaseServices ()
+    {
+        auth=FirebaseAuth.getInstance();
+        fire=FirebaseFirestore.getInstance();
+        storage=FirebaseStorage.getInstance();
+        getCurrentObjectUser(new UserCallback() {
+            @Override
+            public void onUserLoaded(User user) {
+                // Access the currentUser here
+                if (user != null) {
+                    setCurrentUser(user);
+                }
+            }
+        });
+
+        userChangeFlag = false;
+        selectedImageURL = null;
+    }
+
+    public FirebaseAuth getAuth() {
+        return auth;
+    }
+
+    public FirebaseFirestore getFire() {
+        return fire;
+    }
+
+    public FirebaseStorage getStorage() {
+        return storage;
+    }
+
+    public  static FirebaseServices getInstance(){
+        if (instance==null){
+            instance=new FirebaseServices();
+
+        }
+        return instance;
+    }
+
+    public static FirebaseServices reloadInstance(){
+        instance=new FirebaseServices();
+        return instance;
+    }
+
     public boolean isUserChangeFlag() {
         return userChangeFlag;
     }
@@ -73,17 +134,19 @@ public class FirebaseServices {
         // Reference to the collection
         String collectionName = "users";
         String firstNameFieldName = "firstName";
-        String firstNameValue = user.getName();
+        String firstNameValue = user.getFirstName();
         String lastNameFieldName = "lastName";
-        String lastNameValue = user.getLastname();
-        String addressFieldName = "Livingarea";
-        String addressValue = user.getLivingarea();
+        String lastNameValue = user.getLastName();
+        String usernameFieldName = "username";
+        String usernameValue = user.getUsername();
+        String addressFieldName = "address";
+        String addressValue = user.getAddress();
         String phoneFieldName = "phone";
         String phoneValue = user.getPhone();
-        String photoFieldName = "Hobbies";
-        String photoValue = user.getHobbies();
-
-
+        String photoFieldName = "photo";
+        String photoValue = user.getPhoto();
+        String favoritesFieldName = "favorites";
+        ArrayList<String> favoritesValue = user.getFavorites();
 
         // Create a query for documents based on a specific field
         Query query = fire.collection(collectionName).
@@ -120,46 +183,6 @@ public class FirebaseServices {
                 });
 
         return flag[0];
-    }
-
-    public Hotel getSelectedHotel() {
-        return selectedHotel;
-    }
-
-    public void setSelectedHotel(Hotel selectedHotel) {
-        this.selectedHotel = selectedHotel;
-    }
-
-    public Uri getSelectedImageURL() {
-        return selectedImageURL;
-    }
-
-    public void setSelectedImageURL(Uri selectedImageURL) {
-        this.selectedImageURL = selectedImageURL;
-    }
-    public FirebaseServices(){
-        auth=FirebaseAuth.getInstance();
-        fire=FirebaseFirestore.getInstance();
-        storage=FirebaseStorage.getInstance();
-    }
-
-    public FirebaseAuth getAuth() {
-        return auth;
-    }
-
-    public FirebaseFirestore getFire() {
-        return fire;
-    }
-
-    public FirebaseStorage getStorage() {
-        return storage;
-    }
-
-    public static FirebaseServices getInstance(){
-        if (instance==null){
-            instance=new FirebaseServices();
-        }
-        return instance;
     }
 
 

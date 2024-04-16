@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="44dp"
+            android:backgroundTint="#6F7F8F"
             android:text="Login"
             app:layout_constraintBottom_toTopOf="@+id/tvForgotPasswordLinkLogin"
             app:layout_constraintStart_toStartOf="@+id/tvForgotPasswordLinkLogin"
@@ -80,6 +81,7 @@
             android:layout_marginBottom="29dp"
             android:clickable="true"
             android:src="@android:drawable/btn_plus"
+            app:backgroundTint="#6F7F8F"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

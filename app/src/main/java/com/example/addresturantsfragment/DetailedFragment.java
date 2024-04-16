@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class DetailedFragment extends Fragment {
     FirebaseServices fbs;
     private TextView tvName, tvPhone, tvdescreption, tvadress;
     private ImageView ivHotel;
-    private Button sendSMSButton, btnWhatsapp, btnCall;
+    private Button Backbtn, btnWhatsapp, btnCall;
     private Hotel myHotel;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -115,11 +116,13 @@ public class DetailedFragment extends Fragment {
             }
         }
 
-        sendSMSButton = getView().findViewById(R.id.btnSMS);
-        sendSMSButton.setOnClickListener(new View.OnClickListener() {
+       Backbtn=getView().findViewById(R.id.Back);
+        Backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkAndSendSMS();            }
+                gotoHotelList();
+
+            }
         });
 
         btnWhatsapp = getView().findViewById(R.id.btnWhatsApp);
@@ -272,5 +275,12 @@ public class DetailedFragment extends Fragment {
 //        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
 //            startActivity(callIntent);
 //        }
+    }
+    public void gotoHotelList()
+    {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+        ft.commit();
+
     }
 }

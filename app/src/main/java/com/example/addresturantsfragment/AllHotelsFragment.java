@@ -264,4 +264,12 @@ public class AllHotelsFragment extends Fragment {
 
         return list;
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        User u = fbs.getCurrentUser();
+        if (u != null && fbs.isUserChangeFlag())
+            fbs.updateUser(u); // updating favorites
+
+    }
 }

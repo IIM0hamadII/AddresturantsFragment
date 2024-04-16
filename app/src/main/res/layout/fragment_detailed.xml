@@ -18,11 +18,11 @@
             android:layout_marginStart="23dp"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="23dp"
-            android:layout_marginBottom="385dp"
-            android:adjustViewBounds="true"
+            android:layout_marginBottom="60dp"
 
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/btnSMS"
+            app:layout_constraintBottom_toTopOf="@+id/tvadress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -83,21 +83,11 @@
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/btnSMS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:layout_marginBottom="23dp"
-            android:text="SMS"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DetailedCar" />
-
-        <Button
             android:id="@+id/btnWhatsApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="22dp"
+            android:backgroundTint="#6F7F8F"
             android:text="Whatsapp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -109,9 +99,21 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="13dp"
             android:layout_marginBottom="23dp"
+            android:backgroundTint="#6F7F8F"
             android:text="Call"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#6F7F8F"
+            android:text="Back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

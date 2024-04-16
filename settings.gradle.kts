@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AddresturantsFragment"
+rootProject.name = "My hotel"
 include(":app")
  

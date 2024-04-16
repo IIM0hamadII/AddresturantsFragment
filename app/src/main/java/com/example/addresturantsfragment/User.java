@@ -1,50 +1,56 @@
 package com.example.addresturantsfragment;
 
+import android.os.Parcel;
+
+import java.util.ArrayList;
+
 public class User {
-    private String name;
-    private String lastname;
-    private String hobbies;
+    private String firstName;
+    private String lastName;
+    private String username;
     private String phone;
-    private String livingarea;
+    private String address;
+    private String photo;
+    private ArrayList<String> favorites;
 
-
-
-    public User(){
-
+    public User() {
     }
 
-    public User(String name, String lastname, String username, String hobbies, String phone, String livingarea) {
-        this.name = name;
-        this.lastname = lastname;
-
-        this.hobbies = hobbies;
+    public User(String firstName, String lastName, String username, String phone, String address, String photo) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
         this.phone = phone;
-        this.livingarea = livingarea;
+        this.address = address;
+        this.photo = photo;
+        this.favorites = new ArrayList<>();
     }
 
-
-    public String getName() {
-        return name;
+    public User(Parcel in) {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getHobbies() {
-        return hobbies;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setHobbies(String hobbies) {
-        this.hobbies = hobbies;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPhone() {
@@ -55,22 +61,39 @@ public class User {
         this.phone = phone;
     }
 
-    public String getLivingarea() {
-        return livingarea;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLivingarea(String livingarea) {
-        this.livingarea = livingarea;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public ArrayList<String> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(ArrayList<String> favourits) {
+        this.favorites = favourits;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", hobbies='" + hobbies + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
                 ", phone='" + phone + '\'' +
-                ", livingarea='" + livingarea + '\'' +
+                ", address='" + address + '\'' +
+                ", Photo='" + photo + '\'' +
                 '}';
     }
 }

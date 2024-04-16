@@ -1,17 +1,21 @@
 package com.example.addresturantsfragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,10 +32,15 @@ import com.google.firebase.firestore.DocumentReference;
  */
 public class SignupFragment extends Fragment {
 
-    private EditText etUsername,etPassword,etName,etLastName,etPhone,etHobbies,etLivingPlace;
+    private static final int GALLERY_REQUEST_CODE = 123;
+    private EditText etUsername,etPassword, etConfirmPassword,
+            etFirstname, etLastname, etPhone, etAddress;
+    ImageView ivUserPhoto;
     private Button btnSignup,btnBack;
-    private FirebaseServices fsb;
+    private FirebaseServices fbs;
+    private Utils msg;
 
+    // TODO:signUp check (Image)
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,20 +87,23 @@ public class SignupFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_signup, container, false);
     }
+
     @Override
     public void onStart() {
-
         super.onStart();
-        fsb= FirebaseServices.getInstance();
+        // connecting components
+        fbs=FirebaseServices.getInstance();
+        btnBack=getView().findViewById(R.id.back);
         etUsername=getView().findViewById(R.id.etUsernameSignup);
         etPassword=getView().findViewById(R.id.etPasswordSignup);
-        btnSignup=getView().findViewById(R.id.etButtonSignup);
-        btnBack=getView().findViewById(R.id.back);
-        etName=getView().findViewById(R.id.etName);
-        etLastName=getView().findViewById(R.id.etLastname);
-        etHobbies=getView().findViewById(R.id.ethobbies);
-        etPhone=getView().findViewById(R.id.etPhone);
-        etLivingPlace=getView().findViewById(R.id.etLivingPlace);
+        etFirstname = getView().findViewById(R.id.etFirstnameSignupFragment);
+        etLastname = getView().findViewById(R.id.etLastnameSignupFragment);
+        etConfirmPassword = getView().findViewById(R.id.etConfirmPasswordSignupFragment);
+        etPhone = getView().findViewById(R.id.etPhoneSignupFragment);
+        etAddress = getView().findViewById(R.id.etAddressSignupFragment);
+        btnSignup=getView().findViewById(R.id.btnSignupSignup);
+        ivUserPhoto = getView().findViewById(R.id.ivPhotoSignupFragment);
+        msg = Utils.getInstance();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,29 +111,59 @@ public class SignupFragment extends Fragment {
                 gotoLoginFragment();
             }
         });
+
+        ivUserPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: get all strings from add fragment in addition to username and password
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-                String Name= etName.getText().toString();
-                String LastName=etLastName.getText().toString();
-                String Phone= etPhone.getText().toString();
-                String Hobbies = etHobbies.getText().toString();
-                String LivingPlace= etLivingPlace.getText().toString();
+                //Data validation
+                String username=etUsername.getText().toString();
+                String password=etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
+                String firstname = etFirstname.getText().toString();
+                String lastname = etLastname.getText().toString();
+                String phone = etPhone.getText().toString();
+                String address = etAddress.getText().toString();
+                if (username.trim().isEmpty() || password.trim().isEmpty() || firstname.trim().isEmpty() ||
+                        lastname.trim().isEmpty() || confirmPassword.trim().isEmpty() || phone.trim().isEmpty() ||
+                        address.trim().isEmpty())
+                {
+                    Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
+                    return;
 
-                // TODO: check all other fields too
-                if (username.trim().isEmpty() && password.trim().isEmpty() && Name.trim().isEmpty()&& LastName.trim().isEmpty()&&Phone.trim().isEmpty()
-                && Hobbies.trim().isEmpty()&& LivingPlace.trim().isEmpty()) {
-                    Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
+                }
+                if (!password.equals(confirmPassword)) {
+                    msg.showMessageDialog(getActivity(), "Password are not identical!");
                     return;
                 }
 
+//                if(fbs.getSelectedImageURL() == null){
+//                    msg.showMessageDialog(getActivity(), "Image are Empty !");
+//
+//                }
 
-                User user = new User(Name, LastName, username,Phone, LivingPlace);
 
-                fsb.getAuth().createUserWithEmailAndPassword(username,password)
+//                if (fbs.getSelectedImageURL() == null)
+//                {
+//                    User user = new User(firstname, lastname, username, phone, address, "");
+//                }
+//                else {
+//                    User user = new User(firstname, lastname, username, phone, address, fbs.getSelectedImageURL().toString());
+//                }
+                //Signup procedure
+                Uri selectedImageUri = fbs.getSelectedImageURL();
+                String imageURL = "";
+                if (selectedImageUri != null) {
+                    imageURL = selectedImageUri.toString();
+                }
+                User user = new User(firstname, lastname, username, phone, address, imageURL);
+
+                fbs.getAuth().createUserWithEmailAndPassword(username,password)
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
 
                             @Override
@@ -129,10 +171,10 @@ public class SignupFragment extends Fragment {
 
                                 if (task.isSuccessful())
                                 {
-                                    fsb.getFire().collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    fbs.getFire().collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
-                                            gotoHotelList();
+                                            gotoCarList();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -151,27 +193,46 @@ public class SignupFragment extends Fragment {
 
                             }
                         });
-        };
-      });
 
+
+            }
+        });
+        ((MainActivity)getActivity()).pushFragment(new SignupFragment());
     }
 
-    private void gotoMainFragment(){
-        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new HotelsFragment());
-        ft.commit();
-    }
-    private void gotoLoginFragment(){
-        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new LoginFragment());
-        ft.commit();
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
     }
 
-    public void gotoHotelList()
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == getActivity().RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            ivUserPhoto.setImageURI(selectedImageUri);
+            Utils.getInstance().uploadImage(getActivity(), selectedImageUri);
+        }
+    }
+
+    public void gotoCarList()
     {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new AllHotelsFragment());
         ft.commit();
+        setNavigationBarVisible();
+    }
+    public void  gotoLoginFragment()
+    {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new LoginFragment());
+        ft.commit();
+        setNavigationBarVisible();
+    }
 
+    private void setNavigationBarVisible() {
+        ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
     }
 }
+
