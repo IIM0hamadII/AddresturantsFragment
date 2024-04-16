@@ -16,9 +16,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder> {
-    Context context;
-    ArrayList<Hotel> restList;
+    private Context context;
+    private ArrayList<Hotel> restList;
     private FirebaseServices fbs;
+    private OnItemClickListener itemClickListener;
 
     public HotelAdapter(Context context, ArrayList<Hotel> restList) {
         this.context = context;
@@ -40,6 +41,18 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
         holder.tvPhone.setText(rest.getPhone());
         //holder.photo.setImageURI(rest.getPhoto());
         Picasso.get().load(rest.getPhoto()).into(holder.ivPhoto);
+        holder.tvName.setOnClickListener(v -> {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(position);
+            }
+        });
+        if (rest.getPhoto() == null || rest.getPhoto().isEmpty())
+        {
+            Picasso.get().load(R.drawable.ic_fav).into(holder.ivPhoto);
+        }
+        else {
+            Picasso.get().load(rest.getPhoto()).into(holder.ivPhoto);
+        }
     }
 
     @Override
@@ -56,5 +69,12 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
             tvPhone=itemView.findViewById(R.id.tvPhoneRestItem);
             ivPhoto=itemView.findViewById(R.id.imPhoto);
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
     }
 }

@@ -32,10 +32,10 @@ public class DetailedFragment extends Fragment {
     private static final int PERMISSION_SEND_SMS = 1;
     private static final int REQUEST_CALL_PERMISSION = 2;
     private TextView tvName, tvPhone, tvdescreption, tvadress;
-    private ImageView ivCar;
+    private ImageView ivHotel;
     private String Name, Phone, Photo;
     private Button sendSMSButton, btnWhatsapp, btnCall;
-    private Hotel myCar;
+    private Hotel myHotel;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -97,30 +97,30 @@ public class DetailedFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        ivCar = getView().findViewById(R.id.DetailedCar);
+        ivHotel = getView().findViewById(R.id.DetailedCar);
         tvName = getView().findViewById(R.id.DetailedMan);
         tvdescreption = getView().findViewById(R.id.tvdescreption);
         tvadress = getView().findViewById(R.id.tvadress);
         tvName.setText(Name);
-        tvPhone.setText("Contact: " + Phone);
-
+        tvPhone=getView().findViewById(R.id.DetailedPhone);
+        ivHotel=getView().findViewById(R.id.DetailedCar);
 
         Bundle args = getArguments();
         if (args != null) {
-            myCar = args.getParcelable("car");
-            if (myCar != null) {
+            myHotel = args.getParcelable("Hotel");
+            if (myHotel != null) {
                 //String data = myObject.getData();
                 // Now you can use 'data' as needed in FragmentB
-                tvName.setText(myCar.getName());
-                tvPhone.setText(myCar.getPhone());
-                tvdescreption.setText(myCar.getDescription());
-                tvadress.setText(myCar.getAddress());
-                tvPhone.setText(myCar.getPhone());
+                tvName.setText(myHotel.getName());
+                tvPhone.setText(myHotel.getPhone());
+                tvdescreption.setText(myHotel.getDescription());
+                tvadress.setText(myHotel.getAddress());
+                tvPhone.setText(myHotel.getPhone());
 
-                if (myCar.getPhoto() == null || myCar.getPhoto().isEmpty()) {
-                    Picasso.get().load(R.drawable.ic_fav).into(ivCar);
+                if (myHotel.getPhoto() == null || myHotel.getPhoto().isEmpty()) {
+                    Picasso.get().load(R.drawable.ic_fav).into(ivHotel);
                 } else {
-                    Picasso.get().load(myCar.getPhoto()).into(ivCar);
+                    Picasso.get().load(myHotel.getPhoto()).into(ivHotel);
                 }
             }
         }
@@ -159,8 +159,8 @@ public class DetailedFragment extends Fragment {
     }
 
     private void sendSMS() {
-        String phoneNumber = myCar.getPhone();
-        String message = "I am Interested in your  "+myCar.getName()+"  car: " + myCar.getPhone();
+        String phoneNumber = myHotel.getPhone();
+        String message = "I am Interested in your  "+myHotel.getName()+"  car: " + myHotel.getPhone();
 
         try {
             SmsManager smsManager = SmsManager.getDefault();
@@ -192,11 +192,11 @@ public class DetailedFragment extends Fragment {
     // TODO : check Phone number is not correct;
     public void sendWhatsAppMessage(View view) {
 
-        String smsNumber = "+972"+myCar.getPhone();
+        String smsNumber = "+972"+myHotel.getPhone();
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         //  Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
         sendIntent.setType("text/plain");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, " I am Interested in your  " +myCar.getName()+ "  car:  "  + myCar.getPhone());
+        sendIntent.putExtra(Intent.EXTRA_TEXT, " I am Interested in your  " +myHotel.getName()+ "  car:  "  + myHotel.getPhone());
         sendIntent.putExtra("jid", smsNumber + "@s.whatsapp.net"); //phone number without "+" prefix
         sendIntent.setPackage("com.whatsapp");
 
@@ -261,7 +261,7 @@ public class DetailedFragment extends Fragment {
 
     private void startCall() {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + myCar.getPhone()));
+        callIntent.setData(Uri.parse("tel:" + myHotel.getPhone()));
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             startActivity(callIntent);
