@@ -131,6 +131,7 @@ public class AddHotelFragment extends Fragment {
         String address = etAddress.getText().toString();
         String phone = etPhone.getText().toString();
 
+
         // data validation
         if (name.trim().isEmpty() || description.trim().isEmpty() ||
                 address.trim().isEmpty() || phone.trim().isEmpty())
@@ -142,6 +143,7 @@ public class AddHotelFragment extends Fragment {
         // add data to
         //
         // firestore
+
         Hotel hotel;
         if (fbs.getSelectedImageURL() == null)
         {
@@ -150,7 +152,7 @@ public class AddHotelFragment extends Fragment {
         else
         {
             hotel = new Hotel(name, description, address, phone, fbs.getSelectedImageURL().toString());
-            fbs.setSelectedImageURL(null);
+
         }
         fbs.getFire().collection("hotels").add(hotel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -161,7 +163,7 @@ public class AddHotelFragment extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("Failure hotel: ", e.getMessage());
+                Log.e("Failed to add your hotel: ", e.getMessage());
             }
         });
     }

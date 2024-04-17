@@ -67,23 +67,18 @@ public class MainActivity extends AppCompatActivity {
 
                     selectedFragment = new AllHotelsFragment();
                 }
-                 else if (fbs.getAuth().getCurrentUser().getEmail()=="hamoudy1221h@gmail.com") {
-
-                           if (item.getItemId() == R.id.action_add )
-                                selectedFragment = new AddHotelFragment();
-                }
-                 else if (fbs.getAuth().getCurrentUser()!=null) {
-
-                  if (item.getItemId() == R.id.action_profile )
+                 else if ( item.getItemId() == R.id.action_add ) {
+                     selectedFragment = new AddHotelFragment();
+                     }
+                 else if (item.getItemId() == R.id.action_profile ) {
 
                     selectedFragment=new ProfileFragment();
-            }
+                   }
 
-                else if (fbs.getAuth().getCurrentUser()!=null) {
-                if (item.getItemId() == R.id.action_signout){
+                else if (item.getItemId() == R.id.action_signout) {
+
                     signout();
-                    bottomNavigationView.setVisibility(View.GONE);}
-
+                    bottomNavigationView.setVisibility(View.GONE);
                 }
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction()
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentContainer = findViewById(R.id.frameLayout);
         userData = getUserData();
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (fbs.getAuth().getCurrentUser() == null) {
             gotoLoginFragment();
             bottomNavigationView.setVisibility(View.GONE);
