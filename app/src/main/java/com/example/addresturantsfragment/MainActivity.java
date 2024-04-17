@@ -46,29 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
 
-        fragmentContainer = findViewById(R.id.frameLayout);
-        userData = getUserData();
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (fbs.getAuth().getCurrentUser() == null) {
-            bottomNavigationView.setVisibility(View.GONE);
-            gotoLoginFragment();
-            pushFragment(new LoginFragment());
-        } else {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-           // fbs.getCurrentObjectUser();
-            gotoHotelList();
-            pushFragment(new AllHotelsFragment());
-        }
 
         fbs = FirebaseServices.getInstance();
+
         //fbs.getAuth().signOut();
         listType = ListFragmentType.Regular;
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
-        if (fbs.getAuth().getCurrentUser() != null) {bottomNavigationView.setVisibility(View.VISIBLE);}
-
-
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
@@ -95,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment=new ProfileFragment();
             }
 
-
-                else if (item.getItemId() == R.id.action_signout) {
+                else if (fbs.getAuth().getCurrentUser()!=null) {
+                if (item.getItemId() == R.id.action_signout){
                     signout();
-                    bottomNavigationView.setVisibility(View.GONE);
+                    bottomNavigationView.setVisibility(View.GONE);}
 
                 }
                 if (selectedFragment != null) {
@@ -109,7 +93,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        fragmentContainer = findViewById(R.id.frameLayout);
+        userData = getUserData();
 
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (fbs.getAuth().getCurrentUser() == null) {
+            gotoLoginFragment();
+            bottomNavigationView.setVisibility(View.GONE);
+
+            pushFragment(new LoginFragment());
+        } else {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            // fbs.getCurrentObjectUser();
+            gotoHotelList();
+            pushFragment(new AllHotelsFragment());
+        }
     }
 
     public User getUserDataObject() {

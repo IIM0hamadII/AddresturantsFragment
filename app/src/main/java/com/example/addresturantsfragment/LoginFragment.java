@@ -118,9 +118,9 @@ public class LoginFragment extends Fragment {
 
                         if (task.isSuccessful())
                         {
-
+                            gotoHotelList();
                             Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
-                             gotoHotelList();
+                            setNavigationBarVisible();
 
                         }
                         else
@@ -145,6 +145,9 @@ public class LoginFragment extends Fragment {
 
         })
         ;}
+    private void setNavigationBarVisible() {
+        ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
+    }
     private void gotoSignupFragment(){
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new SignupFragment());
