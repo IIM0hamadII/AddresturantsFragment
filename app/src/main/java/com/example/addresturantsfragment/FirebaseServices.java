@@ -100,7 +100,7 @@ public class FirebaseServices {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot dataSnapshot: queryDocumentSnapshots.getDocuments()){
                     User user = dataSnapshot.toObject(User.class);
-                    if (auth.getCurrentUser() != null && auth.getCurrentUser().getEmail().equals(user.getUsername())) {
+                    if (auth.getCurrentUser() != null && auth.getCurrentUser().getEmail().equals(user.getEmail())) {
                         usersInternal.add(user);
 
                     }
@@ -137,20 +137,21 @@ public class FirebaseServices {
         String firstNameValue = user.getFirstName();
         String lastNameFieldName = "lastName";
         String lastNameValue = user.getLastName();
-        String usernameFieldName = "username";
-        String usernameValue = user.getUsername();
+        String email = "email";
+        String emailvalue = user.getEmail();
+        String password = "password";
+        String passwordvalue = user.getPassword();
         String addressFieldName = "address";
         String addressValue = user.getAddress();
         String phoneFieldName = "phone";
         String phoneValue = user.getPhone();
         String photoFieldName = "photo";
         String photoValue = user.getPhoto();
-        String favoritesFieldName = "favorites";
-        ArrayList<String> favoritesValue = user.getFavorites();
+
 
         // Create a query for documents based on a specific field
         Query query = fire.collection(collectionName).
-                whereEqualTo(usernameFieldName, usernameValue);
+                whereEqualTo(email, emailvalue);
 
         // Execute the query
         query.get()
@@ -163,11 +164,12 @@ public class FirebaseServices {
                         documentRef.update(
                                         firstNameFieldName, firstNameValue,
                                         lastNameFieldName, lastNameValue,
-                                        usernameFieldName, usernameValue,
                                         addressFieldName, addressValue,
                                         phoneFieldName, phoneValue,
                                         photoFieldName, photoValue,
-                                        favoritesFieldName, favoritesValue
+                                        email, emailvalue,
+                                        password,passwordvalue
+
                                 )
                                 .addOnSuccessListener(aVoid -> {
 

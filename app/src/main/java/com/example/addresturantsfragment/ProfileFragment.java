@@ -105,7 +105,7 @@ public class ProfileFragment extends Fragment {
                 String phone = etPhone.getText().toString();
                 String password= etPassword.getText().toString();
                 String email= etEmail.getText().toString();
-                if (firstname.trim().isEmpty() || lastname.trim().isEmpty() || address.trim().isEmpty() ||
+                if (firstname.trim().isEmpty() || lastname.trim().isEmpty() ||email.trim().isEmpty()|| password.trim().isEmpty()|| address.trim().isEmpty() ||
                         phone.trim().isEmpty()) {
                     Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
                     return;
@@ -116,6 +116,7 @@ public class ProfileFragment extends Fragment {
                 {
                     if (!current.getFirstName().equals(firstname)  ||
                             !current.getLastName().equals(lastname)    ||
+
                             !current.getAddress().equals(address)      ||
                             !current.getPhone().equals(phone)          ||
                             !current.getPhoto().equals(fbs.getSelectedImageURL().toString())
@@ -124,9 +125,9 @@ public class ProfileFragment extends Fragment {
                     {
                         User user;
                         if (fbs.getSelectedImageURL() != null)
-                            user = new User(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), address, phone, fbs.getSelectedImageURL().toString(),password,email);
+                            user = new User(firstname, lastname, phone, address, fbs.getSelectedImageURL().toString(),password,email);
                         else
-                            user = new User(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), address, phone,"", password,email);
+                            user = new User(firstname, lastname,  phone, address,"", password,email);
 
                         fbs.updateUser(user);
                         utils.showMessageDialog(getActivity(), "Data updated succesfully!");
@@ -159,6 +160,8 @@ public class ProfileFragment extends Fragment {
             etLastName.setText(current.getLastName());
             etAddress.setText(current.getAddress());
             etPhone.setText(current.getPhone());
+            etEmail.setText(current.getEmail());
+            etPassword.setText(current.getPassword());
             if (current.getPhoto() != null && !current.getPhoto().isEmpty()) {
                 Picasso.get().load(current.getPhoto()).into(ivUser);
                 fbs.setSelectedImageURL(Uri.parse(current.getPhoto()));

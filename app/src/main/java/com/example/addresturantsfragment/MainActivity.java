@@ -45,27 +45,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+        fragmentContainer = findViewById(R.id.frameLayout);
+        userData = getUserData();
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (fbs.getAuth().getCurrentUser() == null) {
+            bottomNavigationView.setVisibility(View.GONE);
+            gotoLoginFragment();
+            pushFragment(new LoginFragment());
+        } else {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+           // fbs.getCurrentObjectUser();
+            gotoHotelList();
+            pushFragment(new AllHotelsFragment());
+        }
+
         fbs = FirebaseServices.getInstance();
         //fbs.getAuth().signOut();
         listType = ListFragmentType.Regular;
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        if (fbs.getAuth().getCurrentUser() != null) {bottomNavigationView.setVisibility(View.VISIBLE);}
+
+
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
+
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
                 Fragment selectedFragment = null;
                 if (item.getItemId() == R.id.action_home) {
-                    //selectedFragment = new CarsListFragment();
+
+
                     selectedFragment = new AllHotelsFragment();
                 }
+                 else if (fbs.getAuth().getCurrentUser().getEmail()=="hamoudy1221h@gmail.com") {
 
-                else if (item.getItemId() == R.id.action_add ) {
-                    selectedFragment = new AddHotelFragment();
+                           if (item.getItemId() == R.id.action_add )
+                                selectedFragment = new AddHotelFragment();
                 }
+                 else if (fbs.getAuth().getCurrentUser()!=null) {
 
-
-            else if (item.getItemId() == R.id.action_profile ) {
+                  if (item.getItemId() == R.id.action_profile )
 
                     selectedFragment=new ProfileFragment();
             }
@@ -78,26 +103,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frameLayout, selectedFragment)
-                            .commit();
+                            .replace(R.id.frameLayout, selectedFragment).commit();
+
                 }
                 return true;
             }
         });
-        fragmentContainer = findViewById(R.id.frameLayout);
-        userData = getUserData();
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.favcheck);// set drawable icon
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (fbs.getAuth().getCurrentUser() == null) {
-            bottomNavigationView.setVisibility(View.GONE);
-            gotoLoginFragment();
-            pushFragment(new LoginFragment());
-        } else {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            //fbs.getCurrentObjectUser();
-            gotoHotelList();
-            pushFragment(new AllHotelsFragment());
-        }
+
     }
 
     public User getUserDataObject() {

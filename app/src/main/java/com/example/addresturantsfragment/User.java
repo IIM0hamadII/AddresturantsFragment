@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class User {
     private String firstName;
     private String lastName;
-    private String username;
+
     private String phone;
     private String address;
     private String photo;
@@ -18,10 +18,9 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String username, String phone, String address, String photo, String password,String email) {
+    public User(String firstName, String lastName, String phone, String address, String photo, String password,String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
         this.phone = phone;
         this.address = address;
         this.photo = photo;
@@ -65,13 +64,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPhone() {
         return phone;
@@ -110,10 +103,12 @@ public class User {
         return "User{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", Photo='" + photo + '\'' +
+                ", photo='" + photo + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", favorites=" + favorites +
                 '}';
     }
 }
