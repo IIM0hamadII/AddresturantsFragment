@@ -42,7 +42,7 @@ public class AllHotelsFragment extends Fragment {
     private RecyclerView rvRests;
     private HotelAdapter adapter;
     private FloatingActionButton btn;
-    private Button hbtn;
+
     private HotelAdapter myAdapter;
     private ImageView ivProfile;
 
@@ -104,14 +104,13 @@ public class AllHotelsFragment extends Fragment {
         filteredList = new ArrayList<>();
         myAdapter = new HotelAdapter(getActivity(), list);
         recyclerView.setAdapter(myAdapter);
-        hbtn=getView().findViewById(R.id.hbtn2);
-
         fbs = FirebaseServices.getInstance();
         rests = new ArrayList<>();
         rvRests = getView().findViewById(R.id.rvRestaurantsRestFragment);
         rvRests.setHasFixedSize(true);
         rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
         ivProfile=getView().findViewById(R.id.ivPhoto);
+
         myAdapter.setOnItemClickListener(new HotelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -127,6 +126,7 @@ public class AllHotelsFragment extends Fragment {
                 ft.commit();
             }
         });
+
         fbs.getFire().collection("hotels").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -147,22 +147,8 @@ public class AllHotelsFragment extends Fragment {
                 Log.e("AllHotelsFragment", e.getMessage());
 
             }
-
         });
-
-
-
-        hbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout,new LoginFragment());
-                ft.commit();
-            }
-
-        })
-
-        ;}
+    }
 
     private void applyFilter(String query) {
         // TODO: add onBackspace - old and new query

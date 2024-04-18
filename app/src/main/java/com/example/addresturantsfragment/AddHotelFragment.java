@@ -31,7 +31,7 @@ public class AddHotelFragment extends Fragment {
 
     private FirebaseServices fbs;
     private EditText etName, etDescription, etAddress, etPhone;
-    private Button btnAdd,btnBack;
+    private Button btnAdd;
     private Utils utils;
     private static final int GALLERY_REQUEST_CODE = 123;
     private ImageView img ;
@@ -99,7 +99,7 @@ public class AddHotelFragment extends Fragment {
         btnAdd = getView().findViewById(R.id.btnAddAddRestaurantFragment);
         utils = Utils.getInstance();
         img = getView().findViewById(R.id.ivupload);
-        btnBack=getView().findViewById(R.id.btnBack);
+
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,16 +112,7 @@ public class AddHotelFragment extends Fragment {
             public void onClick(View view) {
                 // get data from screen
                 addToFirebase();
-
-            }});
-       btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout,new AllHotelsFragment());
-                ft.commit();
-                       }
-              });
+        }});
     }
 
     private void addToFirebase() {

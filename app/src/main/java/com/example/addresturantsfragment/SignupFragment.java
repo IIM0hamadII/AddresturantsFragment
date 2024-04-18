@@ -175,7 +175,7 @@ public class SignupFragment extends Fragment {
                                     fbs.getFire().collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
-                                            gotoCarList();
+                                            gotoHotelList();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -217,7 +217,7 @@ public class SignupFragment extends Fragment {
         }
     }
 
-    public void gotoCarList()
+    public void gotoHotelList()
     {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new AllHotelsFragment());

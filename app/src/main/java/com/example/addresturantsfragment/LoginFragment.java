@@ -30,7 +30,7 @@ public class LoginFragment extends Fragment {
     private TextView tvForgotPassLink;
     private Button btnLogin;
     private FirebaseServices fsb;
-    private FloatingActionButton btn;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,7 +89,7 @@ public class LoginFragment extends Fragment {
         tvSignupLink=getView().findViewById(R.id.tvSignupLinkLogin);
         tvForgotPassLink= getView().findViewById(R.id.tvForgotPasswordLinkLogin);
         btnLogin=getView().findViewById(R.id.etButtomLogin);
-        btn=getView().findViewById(R.id.floatinglogin);
+
 
         tvForgotPassLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,12 +97,14 @@ public class LoginFragment extends Fragment {
                 gotoForgotPasswordFragment();
             }
         });
+
         tvSignupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gotoSignupFragment();
             }
         });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,30 +123,16 @@ public class LoginFragment extends Fragment {
                             gotoHotelList();
                             Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
                             setNavigationBarVisible();
-
                         }
                         else
                         {
                             Toast.makeText(getActivity(), "failed to login! check user or password", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
             }
-
         });
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout,new AllHotelsFragment());
-                ft.commit();
-                }
-
-        })
-        ;}
+    }
     private void setNavigationBarVisible() {
         ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
     }

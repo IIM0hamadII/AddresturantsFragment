@@ -53,18 +53,17 @@
 
         <TextView
             android:id="@+id/tvSignupLinkLogin"
-            android:layout_width="112dp"
-            android:layout_height="0dp"
+            android:layout_width="121dp"
+            android:layout_height="25dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="72dp"
-            android:text="Signup"
-            app:layout_constraintEnd_toStartOf="@+id/floatinglogin"
+            android:text="        Signup"
+            app:layout_constraintEnd_toEndOf="@+id/tvForgotPasswordLinkLogin"
             app:layout_constraintTop_toBottomOf="@+id/tvForgotPasswordLinkLogin" />
 
         <TextView
             android:id="@+id/tvForgotPasswordLinkLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="117dp"
+            android:layout_height="19dp"
             android:layout_marginBottom="149dp"
             android:text="ForgotPassword"
             app:layout_constraintBottom_toTopOf="@+id/tvSignupLinkLogin"
@@ -72,16 +71,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etButtomLogin" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatinglogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="656dp"
-            android:clickable="true"
-            android:src="@android:drawable/btn_plus"
-            app:backgroundTint="#6F7F8F"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
