@@ -1,10 +1,12 @@
 package com.example.addresturantsfragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -18,9 +20,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +41,7 @@ public class AddHotelFragment extends Fragment {
     private Button btnAdd;
     private Utils utils;
     private static final int GALLERY_REQUEST_CODE = 123;
-    private ImageView img ;
+    private ImageView img,ivUser;
     private String imageStr;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,7 +106,7 @@ public class AddHotelFragment extends Fragment {
         btnAdd = getView().findViewById(R.id.btnAddAddRestaurantFragment);
         utils = Utils.getInstance();
         img = getView().findViewById(R.id.ivupload);
-
+        ivUser=getView().findViewById(R.id.DetailedCar);
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,15 +172,59 @@ public class AddHotelFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_REQUEST_CODE && data != null) {
-            Uri selectedImageUri = data.getData();
-            img.setImageURI(selectedImageUri);
-            utils.uploadImage(getActivity(), selectedImageUri);
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                btnAdd.setEnabled(false);
+                // Get the image's URI
+                final android.net.Uri imageUri = data.getData();
+
+                // Load the image into the ImageView using an asynchronous task or a library like Glide or Picasso
+                // For example, using Glide:
+                Glide.with(this).load(imageUri).into(img);
+                uploadImage(imageUri);
+            }
         }
     }
+
+    public void uploadImage(Uri selectedImageUri) {
+        if (selectedImageUri != null) {
+            imageStr = "images/" + UUID.randomUUID() + ".jpg"; //+ selectedImageUri.getLastPathSegment();
+            StorageReference imageRef = fbs.getStorage().getReference().child("images/" + selectedImageUri.getLastPathSegment());
+
+            UploadTask uploadTask = imageRef.putFile(selectedImageUri);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            //selectedImageUri = uri;
+                            fbs.setSelectedImageURL(uri);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+                    Toast.makeText(getActivity(), "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                    btnAdd.setEnabled(true);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), "Failed to upload image", Toast.LENGTH_SHORT).show();
+                    btnAdd.setEnabled(true);
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "Please choose an image first", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void toBigImg(View view) {
     }
     public void gotoHotelList()
@@ -183,4 +234,5 @@ public class AddHotelFragment extends Fragment {
         ft.commit();
 
     }
+
 }

@@ -45,7 +45,7 @@ public class ProfileFragment extends Fragment {
     EditText etFirstName, etLastName, etAddress, etPhone,etPassword,etEmail;
     private static final int GALLERY_REQUEST_CODE = 134;
     private Button btnUpdate;
-    private ImageView ivUser;
+    private ImageView ivUser,ivUser2;
     private FirebaseServices fbs;
     private Utils utils;
     private String imageStr;
@@ -90,7 +90,8 @@ public class ProfileFragment extends Fragment {
         etPhone=getView().findViewById(R.id.etPhoneUserDetailsEdit);
         etPassword=getView().findViewById(R.id.etPassword);
         etEmail=getView().findViewById(R.id.etEmail);
-        ivUser = getView().findViewById(R.id.ivUserUserDetailsEdit);
+        ivUser = getView().findViewById(R.id.ivLogoUserDetailsEdit);
+        ivUser2=getView().findViewById(R.id.ivUserUserDetailsEdit);
         btnUpdate = getView().findViewById(R.id.btnUpdateUserDetailsEdit);
         utils = Utils.getInstance();
         if(imageStr == null){
@@ -140,7 +141,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-        ivUser.setOnClickListener(new View.OnClickListener() {
+        ivUser2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery();
@@ -152,21 +153,23 @@ public class ProfileFragment extends Fragment {
 
     private void fillUserData() {
         if (flagAlreadyFilled)
-            return;
-        User current = fbs.getCurrentUser();
+           return;
+            User current = fbs.getCurrentUser();
         if (current != null)
         {
             etFirstName.setText(current.getFirstName());
             etLastName.setText(current.getLastName());
-            etAddress.setText(current.getAddress());
-            etPhone.setText(current.getPhone());
             etEmail.setText(current.getEmail());
             etPassword.setText(current.getPassword());
+            etAddress.setText(current.getAddress());
+            etPhone.setText(current.getPhone());
+
             if (current.getPhoto() != null && !current.getPhoto().isEmpty()) {
                 Picasso.get().load(current.getPhoto()).into(ivUser);
                 fbs.setSelectedImageURL(Uri.parse(current.getPhoto()));
             }
-        }
+         }
+
     }
 
     @Override

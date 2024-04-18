@@ -33,12 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout fragmentContainer;
     private User userData;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        gotoLoginFragment();
-        bottomNavigationView.setVisibility(View.GONE);
-    }
+
 
     public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
