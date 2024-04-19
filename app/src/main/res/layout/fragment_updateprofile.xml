@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/top_backgroun_profile"
+    android:backgroundTint="#3EFFFFFF"
+    tools:context=".SignupFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etFirstnameUserDetailsEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="first name..."
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/etLastnameUserDetailsEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="last name..."
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="email.."
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="password..."
+            android:inputType="textPassword" />
+
+        <!-- Add the Phone EditText -->
+
+        <EditText
+            android:id="@+id/etPhoneUserDetailsEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="phone...."
+            android:inputType="phone"
+            android:minHeight="48dp"
+            android:textAlignment="viewStart" />
+
+        <ImageView
+            android:id="@+id/ivUserUserDetailsEdit"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/ic_profile" />
+
+        <!-- android:srcCompat="@android:mipmap/sym_def_app_icon"/> -->
+
+        <Button
+            android:id="@+id/btnUpdateUserDetailsEdit"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#6F7F8F"
+            android:text="UPDATE" />
+    </LinearLayout>
+
+</FrameLayout>

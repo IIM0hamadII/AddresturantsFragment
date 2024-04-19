@@ -1,92 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/top_backgroun_profile"
-    android:backgroundTint="#3EFFFFFF"
-    tools:context=".SignupFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ProfileFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <ImageView android:id="@+id/imageView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="fitXY" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/top_background"/>
+                <ImageView android:id="@+id/Profile" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="@+id/imageView" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="@+id/imageView" app:layout_constraintTop_toBottomOf="@+id/imageView" app:srcCompat="@drawable/profile"/>
+                <TextView android:id="@+id/tvName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lion Fischer" android:layout_marginTop="16dp" android:textSize="25sp" android:textStyle="bold" app:layout_constraintEnd_toEndOf="@+id/Profile" app:layout_constraintStart_toStartOf="@+id/Profile" app:layout_constraintTop_toBottomOf="@+id/Profile"/>
+                <TextView android:id="@+id/tvEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="lionfischer@gmail.com" android:textSize="20sp" app:layout_constraintEnd_toEndOf="@+id/tvName" app:layout_constraintStart_toStartOf="@+id/tvName" app:layout_constraintTop_toBottomOf="@+id/tvName"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/tvEmail">
 
-        <ImageView
-            android:id="@+id/ivLogoUserDetailsEdit"
-            android:layout_width="126dp"
-            android:layout_height="126dp"
-            android:src="@drawable/ic_profile" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnfav1"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/ic_1"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:text="favorites"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.AppCompatButton android:id="@+id/btsSet" android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginStart="32dp" android:layout_marginTop="10dp" android:layout_marginEnd="32dp" android:textSize="18sp" android:textStyle="bold" style="@android:style/Widget.Button" android:layout_marginBottom="10dp" android:background="@drawable/btn_background_1" android:drawableStart="@drawable/ic_2" android:drawablePadding="20dp" android:paddingStart="20dp" android:text="Account Settings" android:textAlignment="viewStart"/>
 
-        <EditText
-            android:id="@+id/etFirstnameUserDetailsEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="first name..."
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/BtnCall"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/ic_3"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:text="call support"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/etLastnameUserDetailsEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="last name..."
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/Mainp"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/btn_background_2"
+                        android:text="Back to Main page"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="email.."
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:hint="password..."
-            android:inputType="textPassword" />
-
-        <EditText
-            android:id="@+id/etAddressUserDetailsEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="address..."
-            android:inputType="textPostalAddress"
-            android:minHeight="48dp" />
-
-        <!-- Add the Phone EditText -->
-        <EditText
-            android:id="@+id/etPhoneUserDetailsEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="phone...."
-            android:inputType="phone"
-            android:minHeight="48dp" />
-
-        <ImageView
-            android:id="@+id/ivUserUserDetailsEdit"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:src="@drawable/ic_profile" />
-
-        <!-- android:srcCompat="@android:mipmap/sym_def_app_icon"/> -->
-
-        <Button
-            android:id="@+id/btnUpdateUserDetailsEdit"
-            android:layout_width="207dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#6F7F8F"
-            android:text="UPDATE" />
-    </LinearLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

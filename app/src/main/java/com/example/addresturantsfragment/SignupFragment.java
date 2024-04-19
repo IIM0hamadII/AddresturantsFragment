@@ -100,7 +100,6 @@ public class SignupFragment extends Fragment {
         etLastname = getView().findViewById(R.id.etLastnameSignupFragment);
         etConfirmPassword = getView().findViewById(R.id.etConfirmPasswordSignupFragment);
         etPhone = getView().findViewById(R.id.etPhoneSignupFragment);
-        etAddress = getView().findViewById(R.id.etAddressSignupFragment);
         btnSignup=getView().findViewById(R.id.btnSignupSignup);
         ivUserPhoto = getView().findViewById(R.id.ivPhotoSignupFragment);
         msg = Utils.getInstance();
@@ -128,11 +127,11 @@ public class SignupFragment extends Fragment {
                 String firstname = etFirstname.getText().toString();
                 String lastname = etLastname.getText().toString();
                 String phone = etPhone.getText().toString();
-                String address = etAddress.getText().toString();
+
 
                 if (email.trim().isEmpty() || password.trim().isEmpty() || firstname.trim().isEmpty() ||
-                        lastname.trim().isEmpty() || confirmPassword.trim().isEmpty() || phone.trim().isEmpty() ||
-                        address.trim().isEmpty())
+                        lastname.trim().isEmpty() || confirmPassword.trim().isEmpty() || phone.trim().isEmpty())
+
                 {
                     Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
                     return;
@@ -162,7 +161,7 @@ public class SignupFragment extends Fragment {
                 if (selectedImageUri != null) {
                     imageURL = selectedImageUri.toString();
                 }
-                User user = new User(firstname, lastname,  phone, address, imageURL,password,email);
+                User user = new User(firstname, lastname,  phone,  imageURL,password,email);
 
                 fbs.getAuth().createUserWithEmailAndPassword(email,password)
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {

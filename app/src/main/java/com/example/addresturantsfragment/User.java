@@ -9,7 +9,7 @@ public class User {
     private String lastName;
 
     private String phone;
-    private String address;
+
     private String photo;
     private  String password;
     private String email;
@@ -18,11 +18,10 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String phone, String address, String photo, String password,String email) {
+    public User(String firstName, String lastName, String phone, String photo, String password,String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-        this.address = address;
         this.photo = photo;
         this.favorites = new ArrayList<>();
         this.password= password;
@@ -74,13 +73,7 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getPhoto() {
         return photo;
@@ -104,7 +97,7 @@ public class User {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
+
                 ", photo='" + photo + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +

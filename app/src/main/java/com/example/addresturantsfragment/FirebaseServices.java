@@ -141,8 +141,7 @@ public class FirebaseServices {
         String emailvalue = user.getEmail();
         String password = "password";
         String passwordvalue = user.getPassword();
-        String addressFieldName = "address";
-        String addressValue = user.getAddress();
+
         String phoneFieldName = "phone";
         String phoneValue = user.getPhone();
         String photoFieldName = "photo";
@@ -164,7 +163,6 @@ public class FirebaseServices {
                         documentRef.update(
                                         firstNameFieldName, firstNameValue,
                                         lastNameFieldName, lastNameValue,
-                                        addressFieldName, addressValue,
                                         phoneFieldName, phoneValue,
                                         photoFieldName, photoValue,
                                         email, emailvalue,

@@ -79,7 +79,7 @@ public class ForgotPasswordFragment extends Fragment {
         super.onStart();
         fbs = FirebaseServices.getInstance();
         etEmail = getView().findViewById(R.id.etforgot);
-        btnReset = getView().findViewById(R.id.button);
+        btnReset = getView().findViewById(R.id.btnfav1);
         btnBack=getView().findViewById(R.id.back2);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

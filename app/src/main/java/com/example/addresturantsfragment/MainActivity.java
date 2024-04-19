@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private ListFragmentType listType;
     private Stack<Fragment> fragmentStack = new Stack<>();
     private FrameLayout fragmentContainer;
-    private User userData;
+    private User userData, user1;
+    Intent btn;
 
 
 
@@ -69,12 +69,12 @@ public class MainActivity extends AppCompatActivity {
 
                     selectedFragment = new AllHotelsFragment();
                 }
-                 else if ( item.getItemId() == R.id.action_add ) {
+                 else if ( item.getItemId() == R.id.action_add &&  fbs.getAuth().getCurrentUser().equals("hamoudy1221h@gmail.com") ) {
                      selectedFragment = new AddHotelFragment();
+
                      }
                  else if (item.getItemId() == R.id.action_profile ) {
-
-                    selectedFragment=new ProfileFragment();
+                    selectedFragment = new ProfileFragment();
                    }
 
                 else if (item.getItemId() == R.id.action_signout) {

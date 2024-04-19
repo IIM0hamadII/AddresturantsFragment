@@ -1,31 +1,23 @@
 package com.example.addresturantsfragment;
 
-import android.app.Activity;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,20 +34,19 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    EditText etFirstName, etLastName, etAddress, etPhone,etPassword,etEmail;
-    private static final int GALLERY_REQUEST_CODE = 134;
-    private Button btnUpdate;
-    private ImageView ivUser,ivUser2;
-    private FirebaseServices fbs;
-    private Utils utils;
-    private String imageStr;
-    private boolean flagAlreadyFilled = false;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ProfileFragment2.
+     */
     // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
@@ -76,167 +67,107 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+    private ImageView Profile;
+    private TextView tvName,tvEmail;
+    private AppCompatButton btnFav,btnCall,btnSet,btnBack;
+    private  FirebaseServices fbs;
+    private String imageStr;
+    private boolean flagAlreadyFilled = false;
+    Fragment selectedFragment = null;
+    @Override
     public void onStart() {
         super.onStart();
-        init();
-    }
 
-    private void init()
-    {
-        fbs = FirebaseServices.getInstance();
-        etFirstName=getView().findViewById(R.id.etFirstnameUserDetailsEdit);
-        etLastName=getView().findViewById(R.id.etLastnameUserDetailsEdit);
-        etAddress=getView().findViewById(R.id.etAddressUserDetailsEdit);
-        etPhone=getView().findViewById(R.id.etPhoneUserDetailsEdit);
-        etPassword=getView().findViewById(R.id.etPassword);
-        etEmail=getView().findViewById(R.id.etEmail);
-        ivUser = getView().findViewById(R.id.ivLogoUserDetailsEdit);
-        ivUser2=getView().findViewById(R.id.ivUserUserDetailsEdit);
-        btnUpdate = getView().findViewById(R.id.btnUpdateUserDetailsEdit);
-        utils = Utils.getInstance();
-        if(imageStr == null){
-            Glide.with(getContext()).load(com.google.android.gms.base.R.drawable.common_google_signin_btn_text_dark_focused).into(ivUser);}
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Data validation
-                String firstname = etFirstName.getText().toString();
-                String lastname = etLastName.getText().toString();
-                String address = etAddress.getText().toString();
-                String phone = etPhone.getText().toString();
-                String password= etPassword.getText().toString();
-                String email= etEmail.getText().toString();
-                if (firstname.trim().isEmpty() || lastname.trim().isEmpty() ||email.trim().isEmpty()|| password.trim().isEmpty()|| address.trim().isEmpty() ||
-                        phone.trim().isEmpty()) {
-                    Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
-                User current = fbs.getCurrentUser();
-                if (current != null)
-                {
-                    if (!current.getFirstName().equals(firstname)  ||
-                            !current.getLastName().equals(lastname)    ||
-
-                            !current.getAddress().equals(address)      ||
-                            !current.getPhone().equals(phone)          ||
-                            !current.getPhoto().equals(fbs.getSelectedImageURL().toString())
-                            || !current.getPassword().equals(password) || !current.getEmail().equals(email) )
-
-                    {
-                        User user;
-                        if (fbs.getSelectedImageURL() != null)
-                            user = new User(firstname, lastname, phone, address, fbs.getSelectedImageURL().toString(),password,email);
-                        else
-                            user = new User(firstname, lastname,  phone, address,"", password,email);
-
-                        fbs.updateUser(user);
-                        utils.showMessageDialog(getActivity(), "Data updated succesfully!");
-                        fbs.reloadInstance();
-                    }
-                    else
-                    {
-                        utils.showMessageDialog(getActivity(), "No changes!");
-                    }
-                }
-            }
-        });
-        ivUser2.setOnClickListener(new View.OnClickListener() {
+        Profile=getView().findViewById(R.id.Profile);
+        tvName=getView().findViewById(R.id.tvName);
+        tvEmail=getView().findViewById(R.id.tvEmail);
+        btnFav=getView().findViewById(R.id.btnfav1);
+        btnCall=getView().findViewById(R.id.BtnCall);
+        btnSet=getView().findViewById(R.id.btsSet);
+        btnBack=getView().findViewById(R.id.Mainp);
+        btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGallery();
+                String phoneNum = "";
+
+                    phoneNum = "tel:" + "0506494372";
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(phoneNum));
+                    startActivity(intent);
+
+
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               gotoHotelList();
+
+            }
+        });
+
+        btnSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoUpdateProfileFragment();
+            }
+        });
+
         fillUserData();
         flagAlreadyFilled = true;
     }
 
+    private void gotoUpdateProfileFragment() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new UpdateProfileFragment());
+        ft.commit();
+    }
+    public void gotoHotelList()
+    {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+        ft.commit();
+        setNavigationBarVisible();
+    }
+    private void setNavigationBarVisible() {
+        ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
+    }
     private void fillUserData() {
         if (flagAlreadyFilled)
-           return;
-            User current = fbs.getCurrentUser();
+            return;
+        User current = fbs.getCurrentUser();
         if (current != null)
         {
-            etFirstName.setText(current.getFirstName());
-            etLastName.setText(current.getLastName());
-            etEmail.setText(current.getEmail());
-            etPassword.setText(current.getPassword());
-            etAddress.setText(current.getAddress());
-            etPhone.setText(current.getPhone());
-
+            tvName.setText(current.getFirstName());
+            tvEmail.setText(current.getEmail());
             if (current.getPhoto() != null && !current.getPhoto().isEmpty()) {
-                Picasso.get().load(current.getPhoto()).into(ivUser);
+                Picasso.get().load(current.getPhoto()).into(Profile);
                 fbs.setSelectedImageURL(Uri.parse(current.getPhoto()));
             }
-         }
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
-    }
-
-    public void openGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                btnUpdate.setEnabled(false);
-                // Get the image's URI
-                final android.net.Uri imageUri = data.getData();
-
-                // Load the image into the ImageView using an asynchronous task or a library like Glide or Picasso
-                // For example, using Glide:
-                Glide.with(this).load(imageUri).into(ivUser);
-                uploadImage(imageUri);
-            }
         }
+
     }
+    private void startCall() {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" +"0506494372" ));
 
-    public void uploadImage(Uri selectedImageUri) {
-        if (selectedImageUri != null) {
-            imageStr = "images/" + UUID.randomUUID() + ".jpg"; //+ selectedImageUri.getLastPathSegment();
-            StorageReference imageRef = fbs.getStorage().getReference().child("images/" + selectedImageUri.getLastPathSegment());
-
-            UploadTask uploadTask = imageRef.putFile(selectedImageUri);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            //selectedImageUri = uri;
-                            fbs.setSelectedImageURL(uri);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                        }
-                    });
-                    Toast.makeText(getActivity(), "Image uploaded successfully", Toast.LENGTH_SHORT).show();
-                    btnUpdate.setEnabled(true);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity(), "Failed to upload image", Toast.LENGTH_SHORT).show();
-                    btnUpdate.setEnabled(true);
-                }
-            });
-        } else {
-            Toast.makeText(getActivity(), "Please choose an image first", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(callIntent);
         }
+
+
+//        Intent callIntent = new Intent(Intent.ACTION_CALL);
+//        callIntent.setData(Uri.parse(myCar.getPhone()));
+//
+//        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+//            startActivity(callIntent);
+//        }
     }
+
 
 }

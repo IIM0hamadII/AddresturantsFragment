@@ -45,13 +45,13 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="152dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="84dp"
             android:layout_marginEnd="159dp"
             android:background="@drawable/ic_add"
             android:src="@drawable/top_backgroun_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etAddressSignupFragment" />
+            app:layout_constraintTop_toBottomOf="@+id/etPhoneSignupFragment" />
 
         <TextView
             android:id="@+id/H1"
@@ -120,23 +120,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/etConfirmPasswordSignupFragment"
             app:layout_constraintTop_toBottomOf="@+id/etConfirmPasswordSignupFragment" />
-
-        <EditText
-            android:id="@+id/etAddressSignupFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="48dp"
-            android:ems="10"
-            android:hint="address..."
-            android:inputType="text"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/ivPhotoSignupFragment"
-            app:layout_constraintEnd_toEndOf="@+id/etPhoneSignupFragment"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/ivPhotoSignupFragment"
-            app:layout_constraintTop_toBottomOf="@+id/etPhoneSignupFragment" />
 
         <Button
             android:id="@+id/back"
