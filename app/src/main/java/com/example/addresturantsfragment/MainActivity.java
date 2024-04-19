@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                     selectedFragment = new AllHotelsFragment();
                 }
-                 else if ( item.getItemId() == R.id.action_add &&  fbs.getAuth().getCurrentUser().equals("hamoudy1221h@gmail.com") ) {
+                 else if ( item.getItemId() == R.id.action_add  ) {
                      selectedFragment = new AddHotelFragment();
 
                      }
