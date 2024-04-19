@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -77,6 +78,7 @@ public class ProfileFragment extends Fragment {
     private AppCompatButton btnFav,btnCall,btnSet,btnBack;
     private  FirebaseServices fbs;
     private String imageStr;
+    private static final int REQUEST_CALL_PERMISSION = 2;
     private boolean flagAlreadyFilled = false;
     Fragment selectedFragment = null;
     @Override
@@ -168,6 +170,17 @@ public class ProfileFragment extends Fragment {
 //            startActivity(callIntent);
 //        }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+
+        if (requestCode == REQUEST_CALL_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startCall();
+            }
+        }
+
+    }
 
 }
