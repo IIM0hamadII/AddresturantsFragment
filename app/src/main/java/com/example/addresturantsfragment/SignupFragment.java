@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.DocumentReference;
 
@@ -37,6 +38,7 @@ public class SignupFragment extends Fragment {
             etFirstname, etLastname, etPhone, etAddress;
     ImageView ivUserPhoto;
     private Button btnSignup,btnBack;
+    private BottomNavigationView bottomNavigationView;
     private FirebaseServices fbs;
     private Utils msg;
 
@@ -107,6 +109,7 @@ public class SignupFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setNavigationBarGone();
                 gotoLoginFragment();
             }
         });
@@ -205,7 +208,9 @@ public class SignupFragment extends Fragment {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
     }
-
+    private void setNavigationBarGone() {
+        ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.GONE);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
