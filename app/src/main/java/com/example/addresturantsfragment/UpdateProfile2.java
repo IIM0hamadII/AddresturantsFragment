@@ -28,10 +28,10 @@ import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link UpdateProfileFragment#newInstance} factory method to
+ * Use the {@link UpdateProfile2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpdateProfileFragment extends Fragment {
+public class UpdateProfile2 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,14 +50,21 @@ public class UpdateProfileFragment extends Fragment {
     private String imageStr;
     private boolean flagAlreadyFilled = false;
 
-    public UpdateProfileFragment() {
+    public UpdateProfile2() {
         // Required empty public constructor
     }
 
-
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment UpdateProfile2.
+     */
     // TODO: Rename and change types and number of parameters
-    public static UpdateProfileFragment newInstance(String param1, String param2) {
-        UpdateProfileFragment fragment = new UpdateProfileFragment();
+    public static UpdateProfile2 newInstance(String param1, String param2) {
+        UpdateProfile2 fragment = new UpdateProfile2();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,14 +82,15 @@ public class UpdateProfileFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        init();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_update_profile2, container, false);
     }
 
-    private void init()
-    {
-        setNavigationBarVisible();
+    @Override
+    public void onStart() {
+        super.onStart();
 
         fbs = FirebaseServices.getInstance();
         etFirstName=getView().findViewById(R.id.etFirstnameUserDetailsEdit);
@@ -90,12 +98,10 @@ public class UpdateProfileFragment extends Fragment {
         etPhone=getView().findViewById(R.id.etPhoneUserDetailsEdit);
         etPassword=getView().findViewById(R.id.etPassword);
         etEmail=getView().findViewById(R.id.etEmail);
-        ivUser = getView().findViewById(R.id.Profile);
         ivUser2=getView().findViewById(R.id.ivUserUserDetailsEdit);
         btnUpdate = getView().findViewById(R.id.btnUpdateUserDetailsEdit);
         utils = Utils.getInstance();
-        if(imageStr == null){
-            Glide.with(getContext()).load(com.google.android.gms.base.R.drawable.common_google_signin_btn_text_dark_focused).into(ivUser);}
+
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,9 +132,9 @@ public class UpdateProfileFragment extends Fragment {
                         if (fbs.getSelectedImageURL() != null){
                             user = new User(firstname, lastname, phone,  fbs.getSelectedImageURL().toString(),password,email);
 
-                        fbs.updateUser(user);
-                        utils.showMessageDialog(getActivity(), "Data updated succesfully!");
-                        fbs.reloadInstance();
+                            fbs.updateUser(user);
+                            utils.showMessageDialog(getActivity(), "Data updated succesfully!");
+                            fbs.reloadInstance();
 
                         }
 
@@ -160,8 +166,8 @@ public class UpdateProfileFragment extends Fragment {
 
     private void fillUserData() {
         if (flagAlreadyFilled)
-           return;
-            User current = fbs.getCurrentUser();
+            return;
+        User current = fbs.getCurrentUser();
         if (current != null)
         {
             etFirstName.setText(current.getFirstName());
@@ -171,18 +177,11 @@ public class UpdateProfileFragment extends Fragment {
 
             etPhone.setText(current.getPhone());
 
-         }
+        }
 
     }
     private void setNavigationBarVisible() {
         ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_updateprofile, container, false);
     }
 
     public void openGallery() {
@@ -202,7 +201,7 @@ public class UpdateProfileFragment extends Fragment {
 
                 // Load the image into the ImageView using an asynchronous task or a library like Glide or Picasso
                 // For example, using Glide:
-                Glide.with(this).load(imageUri).into(ivUser);
+                Glide.with(this).load(imageUri).into(ivUser2);
                 uploadImage(imageUri);
             }
         }

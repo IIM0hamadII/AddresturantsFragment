@@ -85,7 +85,7 @@ public class ProfileFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-
+        fbs = FirebaseServices.getInstance();
         Profile=getView().findViewById(R.id.Profile);
         tvName=getView().findViewById(R.id.tvName);
         tvEmail=getView().findViewById(R.id.tvEmail);
@@ -116,6 +116,7 @@ public class ProfileFragment extends Fragment {
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 gotoUpdateProfileFragment();
             }
         });
@@ -126,8 +127,9 @@ public class ProfileFragment extends Fragment {
 
     private void gotoUpdateProfileFragment() {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new UpdateProfileFragment());
+        ft.replace(R.id.frameLayout,new UpdateProfile2());
         ft.commit();
+        setNavigationBarVisible();
     }
     public void gotoHotelList()
     {

@@ -120,8 +120,11 @@ public class LoginFragment extends Fragment {
 
                         if (task.isSuccessful())
                         {
+                            fsb = FirebaseServices.reloadInstance();
                             gotoHotelList();
                             Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
+
+
                             setNavigationBarVisible();
                         }
                         else

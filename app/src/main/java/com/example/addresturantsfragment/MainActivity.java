@@ -33,7 +33,14 @@ public class MainActivity extends AppCompatActivity {
     private User userData, user1;
     Intent btn;
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+     if(fbs.getCurrentUser()==null){
+         gotoLoginFragment();
+         bottomNavigationView.setVisibility(View.GONE);
+     }
+    }
 
     public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
