@@ -45,24 +45,11 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/tvdescreption"
-            android:layout_width="220dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="276dp"
-            android:text="descreption"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
             android:id="@+id/tvadress"
-            android:layout_width="215dp"
-            android:layout_height="0dp"
+            android:layout_width="211dp"
+            android:layout_height="33dp"
             android:layout_marginStart="96dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="101dp"
             android:layout_marginBottom="142dp"
             android:text="address"
@@ -73,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DetailedMan"
+            app:layout_constraintTop_toBottomOf="@+id/tvdescreption"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -119,13 +106,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="80dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="#755E83"
             android:text="Back"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvadress" />
+            app:layout_constraintTop_toBottomOf="@+id/DetailedPhone" />
+
+        <EditText
+            android:id="@+id/tvdescreption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="99dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp"
+            android:text="description"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/DetailedPhone"
+            app:layout_constraintEnd_toEndOf="@+id/DetailedMan" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
