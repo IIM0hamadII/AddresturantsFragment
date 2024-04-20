@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/img">
 
 
         <ImageView
@@ -18,27 +19,30 @@
             android:layout_marginStart="23dp"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="23dp"
-            android:layout_marginBottom="60dp"
 
+            android:layout_marginBottom="50dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/tvadress"
+            app:layout_constraintBottom_toTopOf="@+id/DetailedMan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/DetailedPhone"
-            android:layout_width="220dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="140dp"
-            android:gravity="center"
-            android:text="Phone"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/DetailedMan"
+            android:layout_width="219dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="345dp"
+            android:layout_marginBottom="100dp"
+            android:text="name"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvadress"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.507"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/tvdescreption"
@@ -47,6 +51,7 @@
             android:layout_marginBottom="276dp"
             android:text="descreption"
             android:textAlignment="center"
+            android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,41 +59,45 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/DetailedMan"
-            android:layout_width="219dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="212dp"
-            android:text="name"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
             android:id="@+id/tvadress"
             android:layout_width="215dp"
-            android:layout_height="40dp"
+            android:layout_height="0dp"
             android:layout_marginStart="96dp"
             android:layout_marginEnd="101dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="142dp"
             android:text="address"
             android:textAlignment="center"
+            android:textColor="#000000"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvdescreption"
+            app:layout_constraintBottom_toTopOf="@+id/Back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DetailedMan"
             tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/DetailedPhone"
+            android:layout_width="220dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="140dp"
+            android:gravity="center"
+            android:text="Phone"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btnWhatsApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="22dp"
-            android:backgroundTint="#6F7F8F"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#755E83"
             android:text="Whatsapp"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -97,10 +106,11 @@
             android:id="@+id/btnCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_marginBottom="23dp"
-            android:backgroundTint="#6F7F8F"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#755E83"
             android:text="Call"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -109,11 +119,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="#6F7F8F"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#755E83"
             android:text="Back"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvadress" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

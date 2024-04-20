@@ -9,19 +9,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/img">
 
         <EditText
             android:id="@+id/etNameAddRestaurantFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="77dp"
-            android:layout_marginBottom="405dp"
             android:ems="10"
             android:hint="name..."
             android:inputType="text"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/ivupload"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,26 +30,33 @@
             android:id="@+id/ivupload"
             android:layout_width="100dp"
             android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+
             android:layout_marginBottom="104dp"
             android:backgroundTint="#2FFFFFFF"
-            android:src="@drawable/ic_launcher_background"
+            android:background="@drawable/ic_3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNameAddRestaurantFragment" />
+            app:layout_constraintTop_toBottomOf="@+id/btnAddAddRestaurantFragment" />
 
         <EditText
             android:id="@+id/etDescAddRestaurantFragment"
             android:layout_width="204dp"
             android:layout_height="0dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="37dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="description..."
             android:inputType="textMultiLine"
+            android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/etAddressAddRestaurantFragment"
             app:layout_constraintStart_toStartOf="@+id/etNameAddRestaurantFragment"
-            app:layout_constraintTop_toBottomOf="@+id/etNameAddRestaurantFragment" />
+            app:layout_constraintTop_toBottomOf="@+id/etNameAddRestaurantFragment"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/etAddressAddRestaurantFragment"
@@ -60,6 +67,7 @@
             android:hint="address..."
             android:inputType="text|textPostalAddress"
             android:minHeight="48dp"
+            android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/etPhoneAddRestaurantFragment"
             app:layout_constraintStart_toStartOf="@+id/etDescAddRestaurantFragment"
             app:layout_constraintTop_toBottomOf="@+id/etDescAddRestaurantFragment" />
@@ -73,6 +81,7 @@
             android:hint="phone..."
             android:inputType="phone"
             android:minHeight="48dp"
+            android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/btnAddAddRestaurantFragment"
             app:layout_constraintStart_toStartOf="@+id/etAddressAddRestaurantFragment"
             app:layout_constraintTop_toBottomOf="@+id/etAddressAddRestaurantFragment" />
@@ -82,8 +91,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="249dp"
-            android:backgroundTint="#6F7F8F"
+            android:backgroundTint="#755E83"
             android:text="Add"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

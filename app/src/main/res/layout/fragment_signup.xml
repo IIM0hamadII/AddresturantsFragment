@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#20000000"
+    android:background="@drawable/img"
     tools:context=".SignupFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +22,7 @@
             android:hint="password...."
             android:inputType="textPassword"
             android:minHeight="48dp"
+            android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/etConfirmPasswordSignupFragment"
             app:layout_constraintEnd_toEndOf="@+id/etUsernameSignup"
             app:layout_constraintTop_toBottomOf="@+id/etUsernameSignup" />
@@ -33,8 +34,9 @@
             android:layout_marginStart="44dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="17dp"
-            android:backgroundTint="#6F7F8F"
+            android:backgroundTint="#755E83"
             android:text="SIGNUP"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivPhotoSignupFragment"
             app:layout_constraintTop_toBottomOf="@+id/ivPhotoSignupFragment"
@@ -47,8 +49,9 @@
             android:layout_marginStart="152dp"
             android:layout_marginTop="84dp"
             android:layout_marginEnd="159dp"
-            android:background="@drawable/ic_add"
-            android:src="@drawable/top_backgroun_profile"
+            android:background="@drawable/ic_3"
+
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPhoneSignupFragment" />
@@ -61,6 +64,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="35dp"
             android:text="My hotel"
+            android:textColor="#000000"
             android:textSize="40sp"
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toTopOf="@+id/etFirstnameSignupFragment"
@@ -76,6 +80,7 @@
             android:hint="firstname..."
             android:inputType="text"
             android:minHeight="48dp"
+            android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/etLastnameSignupFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +95,7 @@
             android:hint="lastname..."
             android:inputType="text"
             android:minHeight="48dp"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="@+id/etFirstnameSignupFragment"
             app:layout_constraintTop_toBottomOf="@+id/etFirstnameSignupFragment" />
 
@@ -102,6 +108,7 @@
             android:hint="confirm password..."
             android:inputType="textPassword"
             android:minHeight="48dp"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="@+id/etPasswordSignup"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/etPasswordSignup"
@@ -116,6 +123,7 @@
             android:hint="phone..."
             android:inputType="number|numberDecimal|numberSigned"
             android:minHeight="48dp"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="@+id/etConfirmPasswordSignupFragment"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/etConfirmPasswordSignupFragment"
@@ -127,8 +135,9 @@
             android:layout_height="52dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#6F7F8F"
+            android:backgroundTint="#755E83"
             android:text="back"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etLivingPlace"
@@ -143,6 +152,7 @@
             android:hint="Email..."
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
+            android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/etPasswordSignup"
             app:layout_constraintEnd_toEndOf="@+id/etLastnameSignupFragment"
             app:layout_constraintStart_toStartOf="@+id/etLastnameSignupFragment"
