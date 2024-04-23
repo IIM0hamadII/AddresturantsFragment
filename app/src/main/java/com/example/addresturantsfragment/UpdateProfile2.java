@@ -134,7 +134,7 @@ public class UpdateProfile2 extends Fragment {
                             fbs.updateUser(user);
                             utils.showMessageDialog(getActivity(), "Data updated succesfully!");
                             fbs.reloadInstance();
-
+                            fbs = FirebaseServices.reloadInstance();
                         }
 
                         else
@@ -142,7 +142,7 @@ public class UpdateProfile2 extends Fragment {
                         fbs.updateUser(user);
                         utils.showMessageDialog(getActivity(), "Data updated succesfully ");
                         fbs.reloadInstance();
-
+                        fbs = FirebaseServices.reloadInstance();
 
                     }
                     else

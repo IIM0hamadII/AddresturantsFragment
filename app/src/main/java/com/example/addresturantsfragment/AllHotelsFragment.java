@@ -254,5 +254,6 @@ public class AllHotelsFragment extends Fragment {
         if (u != null && fbs.isUserChangeFlag())
             fbs.updateUser(u); // updating favorites
 
+
     }
 }

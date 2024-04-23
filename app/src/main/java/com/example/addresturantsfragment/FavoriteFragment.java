@@ -239,9 +239,8 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-
-        User u = ((MainActivity)getActivity()).getUserDataObject();
-        if (u != null)
+        User u = fbs.getCurrentUser();
+        if (u != null && fbs.isUserChangeFlag())
             fbs.updateUser(u); // updating favorites
 
 

@@ -108,6 +108,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
             u.getFavorites().add(hotel.getName());
             holder.ivFavourite.setImageResource(android.R.color.transparent);
             Picasso.get().load(R.drawable.favcheck).into(holder.ivFavourite);
+
         }
     }
 
