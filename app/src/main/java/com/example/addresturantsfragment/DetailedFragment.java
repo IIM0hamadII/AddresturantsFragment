@@ -92,7 +92,6 @@ public class DetailedFragment extends Fragment {
         super.onStart();
 
         fbs = FirebaseServices.getInstance();
-        ivHotel = getView().findViewById(R.id.DetailedCar);
         tvName = getView().findViewById(R.id.DetailedMan);
         tvdescreption = getView().findViewById(R.id.tvdescreption);
         tvadress = getView().findViewById(R.id.tvadress);

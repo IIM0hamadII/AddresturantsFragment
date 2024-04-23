@@ -109,8 +109,9 @@ public class SignupFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setNavigationBarGone();
+
                 gotoLoginFragment();
+                setNavigationBarGone();
             }
         });
 

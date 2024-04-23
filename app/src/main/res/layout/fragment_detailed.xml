@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/DetailedCar"
-            android:layout_width="307dp"
-            android:layout_height="0dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_marginStart="23dp"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="23dp"
@@ -30,18 +30,15 @@
 
         <TextView
             android:id="@+id/DetailedMan"
-            android:layout_width="219dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="345dp"
-            android:layout_marginBottom="100dp"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
             android:text="name"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvadress"
+            app:layout_constraintBottom_toTopOf="@+id/tvdescreption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -49,14 +46,12 @@
             android:layout_width="211dp"
             android:layout_height="33dp"
             android:layout_marginStart="96dp"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="101dp"
-            android:layout_marginBottom="142dp"
             android:text="address"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/Back"
+            app:layout_constraintBottom_toTopOf="@+id/DetailedPhone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,9 +112,8 @@
 
         <EditText
             android:id="@+id/tvdescreption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_width="220dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="99dp"
             android:ems="10"
             android:gravity="start|top"
@@ -128,7 +122,8 @@
             android:text="description"
             android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/DetailedPhone"
-            app:layout_constraintEnd_toEndOf="@+id/DetailedMan" />
+            app:layout_constraintEnd_toEndOf="@+id/DetailedMan"
+            app:layout_constraintStart_toStartOf="@+id/DetailedMan" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
