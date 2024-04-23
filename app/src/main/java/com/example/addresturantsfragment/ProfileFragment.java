@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment {
     }
     private ImageView Profile;
     private TextView tvName,tvEmail;
-    private AppCompatButton btnFav,btnCall,btnSet,btnBack;
+    private AppCompatButton btnFav,btnCall,btnSet;
     private  FirebaseServices fbs;
     private String imageStr;
     private static final int REQUEST_CALL_PERMISSION = 2;
@@ -92,7 +92,16 @@ public class ProfileFragment extends Fragment {
         btnFav=getView().findViewById(R.id.btnfav1);
         btnCall=getView().findViewById(R.id.BtnCall);
         btnSet=getView().findViewById(R.id.btsSet);
-        btnBack=getView().findViewById(R.id.Mainp);
+
+
+        btnFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoFavorite();
+            }
+        });
+
+
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,13 +114,7 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               gotoHotelList();
 
-            }
-        });
 
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,10 +134,10 @@ public class ProfileFragment extends Fragment {
         ft.commit();
         setNavigationBarVisible();
     }
-    public void gotoHotelList()
+    public void gotoFavorite()
     {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AllHotelsFragment());
+        ft.replace(R.id.frameLayout,new FavoriteFragment());
         ft.commit();
         setNavigationBarVisible();
     }

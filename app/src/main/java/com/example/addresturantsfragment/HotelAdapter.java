@@ -51,6 +51,14 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull HotelAdapter.MyViewHolder holder, int position) {
         Hotel rest = restList.get(position);
+        User u = fbs.getCurrentUser();
+        if (u != null)
+        {
+            if (u.getFavorites().contains(rest.getName()))
+                Picasso.get().load(R.drawable.favcheck).into(holder.ivFavourite);
+            else
+                Picasso.get().load(R.drawable.ic_fav).into(holder.ivFavourite);
+        }
         holder.tvName.setText(rest.getName());
         holder.tvPhone.setText(rest.getPhone());
         //holder.photo.setImageURI(rest.getPhoto());
@@ -66,7 +74,53 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
         else {
             Picasso.get().load(rest.getPhoto()).into(holder.ivPhoto);
         }
+        holder.ivFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFavorite(rest) == true)
+                {
+                    removeStar(rest, holder);
+                }
+                else
+                {
+                    addStar(rest, holder);
+                }
+                fbs.setUserChangeFlag(true);
+                //setFavourite(holder, car);
+            }
+        });
     }
+
+    private void removeStar(Hotel hotel, HotelAdapter.MyViewHolder holder) {
+        User u = fbs.getCurrentUser();
+        if (u != null) {
+            if (u.getFavorites().contains(hotel.getName())) {
+                u.getFavorites().remove(hotel.getName());
+                holder.ivFavourite.setImageResource(android.R.color.transparent);
+                Picasso.get().load(R.drawable.ic_fav).into(holder.ivFavourite);
+            }
+        }
+    }
+
+    private void addStar(Hotel hotel, HotelAdapter.MyViewHolder holder) {
+        User u = fbs.getCurrentUser();
+        if (u != null) {
+            u.getFavorites().add(hotel.getName());
+            holder.ivFavourite.setImageResource(android.R.color.transparent);
+            Picasso.get().load(R.drawable.favcheck).into(holder.ivFavourite);
+        }
+    }
+
+    private boolean isFavorite(Hotel hotel) {
+        User u = fbs.getCurrentUser();
+        if (u != null)
+        {
+            if (u.getFavorites().contains(hotel.getName()))
+                return true;
+        }
+        return false;
+    }
+
 
     @Override
     public int getItemCount(){
@@ -75,12 +129,14 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvName, tvPhone;
-        ImageView ivPhoto;
+        ImageView ivPhoto,ivFavourite;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName=itemView.findViewById(R.id.tvNameRestItem);
             tvPhone=itemView.findViewById(R.id.tvPhoneRestItem);
             ivPhoto=itemView.findViewById(R.id.ivPhoto);
+            ivFavourite = itemView.findViewById(R.id.ivFavoriteIcon);
+
         }
     }
     public interface OnItemClickListener {

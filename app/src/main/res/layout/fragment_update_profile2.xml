@@ -70,8 +70,9 @@
             android:id="@+id/ivUserUserDetailsEdit"
             android:layout_width="90dp"
             android:layout_height="90dp"
+
             android:background="@drawable/ic_3"
-           />
+            tools:srcCompat="@drawable/ic_3" />
 
         <!-- android:srcCompat="@android:mipmap/sym_def_app_icon"/> -->
 

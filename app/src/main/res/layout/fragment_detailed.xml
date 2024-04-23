@@ -23,10 +23,12 @@
             android:layout_marginBottom="50dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/DetailedMan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_3" />
 
         <TextView
             android:id="@+id/DetailedMan"
