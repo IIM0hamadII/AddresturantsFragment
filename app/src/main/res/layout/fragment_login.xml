@@ -64,6 +64,7 @@
             android:layout_marginTop="40dp"
             android:text="        Signup"
             android:textColor="#FFFFFF"
+            android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="@+id/tvForgotPasswordLinkLogin"
             app:layout_constraintTop_toBottomOf="@+id/tvForgotPasswordLinkLogin" />
 
@@ -73,7 +74,9 @@
             android:layout_height="19dp"
             android:layout_marginBottom="149dp"
             android:text="ForgotPassword"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
+            android:textStyle="bold|italic"
             app:layout_constraintBottom_toTopOf="@+id/tvSignupLinkLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

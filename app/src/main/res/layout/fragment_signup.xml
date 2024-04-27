@@ -55,21 +55,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPhoneSignupFragment" />
 
-        <TextView
-            android:id="@+id/H1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="35dp"
-            android:text="My hotel"
-            android:textColor="#000000"
-            android:textSize="40sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/etFirstnameSignupFragment"
-            app:layout_constraintEnd_toEndOf="@+id/etFirstnameSignupFragment"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <EditText
             android:id="@+id/etFirstnameSignupFragment"
             android:layout_width="wrap_content"
@@ -83,8 +68,7 @@
             android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/etLastnameSignupFragment"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/H1" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/etLastnameSignupFragment"
@@ -161,5 +145,18 @@
             app:layout_constraintEnd_toEndOf="@+id/etLastnameSignupFragment"
             app:layout_constraintStart_toStartOf="@+id/etLastnameSignupFragment"
             app:layout_constraintTop_toBottomOf="@+id/etLastnameSignupFragment" />
+
+        <EditText
+            android:id="@+id/etAdddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="address..."
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#FFFFFF"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="101dp"
+            tools:layout_editor_absoluteY="469dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

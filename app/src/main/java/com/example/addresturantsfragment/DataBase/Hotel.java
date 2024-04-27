@@ -22,6 +22,15 @@ public class Hotel {
 
    }
 
+   public double getLat()
+   {
+      return  Double.parseDouble(address.split(",")[0]);
+   }
+
+   public double getLng()
+   {
+      return  Double.parseDouble(address.split(",")[1]);
+   }
    public String getPhoto() {
       return photo;
    }

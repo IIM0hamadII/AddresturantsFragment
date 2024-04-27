@@ -13,12 +13,13 @@ public class User {
     private String photo;
     private  String password;
     private String email;
+    private String address;
     private ArrayList<String> favorites;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String phone, String photo, String password,String email) {
+    public User(String firstName, String lastName, String phone, String photo, String password,String email,String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -26,11 +27,30 @@ public class User {
         this.favorites = new ArrayList<>();
         this.password= password;
         this.email= email;
+        this.address=address;
     }
 
     public User(Parcel in) {
     }
 
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public double getLat()
+    {
+        return  Double.parseDouble(address.split(",")[0]);
+    }
+
+    public double getLng()
+    {
+        return  Double.parseDouble(address.split(",")[1]);
+    }
     public String getEmail() {
         return email;
     }
@@ -64,7 +84,6 @@ public class User {
     }
 
 
-
     public String getPhone() {
         return phone;
     }
@@ -72,8 +91,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-
 
     public String getPhoto() {
         return photo;
@@ -97,10 +114,10 @@ public class User {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
-
                 ", photo='" + photo + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
                 ", favorites=" + favorites +
                 '}';
     }
