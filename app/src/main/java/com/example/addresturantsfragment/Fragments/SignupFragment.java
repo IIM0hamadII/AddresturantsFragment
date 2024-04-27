@@ -1,4 +1,4 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.Fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +18,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.addresturantsfragment.Activities.MainActivity;
+import com.example.addresturantsfragment.DataBase.FirebaseServices;
+import com.example.addresturantsfragment.DataBase.User;
+import com.example.addresturantsfragment.R;
+import com.example.addresturantsfragment.Utilites.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

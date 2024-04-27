@@ -1,4 +1,4 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.Fragments;
 
 import android.os.Bundle;
 
@@ -14,16 +14,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.addresturantsfragment.DataBase.FirebaseServices;
+import com.example.addresturantsfragment.DataBase.Hotel;
+import com.example.addresturantsfragment.R;
+import com.example.addresturantsfragment.Utilites.HotelAdapter;
+import com.example.addresturantsfragment.DataBase.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -31,23 +31,16 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AllHotelsFragment#newInstance} factory method to
+ * Use the {@link FavoriteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllHotelsFragment extends Fragment {
-    private ArrayList<Hotel> hotels, filteredList;
+public class FavoriteFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private FirebaseServices fbs;
-    private ArrayList<Hotel> rests;
-    private RecyclerView rvRests;
-
-    private HotelAdapter adapter;
-    private FloatingActionButton btn;
-    private SearchView srchView;
-
     private HotelAdapter myAdapter;
-    private ImageView ivProfile,favimj;
-
+    private SearchView srchView;
+    private ArrayList<Hotel> hotels, filteredList;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,7 +50,7 @@ public class AllHotelsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AllHotelsFragment() {
+    public FavoriteFragment() {
         // Required empty public constructor
     }
 
@@ -67,11 +60,11 @@ public class AllHotelsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AllRestaurantsFragment.
+     * @return A new instance of fragment CarrListMapFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AllHotelsFragment newInstance(String param1, String param2) {
-        AllHotelsFragment fragment = new AllHotelsFragment();
+    public static FavoriteFragment newInstance(String param1, String param2) {
+        FavoriteFragment fragment = new FavoriteFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -88,33 +81,19 @@ public class AllHotelsFragment extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_hotels, container, false);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
+        init();
+    }
 
-        recyclerView =getView().findViewById(R.id.rvRestaurantsRestFragment);
+    private void init() {
+        recyclerView = getView().findViewById(R.id.rvHotelList);
+        fbs = FirebaseServices.getInstance();
+        hotels = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        hotels = new ArrayList<>();
-        hotels = getHotels();
-        filteredList = new ArrayList<>();
+        hotels = gethotels();
         myAdapter = new HotelAdapter(getActivity(), hotels);
-        recyclerView.setAdapter(myAdapter);
-        fbs = FirebaseServices.getInstance();
-        rests = new ArrayList<>();
-        rvRests = getView().findViewById(R.id.rvRestaurantsRestFragment);
-        rvRests.setHasFixedSize(true);
-        rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ivProfile=getView().findViewById(R.id.ivPhoto);
-        favimj = getView().findViewById(R.id.ivFavoriteIcon);
-
 
         myAdapter.setOnItemClickListener(new HotelAdapter.OnItemClickListener() {
             @Override
@@ -131,28 +110,26 @@ public class AllHotelsFragment extends Fragment {
                 ft.commit();
             }
         });
-
-        fbs.getFire().collection("hotels").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+/*
+        fbs.getFire().collection("cars").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
                 for (DocumentSnapshot dataSnapshot: queryDocumentSnapshots.getDocuments()){
-                    Hotel rest = dataSnapshot.toObject(Hotel.class);
-
-                    rests.add(rest);
+                    Car car= dataSnapshot.toObject(Car.class);
+                    list.add(car);
                 }
 
-                adapter = new HotelAdapter(getContext(), rests);
-                rvRests.setAdapter(adapter);
+
+                myAdapter.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), "No data available", Toast.LENGTH_SHORT).show();
-                Log.e("AllHotelsFragment", e.getMessage());
 
             }
-        });
+        }); */
+
+        //((MainActivity)getActivity()).pushFragment(new CarsListFragment());
     }
 
     private void applyFilter(String query) {
@@ -167,18 +144,16 @@ public class AllHotelsFragment extends Fragment {
         filteredList.clear();
         for(Hotel hotel : filteredList)
         {
-            if (hotel.getPhone().toLowerCase().contains(query.toLowerCase()) ||
+            if (hotel.getName().toLowerCase().contains(query.toLowerCase()) ||
                     hotel.getAddress().toLowerCase().contains(query.toLowerCase()) ||
+                    hotel.getPhoto().toLowerCase().contains(query.toLowerCase()) ||
                     hotel.getDescription().toLowerCase().contains(query.toLowerCase()) ||
-                    hotel.getName().toLowerCase().contains(query.toLowerCase()) ||
-                    hotel.getPhoto().toLowerCase().contains(query.toLowerCase()))
+                    hotel.getPhone().toLowerCase().contains(query.toLowerCase())  )
 
-
-                {
-                        filteredList.add(hotel);
+            {
+                filteredList.add(hotel);
             }
-
-
+        }
         if (filteredList.size() == 0)
         {
             showNoDataDialogue();
@@ -187,40 +162,53 @@ public class AllHotelsFragment extends Fragment {
         myAdapter = new HotelAdapter(getContext(), filteredList);
         recyclerView.setAdapter(myAdapter);
 
-            myAdapter.setOnItemClickListener(new HotelAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                /*
-                String selectedItem = list.get(position).getName();
+       /*
+        myAdapter= new CarListAdapter2(getActivity(),filteredList);
+        recyclerView.setAdapter(myAdapter); */
+
+        myAdapter.setOnItemClickListener(new HotelAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Handle item click here
+                String selectedItem = filteredList.get(position).getName();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
-                args.putParcelable("Hotel", (Parcelable) list.get(position));
+                args.putParcelable("hotels", (Parcelable) filteredList.get(position)); // or use Parcelable for better performance
                 DetailedFragment cd = new DetailedFragment();
                 cd.setArguments(args);
                 FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.frameLayout,cd);
-                ft.commit(); */
-
-                }
-            });
-
+                ft.commit();
+            }
+        });
     }
 
-
-
-    }
     private void showNoDataDialogue() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("No Results");
         builder.setMessage("Try again!");
         builder.show();
     }
-    public ArrayList<Hotel> getHotels()
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_favorite, container, false);
+    }
+
+    public void gotoAddCarFragment() {
+        FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AddHotelFragment());
+        ft.commit();
+    }
+
+    public ArrayList<Hotel> gethotels()
     {
-        ArrayList<Hotel> list = new ArrayList<>();
+        ArrayList<Hotel> hotel = new ArrayList<>();
 
         try {
-            list.clear();
+            hotel.clear();
             fbs.getFire().collection("hotels")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -228,14 +216,19 @@ public class AllHotelsFragment extends Fragment {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    list.add(document.toObject(Hotel.class));
+                                    User u = fbs.getCurrentUser();
+                                    if (u != null) {
+                                        Hotel hotels = document.toObject(Hotel.class);
+                                        if (u.getFavorites().contains(hotels.getName()))
+                                            hotel.add(document.toObject(Hotel.class));
+                                    }
                                 }
 
-                                HotelAdapter adapter = new HotelAdapter(getActivity(), list);
+                                HotelAdapter adapter = new HotelAdapter(getActivity(), hotel);
                                 recyclerView.setAdapter(adapter);
                                 //addUserToCompany(companies, user);
                             } else {
-                                //Log.e("AllRestActivity: readData()", "Error getting documents.", task.getException());
+                                Log.e("AllRestActivity: readData()", "Error getting documents.", task.getException());
                             }
                         }
                     });
@@ -245,8 +238,9 @@ public class AllHotelsFragment extends Fragment {
             Log.e("getCompaniesMap(): ", e.getMessage());
         }
 
-        return list;
+        return hotel;
     }
+
     @Override
     public void onPause() {
         super.onPause();

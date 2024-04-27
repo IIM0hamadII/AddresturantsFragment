@@ -5,12 +5,13 @@
     android:id="@+id/fl1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddHotelFragment">
+    tools:context=".Fragments.AddHotelFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img">
+        android:background="@drawable/pic2"
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/etNameAddRestaurantFragment"
@@ -21,7 +22,8 @@
             android:hint="name..."
             android:inputType="text"
             android:minHeight="48dp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +55,8 @@
             android:gravity="start|top"
             android:hint="description..."
             android:inputType="textMultiLine"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/etAddressAddRestaurantFragment"
             app:layout_constraintStart_toStartOf="@+id/etNameAddRestaurantFragment"
             app:layout_constraintTop_toBottomOf="@+id/etNameAddRestaurantFragment"
@@ -68,7 +71,8 @@
             android:hint="address..."
             android:inputType="text|textPostalAddress"
             android:minHeight="48dp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/etPhoneAddRestaurantFragment"
             app:layout_constraintStart_toStartOf="@+id/etDescAddRestaurantFragment"
             app:layout_constraintTop_toBottomOf="@+id/etDescAddRestaurantFragment" />
@@ -82,7 +86,8 @@
             android:hint="phone..."
             android:inputType="phone"
             android:minHeight="48dp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/btnAddAddRestaurantFragment"
             app:layout_constraintStart_toStartOf="@+id/etAddressAddRestaurantFragment"
             app:layout_constraintTop_toBottomOf="@+id/etAddressAddRestaurantFragment" />
@@ -92,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="249dp"
-            android:backgroundTint="#755E83"
+            android:backgroundTint="#9F9BA1"
             android:text="Add"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"

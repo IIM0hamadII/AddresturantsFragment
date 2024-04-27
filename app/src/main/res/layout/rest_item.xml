@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    >
+    android:background="#45455E">
 
     <ImageView
         android:id="@+id/ivPhoto"
@@ -18,14 +18,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="#000000" />
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/tvPhoneRestItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="#000000" />
+        android:textColor="#FFFFFF" />
 
     <ImageView
         android:id="@+id/ivFavoriteIcon"
@@ -34,8 +34,10 @@
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="16dp"
         android:background="@drawable/ic_fav"
+        android:backgroundTint="#000000"
         android:clickable="true"
         android:contentDescription="TODO"
+        android:foregroundTint="#000000"
         tools:ignore="TouchTargetSizeCheck" />
 
 </LinearLayout>

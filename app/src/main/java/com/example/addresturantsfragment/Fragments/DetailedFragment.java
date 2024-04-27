@@ -1,4 +1,4 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.Fragments;
 
 import android.Manifest;
 import android.content.Intent;
@@ -21,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.addresturantsfragment.DataBase.FirebaseServices;
+import com.example.addresturantsfragment.DataBase.Hotel;
+import com.example.addresturantsfragment.R;
 import com.squareup.picasso.Picasso;
 
 /**

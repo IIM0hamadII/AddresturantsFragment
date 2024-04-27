@@ -1,8 +1,6 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.Utilites;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.addresturantsfragment.DataBase.User;
+import com.example.addresturantsfragment.Fragments.DetailedFragment;
+import com.example.addresturantsfragment.DataBase.FirebaseServices;
+import com.example.addresturantsfragment.DataBase.Hotel;
+import com.example.addresturantsfragment.Activities.MainActivity;
+import com.example.addresturantsfragment.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

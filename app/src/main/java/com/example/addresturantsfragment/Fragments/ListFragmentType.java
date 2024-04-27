@@ -1,4 +1,4 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.Fragments;
 
 public enum ListFragmentType {
     Regular, Search, Favourite

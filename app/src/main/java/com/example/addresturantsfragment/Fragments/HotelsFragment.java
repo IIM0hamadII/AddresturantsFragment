@@ -1,4 +1,4 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.Fragments;
 
 import android.os.Bundle;
 
@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.addresturantsfragment.R;
 
 /**
  * A simple {@link Fragment} subclass.

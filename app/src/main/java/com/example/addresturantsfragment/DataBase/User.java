@@ -1,4 +1,4 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.DataBase;
 
 import android.os.Parcel;
 

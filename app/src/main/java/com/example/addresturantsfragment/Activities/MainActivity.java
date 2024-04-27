@@ -1,4 +1,4 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.addresturantsfragment.Fragments.AddHotelFragment;
+import com.example.addresturantsfragment.Fragments.AllHotelsFragment;
+import com.example.addresturantsfragment.DataBase.FirebaseServices;
+import com.example.addresturantsfragment.Fragments.ListFragmentType;
+import com.example.addresturantsfragment.Fragments.LoginFragment;
+import com.example.addresturantsfragment.Fragments.ProfileFragment;
+import com.example.addresturantsfragment.R;
+import com.example.addresturantsfragment.DataBase.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

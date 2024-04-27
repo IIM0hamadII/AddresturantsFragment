@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailedFragment">
+    tools:context=".Fragments.DetailedFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img">
+        android:background="@drawable/pic2">
 
 
         <ImageView
@@ -36,7 +36,7 @@
             android:layout_height="40dp"
             android:text="name"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tvdescreption"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
             android:layout_marginEnd="101dp"
             android:text="address"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/DetailedPhone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
             android:layout_marginBottom="140dp"
             android:gravity="center"
             android:text="Phone"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#755E83"
+            android:backgroundTint="#9F9BA1"
             android:text="Whatsapp"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#755E83"
+            android:backgroundTint="#9F9BA1"
             android:text="Call"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -105,7 +105,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#755E83"
+            android:backgroundTint="#9F9BA1"
             android:text="Back"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -116,15 +116,16 @@
             android:id="@+id/tvdescreption"
             android:layout_width="220dp"
             android:layout_height="48dp"
-            android:layout_marginBottom="99dp"
+            android:layout_marginBottom="84dp"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:minHeight="48dp"
             android:text="description"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/DetailedPhone"
             app:layout_constraintEnd_toEndOf="@+id/DetailedMan"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/DetailedMan" />
 
 

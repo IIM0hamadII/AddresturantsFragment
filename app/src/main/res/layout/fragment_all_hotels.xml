@@ -5,8 +5,9 @@
     android:id="@+id/rvRestaurant"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
-    tools:context=".AllHotelsFragment">
+    android:background="@drawable/pic2"
+    android:visibility="visible"
+    tools:context=".Fragments.AllHotelsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRestaurantsRestFragment"

@@ -1,4 +1,4 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.Fragments;
 
 import android.Manifest;
 import android.content.Intent;
@@ -18,6 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.addresturantsfragment.Activities.MainActivity;
+import com.example.addresturantsfragment.DataBase.FirebaseServices;
+import com.example.addresturantsfragment.DataBase.User;
+import com.example.addresturantsfragment.R;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -76,7 +80,7 @@ public class ProfileFragment extends Fragment {
     private ImageView Profile;
     private TextView tvName,tvEmail;
     private AppCompatButton btnFav,btnCall,btnSet;
-    private  FirebaseServices fbs;
+    private FirebaseServices fbs;
     private String imageStr;
     private static final int REQUEST_CALL_PERMISSION = 2;
     private boolean flagAlreadyFilled = false;

@@ -1,9 +1,10 @@
-package com.example.addresturantsfragment;
+package com.example.addresturantsfragment.DataBase;
 
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import com.example.addresturantsfragment.Utilites.UserCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -141,11 +142,12 @@ public class FirebaseServices {
         String emailvalue = user.getEmail();
         String password = "password";
         String passwordvalue = user.getPassword();
-
         String phoneFieldName = "phone";
         String phoneValue = user.getPhone();
         String photoFieldName = "photo";
         String photoValue = user.getPhoto();
+        String favoritesFieldName = "favorites";
+        ArrayList<String> favoritesValue = user.getFavorites();
 
 
         // Create a query for documents based on a specific field
@@ -166,7 +168,8 @@ public class FirebaseServices {
                                         phoneFieldName, phoneValue,
                                         photoFieldName, photoValue,
                                         email, emailvalue,
-                                        password,passwordvalue
+                                        password,passwordvalue,
+                                        favoritesFieldName, favoritesValue
 
                                 )
                                 .addOnSuccessListener(aVoid -> {

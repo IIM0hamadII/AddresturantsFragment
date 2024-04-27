@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
-    tools:context=".LoginFragment">
+    android:background="@drawable/pic2"
+    tools:context=".Fragments.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,7 +22,8 @@
             android:hint="Email...."
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/etPasswordLogin"
             app:layout_constraintEnd_toEndOf="@+id/etPasswordLogin"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +37,8 @@
             android:hint="Password..."
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/etButtomLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="44dp"
-            android:backgroundTint="#755E83"
+            android:backgroundTint="#9F9BA1"
             android:text="Login"
             android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/tvForgotPasswordLinkLogin"
@@ -61,7 +63,7 @@
             android:layout_height="25dp"
             android:layout_marginTop="40dp"
             android:text="        Signup"
-            android:textColor="#050505"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="@+id/tvForgotPasswordLinkLogin"
             app:layout_constraintTop_toBottomOf="@+id/tvForgotPasswordLinkLogin" />
 
@@ -71,7 +73,7 @@
             android:layout_height="19dp"
             android:layout_marginBottom="149dp"
             android:text="ForgotPassword"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/tvSignupLinkLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

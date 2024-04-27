@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/img"
     android:backgroundTint="#3EFFFFFF"
-    tools:context=".UpdateProfile2">
+    tools:context=".Fragments.UpdateProfile2">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img"
+        android:background="@drawable/pic2"
         android:orientation="vertical">
 
         <EditText
@@ -22,7 +22,8 @@
             android:hint="first name..."
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:textColor="#000000" />
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
         <EditText
             android:id="@+id/etLastnameUserDetailsEdit"
@@ -32,7 +33,8 @@
             android:hint="last name..."
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:textColor="#000000" />
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
         <EditText
             android:id="@+id/etEmail"
@@ -42,7 +44,8 @@
             android:hint="email.."
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:textColor="#000000" />
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
         <EditText
             android:id="@+id/etPassword"
@@ -51,7 +54,8 @@
             android:ems="10"
             android:hint="password..."
             android:inputType="textPassword"
-            android:textColor="#000000" />
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
         <!-- Add the Phone EditText -->
 
@@ -64,15 +68,15 @@
             android:inputType="phone"
             android:minHeight="48dp"
             android:textAlignment="viewStart"
-            android:textColor="#000000" />
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
         <ImageView
             android:id="@+id/ivUserUserDetailsEdit"
             android:layout_width="90dp"
             android:layout_height="90dp"
 
-            android:background="@drawable/ic_3"
-            tools:srcCompat="@drawable/ic_3" />
+            android:background="@drawable/ic_3" />
 
         <!-- android:srcCompat="@android:mipmap/sym_def_app_icon"/> -->
 
@@ -80,7 +84,7 @@
             android:id="@+id/btnUpdateUserDetailsEdit"
             android:layout_width="207dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#755E83"
+            android:backgroundTint="#9F9BA1"
             android:text="UPDATE"
             android:textColor="#000000" />
     </LinearLayout>
