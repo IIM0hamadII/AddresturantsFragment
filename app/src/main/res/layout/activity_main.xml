@@ -10,7 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:visibility="visible">
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -19,6 +19,12 @@
         android:layout_above="@+id/bottomNavigationView"
         android:background="@drawable/pic2">
 
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="124dp"
+            android:layout_height="65dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/images" />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

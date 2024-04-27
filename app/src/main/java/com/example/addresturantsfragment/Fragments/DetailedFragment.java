@@ -38,7 +38,7 @@ public class DetailedFragment extends Fragment {
     FirebaseServices fbs;
     private TextView tvName, tvPhone, tvdescreption, tvadress;
     private ImageView ivHotel;
-    private Button Backbtn, btnWhatsapp, btnCall;
+    private Button btnWhatsapp, btnCall;
     private Hotel myHotel;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -118,14 +118,7 @@ public class DetailedFragment extends Fragment {
             }
         }
 
-       Backbtn=getView().findViewById(R.id.Back);
-        Backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gotoHotelList();
 
-            }
-        });
 
         btnWhatsapp = getView().findViewById(R.id.btnWhatsApp);
         btnWhatsapp.setOnClickListener(new View.OnClickListener() {

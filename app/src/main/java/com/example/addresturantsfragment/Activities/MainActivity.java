@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.addresturantsfragment.Fragments.AddHotelFragment;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Stack<Fragment> fragmentStack = new Stack<>();
     private FrameLayout fragmentContainer;
     private User userData, user1;
+    private ImageView imj;
     Intent btn;
 
     @Override
@@ -64,13 +66,11 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
 
 
-
+          imj=findViewById(R.id.imageView4);
         fbs = FirebaseServices.getInstance();
-
-        //fbs.getAuth().signOut();
+        imj.setVisibility(View.VISIBLE);      //fbs.getAuth().signOut();
         listType = ListFragmentType.Regular;
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
