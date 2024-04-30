@@ -46,7 +46,7 @@ public class UpdateProfile2 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    EditText etFirstName, etLastName, etPhone,etPassword,etEmail,etAddress;
+    EditText etFirstName, etLastName, etPhone,etPassword,etEmail;
     private static final int GALLERY_REQUEST_CODE = 134;
     private Button btnUpdate;
     private ImageView ivUser,ivUser2;
@@ -105,7 +105,7 @@ public class UpdateProfile2 extends Fragment {
         etEmail=getView().findViewById(R.id.etEmail);
         ivUser2=getView().findViewById(R.id.ivUserUserDetailsEdit);
         btnUpdate = getView().findViewById(R.id.btnUpdateUserDetailsEdit);
-        etAddress=getView().findViewById(R.id.etAdress5);
+
         utils = Utils.getInstance();
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -117,9 +117,9 @@ public class UpdateProfile2 extends Fragment {
                 String phone = etPhone.getText().toString();
                 String password= etPassword.getText().toString();
                 String email= etEmail.getText().toString();
-                String address= etAddress.getText().toString();
+
                 if (firstname.trim().isEmpty() || lastname.trim().isEmpty() ||email.trim().isEmpty()|| password.trim().isEmpty()||
-                        phone.trim().isEmpty()|| address.trim().isEmpty()) {
+                        phone.trim().isEmpty()) {
                     Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -131,12 +131,12 @@ public class UpdateProfile2 extends Fragment {
                             !current.getLastName().equals(lastname)    ||
                             !current.getPhone().equals(phone)          ||
                             !current.getPhoto().equals(fbs.getSelectedImageURL().toString())
-                            || !current.getPassword().equals(password) || !current.getEmail().equals(email)|| !current.getAddress().equals(address))
+                            || !current.getPassword().equals(password) || !current.getEmail().equals(email))
 
                     {
                         User user;
                         if (fbs.getSelectedImageURL() != null){
-                            user = new User(firstname, lastname, phone,  fbs.getSelectedImageURL().toString(),password,email,address);
+                            user = new User(firstname, lastname, phone,  fbs.getSelectedImageURL().toString(),password,email);
 
                             fbs.updateUser(user);
                             utils.showMessageDialog(getActivity(), "Data updated succesfully!");
@@ -145,7 +145,7 @@ public class UpdateProfile2 extends Fragment {
                         }
 
                         else
-                            user = new User(firstname, lastname,  phone, "", password,email,address);
+                            user = new User(firstname, lastname,  phone, "", password,email);
                         fbs.updateUser(user);
                         utils.showMessageDialog(getActivity(), "Data updated succesfully ");
                         fbs.reloadInstance();

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +27,6 @@ import android.widget.Toast;
 import com.example.addresturantsfragment.Activities.MainActivity;
 import com.example.addresturantsfragment.DataBase.FirebaseServices;
 import com.example.addresturantsfragment.DataBase.Hotel;
-import com.example.addresturantsfragment.DataBase.MyLocationListener;
 import com.example.addresturantsfragment.R;
 import com.google.android.gms.maps.MapView;
 import com.squareup.picasso.Picasso;
@@ -133,43 +130,11 @@ public class DetailedFragment extends Fragment {
             }
         }
 
-        map.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                try {
-                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
-                            PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-
-                        return false;
-                    }
-                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    double longitude = location.getLongitude();
-                    double latitude = location.getLatitude();
-                    //location.
-                    tvadress.setText(String.valueOf(longitude) + "," + String.valueOf(latitude));
-                    //gotoMapAddressFragment();
-                }
-                catch (Exception ex)
-                {
-                    Log.e("Err", ex.getMessage());
-                }
-                return false;
-            }
-        });
-        btnWhatsapp = getView().findViewById(R.id.btnWhatsApp);
-        btnWhatsapp.setOnClickListener(new View.OnClickListener() {
+        map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendWhatsAppMessage(v);
-
+                Intent intent=new Intent(getActivity(),com.example.addresturantsfragment.Activities.map.class);
+                startActivity(intent);
             }
         });
 
@@ -187,7 +152,7 @@ public class DetailedFragment extends Fragment {
                 }
             }
         });
-        requestLocationPermission();
+
     }
     private boolean checkAddressFormat(String address) {
         try {
@@ -335,27 +300,6 @@ public class DetailedFragment extends Fragment {
         ft.commit();
 
     }
-    private void requestLocationPermission() {
-        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            startLocationUpdates();
-        } else {
-            EasyPermissions.requestPermissions(
-                    this,
-                    "Location permission is required for this app",
-                    LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            );
-        }
-    }
 
-    private void startLocationUpdates() {
-        locationManager = (LocationManager) ((MainActivity)getActivity()).getSystemService(Context.LOCATION_SERVICE);
 
-        if (locationManager != null) {
-           MyLocationListener locationListener = new MyLocationListener(getActivity());
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            }
-        }
-    }
 }

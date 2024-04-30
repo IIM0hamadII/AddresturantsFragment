@@ -40,7 +40,7 @@ public class SignupFragment extends Fragment {
 
     private static final int GALLERY_REQUEST_CODE = 123;
     private EditText etUsername,etPassword, etConfirmPassword,
-            etFirstname, etLastname, etPhone, etAddress;
+            etFirstname, etLastname, etPhone;
     ImageView ivUserPhoto;
     private Button btnSignup,btnBack;
     private BottomNavigationView bottomNavigationView;
@@ -110,7 +110,7 @@ public class SignupFragment extends Fragment {
         btnSignup=getView().findViewById(R.id.btnSignupSignup);
         ivUserPhoto = getView().findViewById(R.id.ivPhotoSignupFragment);
         msg = Utils.getInstance();
-        etAddress=getView().findViewById(R.id.etAdddress);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,10 +136,10 @@ public class SignupFragment extends Fragment {
                 String firstname = etFirstname.getText().toString();
                 String lastname = etLastname.getText().toString();
                 String phone = etPhone.getText().toString();
-                String address = etAddress.getText().toString();
+
 
                 if (email.trim().isEmpty() || password.trim().isEmpty() || firstname.trim().isEmpty() ||
-                        lastname.trim().isEmpty() || confirmPassword.trim().isEmpty() || phone.trim().isEmpty()|| address.trim().isEmpty())
+                        lastname.trim().isEmpty() || confirmPassword.trim().isEmpty() || phone.trim().isEmpty())
 
                 {
                     Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
@@ -170,7 +170,7 @@ public class SignupFragment extends Fragment {
                 if (selectedImageUri != null) {
                     imageURL = selectedImageUri.toString();
                 }
-                User user = new User(firstname, lastname,  phone,  imageURL,password,email,address);
+                User user = new User(firstname, lastname,  phone,  imageURL,password,email);
 
                 fbs.getAuth().createUserWithEmailAndPassword(email,password)
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {

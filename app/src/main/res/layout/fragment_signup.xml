@@ -146,17 +146,5 @@
             app:layout_constraintStart_toStartOf="@+id/etLastnameSignupFragment"
             app:layout_constraintTop_toBottomOf="@+id/etLastnameSignupFragment" />
 
-        <EditText
-            android:id="@+id/etAdddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="address..."
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textColorHint="#FFFFFF"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="101dp"
-            tools:layout_editor_absoluteY="469dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
