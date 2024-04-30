@@ -3,14 +3,13 @@ package com.example.addresturantsfragment.Activities;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.addresturantsfragment.DataBase.FirebaseServices;
 import com.example.addresturantsfragment.DataBase.Hotel;
@@ -27,13 +26,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.json.JSONObject;
 
 public class map extends AppCompatActivity {
 
     private SupportMapFragment supportMapFragment;
     FusedLocationProviderClient client;
     Hotel hotel;
+    private LocationManager locationManager;
     FirebaseServices fbs;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 44;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +57,8 @@ public class map extends AppCompatActivity {
     }
     private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            // Handle case where permission is not granted
+            ActivityCompat.requestPermissions(map.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
             return;
         }
         Task<Location> task = client.getLastLocation();
@@ -71,21 +69,29 @@ public class map extends AppCompatActivity {
                     supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                         @Override
                         public void onMapReady(@NonNull GoogleMap googleMap) {
-                            LatLng latLng = new LatLng(location.getLatitude()
-                                    , location.getLongitude());
+                            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-                            MarkerOptions options = new MarkerOptions().position(latLng)
-                                    .title(" I am there");
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                            MarkerOptions options = new MarkerOptions().position(latLng).title("You are here");
                             googleMap.addMarker(options);
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
 
+                            // Add marker for hotel location
+                            String address = hotel.getAddress();
+                            LatLng hotelLatLng = getCoordinatesFromAddress(address);
+                            if (hotelLatLng != null) {
+                                MarkerOptions hotelOptions = new MarkerOptions().position(hotelLatLng).title("Hotel location");
+                                googleMap.addMarker(hotelOptions);
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(hotelLatLng, 10));
+                            } else {
+                                Toast.makeText(map.this, "Failed to get hotel location", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
             }
         });
-
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -97,5 +103,36 @@ public class map extends AppCompatActivity {
         }
     }
 
+    private LatLng getCoordinatesFromAddress(String address) {
+        try {
+            // Split the address into latitude and longitude components
+            String[] arr = address.split(",");
+
+            // Ensure there are exactly two components
+            if (arr.length != 2) {
+                Log.e("AddressFormat", "Invalid address format: " + address);
+                return null;
+            }
+
+            // Parse latitude and longitude components into double values
+
+            double lat = Double.parseDouble(arr[0].trim());
+            double lng = Double.parseDouble(arr[1].trim());
+
+            // Check if latitude and longitude are within valid ranges
+            if (Math.abs(lat) > 90 || Math.abs(lng) > 180) {
+                Log.e("Coordinates", "Invalid coordinates: Latitude=" + lat + ", Longitude=" + lng);
+                return null;
+            }
+
+            // Create a LatLng object using the parsed latitude and longitude
+            return new LatLng(lat, lng);
+        } catch (NumberFormatException e) {
+            // Handle parsing errors
+            Log.e("Coordinates", "Failed to parse coordinates from address: " + address, e);
+            return null;
+        }
+    }
 
 }
+   
