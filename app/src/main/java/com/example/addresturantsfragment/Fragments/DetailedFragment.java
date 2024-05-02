@@ -134,6 +134,7 @@ public class DetailedFragment extends Fragment {
             @Override
             public void onClick(View v) {
                gotoMapFragment();
+
             }
         });
 
