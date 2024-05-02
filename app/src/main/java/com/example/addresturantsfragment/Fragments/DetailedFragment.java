@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,16 +20,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.addresturantsfragment.Activities.MainActivity;
-import com.example.addresturantsfragment.Activities.map;
 import com.example.addresturantsfragment.DataBase.FirebaseServices;
 import com.example.addresturantsfragment.DataBase.Hotel;
-import com.example.addresturantsfragment.DataBase.MyLocationListener;
 import com.example.addresturantsfragment.R;
 import com.google.android.gms.maps.MapView;
 import com.squareup.picasso.Picasso;
@@ -137,8 +133,7 @@ public class DetailedFragment extends Fragment {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),com.example.addresturantsfragment.Activities.map.class);
-                startActivity(intent);
+               gotoMapFragment();
             }
         });
 
@@ -166,8 +161,15 @@ public class DetailedFragment extends Fragment {
         });
 
 
-        requestLocationPermission();
+
     }
+
+    private void gotoMapFragment() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new MapsFragment());
+        ft.commit();
+    }
+
     private boolean checkAddressFormat(String address) {
         try {
             String[] arr = address.split(",");
@@ -263,33 +265,6 @@ public class DetailedFragment extends Fragment {
 //        }
     }
     //  888 whatsapp setting
-    private boolean isAppInstalled(String s) {
-        PackageManager packageManager= getActivity().getPackageManager();
-        boolean is_installed;
-        try{
-            packageManager.getPackageInfo(s,PackageManager.GET_ACTIVITIES);
-            is_installed=true;
-        } catch (PackageManager.NameNotFoundException e) {
-            is_installed=false;
-            throw new RuntimeException(e);
-        }
-        return  is_installed;
-    }
-
-    private void makePhoneCall() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
-        } else {
-            startCall();
-        }
-//        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(getActivity(),
-//                    new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
-//        } else {
-//            startCall();
-//        }
-    }
 
     private void startCall() {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -314,27 +289,6 @@ public class DetailedFragment extends Fragment {
         ft.commit();
 
     }
-    private void requestLocationPermission() {
-        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            startLocationUpdates();
-        } else {
-            EasyPermissions.requestPermissions(
-                    this,
-                    "Location permission is required for this app",
-                    LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            );
-        }
-    }
 
-    private void startLocationUpdates() {
-        locationManager = (LocationManager) ((MainActivity)getActivity()).getSystemService(Context.LOCATION_SERVICE);
 
-        if (locationManager != null) {
-           MyLocationListener locationListener = new MyLocationListener(getActivity());
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            }
-        }
-    }
 }
