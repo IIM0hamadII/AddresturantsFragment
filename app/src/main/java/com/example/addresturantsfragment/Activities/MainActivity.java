@@ -43,14 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imj;
     Intent btn;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-     if(fbs.getCurrentUser()==null){
-         gotoLoginFragment();
-         bottomNavigationView.setVisibility(View.GONE);
-     }
-    }
 
     public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
@@ -68,9 +60,14 @@ public class MainActivity extends AppCompatActivity {
 
           imj=findViewById(R.id.imageView4);
         fbs = FirebaseServices.getInstance();
-        imj.setVisibility(View.VISIBLE);      //fbs.getAuth().signOut();
+        imj.setVisibility(View.VISIBLE);
         listType = ListFragmentType.Regular;
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+
+        if(fbs.getAuth().getCurrentUser()!=null) gotoHotelList();
+        else gotoLoginFragment();
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
@@ -137,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, new LoginFragment());
         ft.commit();
+        bottomNavigationView.setVisibility(View.GONE);
     }
 
     public void gotoHotelList() {

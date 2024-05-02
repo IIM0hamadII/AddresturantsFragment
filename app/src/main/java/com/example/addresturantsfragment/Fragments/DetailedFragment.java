@@ -137,7 +137,7 @@ public class DetailedFragment extends Fragment {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),com.example.addresturantsfragment.Activities.map.class);
+                Intent intent = new Intent(getActivity(),com.example.addresturantsfragment.Activities.map.class);
                 startActivity(intent);
             }
         });
@@ -156,6 +156,16 @@ public class DetailedFragment extends Fragment {
                 }
             }
         });
+        btnWhatsapp=getView().findViewById(R.id.btnWhatsApp);
+        btnWhatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendWhatsAppMessage(v);
+
+            }
+        });
+
+
         requestLocationPermission();
     }
     private boolean checkAddressFormat(String address) {
@@ -235,7 +245,7 @@ public class DetailedFragment extends Fragment {
 //        }
 //        else {
 //            Toast.makeText(getActivity(), "whatsapp is not installed", Toast.LENGTH_SHORT).show();
-//        }
+//         }
 
 //
 //

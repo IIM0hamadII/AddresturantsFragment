@@ -1,7 +1,10 @@
 package com.example.addresturantsfragment.Activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -24,9 +27,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.units.qual.C;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 public class map extends AppCompatActivity {
 
@@ -35,6 +49,7 @@ public class map extends AppCompatActivity {
     Hotel hotel;
     private LocationManager locationManager;
     FirebaseServices fbs;
+    Context context;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 44;
 
     @Override
@@ -48,6 +63,7 @@ public class map extends AppCompatActivity {
         hotel= fbs.getSelectedHotel();
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         client = LocationServices.getFusedLocationProviderClient(this);
+
 
         if (ActivityCompat.checkSelfPermission(map.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
@@ -77,7 +93,8 @@ public class map extends AppCompatActivity {
 
                             // Add marker for hotel location
                             String address = hotel.getAddress();
-                            LatLng hotelLatLng = getCoordinatesFromAddress(address);
+                            LatLng hotelLatLng = getLocationFromAddress22(address);
+
                             if (hotelLatLng != null) {
                                 MarkerOptions hotelOptions = new MarkerOptions().position(hotelLatLng).title("Hotel location");
                                 googleMap.addMarker(hotelOptions);
@@ -104,9 +121,10 @@ public class map extends AppCompatActivity {
     }
 
     private LatLng getCoordinatesFromAddress(String address) {
-        try {
+
             // Split the address into latitude and longitude components
             String[] arr = address.split(",");
+            System.out.println(arr[0] + "," + arr[1]);
 
             // Ensure there are exactly two components
             if (arr.length != 2) {
@@ -119,6 +137,8 @@ public class map extends AppCompatActivity {
             double lat = Double.parseDouble(arr[0].trim());
             double lng = Double.parseDouble(arr[1].trim());
 
+            System.out.println(lat + "," + lng);
+
             // Check if latitude and longitude are within valid ranges
             if (Math.abs(lat) > 90 || Math.abs(lng) > 180) {
                 Log.e("Coordinates", "Invalid coordinates: Latitude=" + lat + ", Longitude=" + lng);
@@ -127,12 +147,34 @@ public class map extends AppCompatActivity {
 
             // Create a LatLng object using the parsed latitude and longitude
             return new LatLng(lat, lng);
-        } catch (NumberFormatException e) {
-            // Handle parsing errors
-            Log.e("Coordinates", "Failed to parse coordinates from address: " + address, e);
-            return null;
-        }
+
     }
+
+
+    public LatLng getLocationFromAddress22(String strAddress) {
+
+        Geocoder coder = new Geocoder(this);
+       Address address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = (Address) coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address;
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
+
 
 }
    
