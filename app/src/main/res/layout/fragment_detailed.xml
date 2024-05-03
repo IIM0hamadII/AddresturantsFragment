@@ -20,11 +20,9 @@
             android:layout_marginTop="27dp"
             android:layout_marginEnd="23dp"
 
-            android:layout_marginBottom="342dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/map"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -93,15 +91,13 @@
             android:id="@+id/btnCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-15dp"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="#9F9BA1"
             android:text="Call"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/map" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <EditText
             android:id="@+id/tvdescreption"
@@ -119,19 +115,17 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/DetailedMan" />
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map"
-            android:layout_width="94dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="220dp"
-            android:layout_marginEnd="55dp"
-            android:layout_marginBottom="40dp"
-            android:background="@android:drawable/ic_dialog_map"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/map5"
+            android:layout_width="64dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_dialog_map"
+            app:backgroundTint="#9F9BA1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnCall"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnWhatsApp"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toStartOf="@+id/btnCall" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

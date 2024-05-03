@@ -29,6 +29,7 @@ import com.example.addresturantsfragment.DataBase.FirebaseServices;
 import com.example.addresturantsfragment.DataBase.Hotel;
 import com.example.addresturantsfragment.R;
 import com.google.android.gms.maps.MapView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class DetailedFragment extends Fragment {
     FirebaseServices fbs;
     private TextView tvName, tvPhone, tvdescreption, tvadress;
     private ImageView ivHotel;
-    private MapView map;
+    private FloatingActionButton map;
     private LocationManager locationManager;
     private static final int GALLERY_REQUEST_CODE = 134;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
@@ -112,7 +113,7 @@ public class DetailedFragment extends Fragment {
         tvadress = getView().findViewById(R.id.tvadress);
         tvPhone=getView().findViewById(R.id.DetailedPhone);
         ivHotel=getView().findViewById(R.id.DetailedCar);
-        map=getView().findViewById(R.id.map);
+        map=getView().findViewById(R.id.map5);
         if(fbs.getSelectedHotel()!=null) myHotel = fbs.getSelectedHotel();
 
         if (myHotel != null) {

@@ -78,30 +78,10 @@ public class MapsFragment extends Fragment implements
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Handle case where permission is not granted
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-
-        }
-        Task<Location> task = fusedLocationClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location !=null){
-
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-                    MarkerOptions options = new MarkerOptions().position(latLng).title("You are here");
-                    mMap.addMarker(options);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                }
-            }
-        });
-
 
         // Initialize the Places API
-        Places.initialize(requireContext(), "AIzaSyAEBeBv-EtGsHmSq9CNC6qfuEv6mTH0YH0");
-
+        Places.initialize(requireContext(), "AIzaSyD4KfDcLVjVPatpIKtrPXot024Z4UHVZQ8");
+      //AIzaSyD4KfDcLVjVPatpIKtrPXot024Z4UHVZQ8
         SearchView searchView = view.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
