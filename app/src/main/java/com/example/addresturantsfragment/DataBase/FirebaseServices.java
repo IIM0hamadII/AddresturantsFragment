@@ -70,6 +70,22 @@ public class FirebaseServices {
         return fire;
     }
 
+    public static void setInstance(FirebaseServices instance) {
+        FirebaseServices.instance = instance;
+    }
+
+    public void setAuth(FirebaseAuth auth) {
+        this.auth = auth;
+    }
+
+    public void setFire(FirebaseFirestore fire) {
+        this.fire = fire;
+    }
+
+    public void setStorage(FirebaseStorage storage) {
+        this.storage = storage;
+    }
+
     public FirebaseStorage getStorage() {
         return storage;
     }

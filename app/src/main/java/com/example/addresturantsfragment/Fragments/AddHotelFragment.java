@@ -159,9 +159,9 @@ public class AddHotelFragment extends Fragment {
             hotel = new Hotel(name, description, address, phone, fbs.getSelectedImageURL().toString());
 
         }
-        try {
 
-            fbs.getFire().collection("hotels").add(hotel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+
+        fbs.getFire().collection("hotels").add(hotel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
@@ -174,12 +174,10 @@ public class AddHotelFragment extends Fragment {
                 }
             });
         }
-        catch(Exception ex)
-        {
-            Log.e("add to hotels collection: ", ex.getMessage());
 
-        }
-    }
+
+
+
 
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
