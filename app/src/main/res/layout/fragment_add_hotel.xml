@@ -17,30 +17,30 @@
             android:id="@+id/etNameAddRestaurantFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="77dp"
+            android:layout_marginTop="64dp"
             android:ems="10"
             android:hint="name..."
             android:inputType="text"
             android:minHeight="48dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/etDescAddRestaurantFragment"
+            app:layout_constraintStart_toStartOf="@+id/etDescAddRestaurantFragment"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivupload"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="20dp"
 
-            android:layout_marginBottom="104dp"
+            android:layout_marginStart="156dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="344dp"
             android:background="@drawable/ic_profile"
             android:backgroundTint="#2FFFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/etAddress4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnAddAddRestaurantFragment"
             tools:srcCompat="@drawable/ic_profile" />
@@ -49,8 +49,6 @@
             android:id="@+id/etDescAddRestaurantFragment"
             android:layout_width="204dp"
             android:layout_height="0dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="37dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="description..."
@@ -58,7 +56,8 @@
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/etAddressAddRestaurantFragment"
-            app:layout_constraintStart_toStartOf="@+id/etNameAddRestaurantFragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etNameAddRestaurantFragment"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -66,7 +65,6 @@
             android:id="@+id/etAddressAddRestaurantFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:ems="10"
             android:hint="address..."
             android:inputType="text|textPostalAddress"
@@ -81,7 +79,6 @@
             android:id="@+id/etPhoneAddRestaurantFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="68dp"
             android:ems="10"
             android:hint="phone..."
             android:inputType="phone"
@@ -96,14 +93,24 @@
             android:id="@+id/btnAddAddRestaurantFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="249dp"
+            android:layout_marginStart="6dp"
             android:backgroundTint="#9F9BA1"
             android:text="Add"
             android:textColor="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/ivupload"
+            app:layout_constraintStart_toStartOf="@+id/ivupload"
             app:layout_constraintTop_toBottomOf="@+id/etPhoneAddRestaurantFragment" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/etAddress4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="66dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_dialog_map"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivupload"
+            app:layout_constraintTop_toTopOf="@+id/ivupload" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

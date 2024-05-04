@@ -1,6 +1,8 @@
 package com.example.addresturantsfragment.DataBase;
 
 
+import com.example.addresturantsfragment.Utilites.Utils;
+import com.google.android.gms.maps.model.LatLng;
 
 public class Hotel {
    private String name;
@@ -8,18 +10,26 @@ public class Hotel {
    private String address;
    private String phone;
    private String photo;
-
+   private LatLng current;
 
    public Hotel() {
    }
 
-   public Hotel(String name, String description, String address, String phone,String photo) {
+   public Hotel(String name, String description, String address, String phone, String photo) {
       this.name = name;
       this.description = description;
       this.address = address;
       this.phone = phone;
       this.photo = photo;
+      this.current = Utils.getInstance().getCurrent();
+   }
 
+   public LatLng getCurrent() {
+      return current;
+   }
+
+   public void setCurrent(LatLng current) {
+      this.current = current;
    }
 
    public double getLat()
@@ -72,12 +82,13 @@ public class Hotel {
 
    @Override
    public String toString() {
-      return "Restaurant{" +
+      return "Hotel{" +
               "name='" + name + '\'' +
               ", description='" + description + '\'' +
               ", address='" + address + '\'' +
               ", phone='" + phone + '\'' +
               ", photo='" + photo + '\'' +
+              ", curent=" + current +
               '}';
    }
 }

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.addresturantsfragment.DataBase.FirebaseServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
@@ -23,6 +24,16 @@ public class Utils {
 
     private FirebaseServices fbs;
     private String imageStr;
+    private com.google.android.gms.maps.model.LatLng current;
+
+
+    public LatLng getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(LatLng current) {
+        this.current = current;
+    }
 
     public Utils()
     {
