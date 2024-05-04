@@ -28,6 +28,8 @@ import com.example.addresturantsfragment.Utilites.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -102,6 +104,7 @@ public class AddHotelFragment extends Fragment {
     }
 
     private void connectComponents() {
+
         fbs = FirebaseServices.getInstance();
         etName = getView().findViewById(R.id.etNameAddRestaurantFragment);
         etDescription = getView().findViewById(R.id.etDescAddRestaurantFragment);
@@ -156,18 +159,26 @@ public class AddHotelFragment extends Fragment {
             hotel = new Hotel(name, description, address, phone, fbs.getSelectedImageURL().toString());
 
         }
-        fbs.getFire().collection("hotels").add(hotel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
-                gotoHotelList();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("Failed to add your hotel: ", e.getMessage());
-            }
-        });
+        try {
+
+            fbs.getFire().collection("hotels").add(hotel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
+                    gotoHotelList();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e("Failed to add your hotel: ", e.getMessage());
+                }
+            });
+        }
+        catch(Exception ex)
+        {
+            Log.e("add to hotels collection: ", ex.getMessage());
+
+        }
     }
 
     private void openGallery() {

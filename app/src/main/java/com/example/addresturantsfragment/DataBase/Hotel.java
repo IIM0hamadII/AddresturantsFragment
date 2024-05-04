@@ -10,7 +10,7 @@ public class Hotel {
    private String address;
    private String phone;
    private String photo;
-   private LatLng current;
+
 
    public Hotel() {
    }
@@ -21,16 +21,10 @@ public class Hotel {
       this.address = address;
       this.phone = phone;
       this.photo = photo;
-      this.current = Utils.getInstance().getCurrent();
+
    }
 
-   public LatLng getCurrent() {
-      return current;
-   }
 
-   public void setCurrent(LatLng current) {
-      this.current = current;
-   }
 
    public double getLat()
    {
@@ -88,7 +82,8 @@ public class Hotel {
               ", address='" + address + '\'' +
               ", phone='" + phone + '\'' +
               ", photo='" + photo + '\'' +
-              ", curent=" + current +
+
+
               '}';
    }
 }

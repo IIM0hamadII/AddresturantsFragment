@@ -24,16 +24,6 @@ public class Utils {
 
     private FirebaseServices fbs;
     private String imageStr;
-    private com.google.android.gms.maps.model.LatLng current;
-
-
-    public LatLng getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(LatLng current) {
-        this.current = current;
-    }
 
     public Utils()
     {
