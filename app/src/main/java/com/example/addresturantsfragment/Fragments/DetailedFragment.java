@@ -1,9 +1,10 @@
 package com.example.addresturantsfragment.Fragments;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,16 +25,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.addresturantsfragment.Activities.MainActivity;
 import com.example.addresturantsfragment.DataBase.FirebaseServices;
 import com.example.addresturantsfragment.DataBase.Hotel;
 import com.example.addresturantsfragment.R;
-import com.google.android.gms.maps.MapView;
+import com.example.addresturantsfragment.Utilites.Utils;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.Arrays;
-import pub.devrel.easypermissions.EasyPermissions;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +59,9 @@ public class DetailedFragment extends Fragment {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
     private Button btnWhatsapp, btnCall;
     private Hotel myHotel;
+    private Utils utils;
+    private LatLng curret;
+    private GoogleMap Mmap;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -114,6 +123,8 @@ public class DetailedFragment extends Fragment {
         tvPhone=getView().findViewById(R.id.DetailedPhone);
         ivHotel=getView().findViewById(R.id.DetailedCar);
         map=getView().findViewById(R.id.map5);
+        curret= fbs.getSelectedHotel().getCurrent();
+
         if(fbs.getSelectedHotel()!=null) myHotel = fbs.getSelectedHotel();
 
         if (myHotel != null) {
@@ -134,6 +145,7 @@ public class DetailedFragment extends Fragment {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                gotoMapFragment();
 
             }
@@ -170,6 +182,31 @@ public class DetailedFragment extends Fragment {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new MapsFragment());
         ft.commit();
+
+        if (curret!= null){
+        Mmap.addMarker(new MarkerOptions()
+                .position(curret)
+                .draggable(true));
+            String locationAddress = getAddressFromLatLng(curret);
+            MarkerOptions options = new MarkerOptions().position(curret).title(locationAddress);
+            Mmap.addMarker(options);
+            Mmap.animateCamera(CameraUpdateFactory.newLatLngZoom(curret, 10));
+
+            Toast.makeText(requireContext(), "Selected Location: " + locationAddress, Toast.LENGTH_SHORT).show();
+        }
+    }
+    private String getAddressFromLatLng(LatLng latLng) {
+        Geocoder geocoder = new Geocoder(requireActivity(), Locale.getDefault());
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            Address obj = addresses.get(0);
+            String add = obj.getAddressLine(0);
+            return add;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Unknown";
+        }
     }
 
     private boolean checkAddressFormat(String address) {

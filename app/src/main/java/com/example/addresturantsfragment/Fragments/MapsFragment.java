@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.addresturantsfragment.Activities.map;
 import com.example.addresturantsfragment.R;
+import com.example.addresturantsfragment.Utilites.Utils;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -52,11 +54,11 @@ public class MapsFragment extends Fragment implements
         GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener {
 
 
-    private GoogleMap mMap,mMap2;
+    private GoogleMap mMap, mMap2;
     private Marker selectedMarker;
     private Button confirmButton;
     private FusedLocationProviderClient fusedLocationClient;
-
+    private Utils utils;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
 
@@ -66,7 +68,7 @@ public class MapsFragment extends Fragment implements
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
-
+        utils = Utils.getInstance();
         confirmButton = view.findViewById(R.id.confirmButton);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,7 @@ public class MapsFragment extends Fragment implements
                 confirmLocation();
 
             }
+
         });
 
 
@@ -81,7 +84,7 @@ public class MapsFragment extends Fragment implements
 
         // Initialize the Places API
         Places.initialize(requireContext(), "AIzaSyD4KfDcLVjVPatpIKtrPXot024Z4UHVZQ8");
-      //AIzaSyD4KfDcLVjVPatpIKtrPXot024Z4UHVZQ8
+        //AIzaSyD4KfDcLVjVPatpIKtrPXot024Z4UHVZQ8
         SearchView searchView = view.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -133,6 +136,7 @@ public class MapsFragment extends Fragment implements
                     LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f));
                 }
+
             });
         }
     }
@@ -175,6 +179,9 @@ public class MapsFragment extends Fragment implements
     private void confirmLocation() {
         if (selectedMarker != null) {
             LatLng selectedLocation = selectedMarker.getPosition();
+            utils.setCurrent(selectedLocation);
+
+            // TODO: add uttils, call SeLatLng
             // Handle the confirmed location
             String locationAddress = getAddressFromLatLng(selectedLocation);
             MarkerOptions options = new MarkerOptions().position(selectedLocation).title(locationAddress);
@@ -182,15 +189,15 @@ public class MapsFragment extends Fragment implements
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 10));
 
             Toast.makeText(requireContext(), "Selected Location: " + locationAddress, Toast.LENGTH_SHORT).show();
-
-
+            confirmButton.setVisibility(View.GONE);
+            gotoAddFragment();
 
 
             // Add the selected location address as extra data
 
         }
-    }
 
+    }
 
 
     @Override
@@ -252,4 +259,10 @@ public class MapsFragment extends Fragment implements
         }
     }
 
+    private void gotoAddFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new AddHotelFragment());
+        ft.commit();
+
+    }
 }
