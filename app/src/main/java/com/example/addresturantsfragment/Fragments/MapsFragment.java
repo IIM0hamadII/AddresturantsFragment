@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -21,7 +19,6 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.example.addresturantsfragment.Activities.map;
 import com.example.addresturantsfragment.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -33,8 +30,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
@@ -78,29 +73,8 @@ public class MapsFragment extends Fragment implements
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Handle case where permission is not granted
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-
-        }
-        Task<Location> task = fusedLocationClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location !=null){
-
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-                    MarkerOptions options = new MarkerOptions().position(latLng).title("You are here");
-                    mMap.addMarker(options);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                }
-            }
-        });
-
-
         // Initialize the Places API
-        Places.initialize(requireContext(), "AIzaSyAEBeBv-EtGsHmSq9CNC6qfuEv6mTH0YH0");
+        Places.initialize(requireContext(), "AIzaSyCdeZFJhwR-TPkGA9rR0S-UJi-YRVBNyos");
 
         SearchView searchView = view.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -132,7 +106,7 @@ public class MapsFragment extends Fragment implements
         super.onViewCreated(view, savedInstanceState);
 
         SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map5);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
@@ -157,6 +131,7 @@ public class MapsFragment extends Fragment implements
         }
     }
 
+
     @Override
     public void onMapClick(LatLng latLng) {
         if (selectedMarker != null) {
@@ -176,6 +151,7 @@ public class MapsFragment extends Fragment implements
     public void onMarkerDragStart(Marker marker) {
         // No implementation needed
     }
+
 
     @Override
     public void onMarkerDrag(Marker marker) {
