@@ -83,8 +83,8 @@ public class MapsFragment extends Fragment implements
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         // Initialize the Places API
-        Places.initialize(requireContext(), "AIzaSyD4KfDcLVjVPatpIKtrPXot024Z4UHVZQ8");
-        //AIzaSyD4KfDcLVjVPatpIKtrPXot024Z4UHVZQ8
+        Places.initialize(requireContext(), "AIzaSyCdeZFJhwR-TPkGA9rR0S-UJi-YRVBNyos");
+
         SearchView searchView = view.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
