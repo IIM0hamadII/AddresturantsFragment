@@ -2,8 +2,6 @@ package com.example.addresturantsfragment.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,17 +25,12 @@ import com.example.addresturantsfragment.DataBase.FirebaseServices;
 import com.example.addresturantsfragment.DataBase.Hotel;
 import com.example.addresturantsfragment.R;
 import com.example.addresturantsfragment.Utilites.Utils;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -48,11 +41,9 @@ import java.util.UUID;
 public class AddHotelFragment extends Fragment {
 
     private FirebaseServices fbs;
-    private EditText etName, etDescription, etAddress, etPhone,address2;
+    private EditText etName, etDescription, etAddress, etPhone;
     private Button btnAdd;
-    private LatLng current;
     private Utils utils;
-    private FloatingActionButton etaddress6;
     private static final int GALLERY_REQUEST_CODE = 123;
     private ImageView img,ivUser;
     private String imageStr;
@@ -120,16 +111,7 @@ public class AddHotelFragment extends Fragment {
         utils = Utils.getInstance();
         img = getView().findViewById(R.id.ivupload);
         ivUser=getView().findViewById(R.id.DetailedCar);
-        etaddress6=getView().findViewById(R.id.etAddress4);
 
-        etaddress6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gotoMapFragment();
-
-            }
-
-        });
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,7 +123,7 @@ public class AddHotelFragment extends Fragment {
             public void onClick(View view) {
                 // get data from screen
                 addToFirebase();
-        }});
+            }});
     }
 
     private void addToFirebase() {
@@ -154,7 +136,7 @@ public class AddHotelFragment extends Fragment {
 
         // data validation
         if (name.trim().isEmpty() || description.trim().isEmpty() ||
-                address.trim().isEmpty() || phone.trim().isEmpty() )
+                address.trim().isEmpty() || phone.trim().isEmpty())
         {
             Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_LONG).show();
             return;
@@ -174,40 +156,20 @@ public class AddHotelFragment extends Fragment {
             hotel = new Hotel(name, description, address, phone, fbs.getSelectedImageURL().toString());
 
         }
-        try {
-
-            fbs.getFire().collection("hotels").add(hotel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
-                    gotoHotelList();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.e("Failed to add your hotel: ", e.getMessage());
-                }
-            });
-        }
-        catch(Exception ex)
-        {
-            Log.e("add to hotels collection: ", ex.getMessage());
-
-        }
+        fbs.getFire().collection("hotels").add(hotel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getActivity(), "Successfully added your hotel!", Toast.LENGTH_SHORT).show();
+                gotoHotelList();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("Failed to add your hotel: ", e.getMessage());
+            }
+        });
     }
-    private String getAddressFromLatLng(LatLng latLng) {
-        Geocoder geocoder = new Geocoder(requireActivity(), Locale.getDefault());
 
-        try {
-            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-            Address obj = addresses.get(0);
-            String add = obj.getAddressLine(0);
-            return add;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "Unknown";
-        }
-    }
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
@@ -229,11 +191,6 @@ public class AddHotelFragment extends Fragment {
                 uploadImage(imageUri);
             }
         }
-    }
-    private void gotoMapFragment() {
-        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new MapsFragment());
-        ft.commit();
     }
 
     public void uploadImage(Uri selectedImageUri) {
