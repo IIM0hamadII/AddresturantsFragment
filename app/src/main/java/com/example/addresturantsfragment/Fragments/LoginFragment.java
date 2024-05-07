@@ -151,11 +151,7 @@ public class LoginFragment extends Fragment {
         ft.replace(R.id.frameLayout,new ForgotPasswordFragment());
         ft.commit();
     }
-    private void gotoMainFragment(){
-        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new HotelsFragment());
-        ft.commit();
-    }
+
     public void gotoHotelList()
     {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();

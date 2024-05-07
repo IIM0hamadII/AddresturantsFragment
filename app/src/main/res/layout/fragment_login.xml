@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,37 +9,36 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
         <EditText
             android:id="@+id/etUsernameLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="101dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="72dp"
-            android:ems="10"
-            android:hint="Email...."
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/etPasswordLogin"
-            app:layout_constraintEnd_toEndOf="@+id/etPasswordLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etPasswordLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="76dp"
-            android:ems="10"
-            android:hint="Password..."
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="Password"
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/etButtomLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etUsernameLogin" />
@@ -48,39 +47,38 @@
             android:id="@+id/etButtomLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="44dp"
+            android:layout_marginTop="24dp"
             android:backgroundTint="#9F9BA1"
             android:text="Login"
             android:textColor="#000000"
-            app:layout_constraintBottom_toTopOf="@+id/tvForgotPasswordLinkLogin"
-            app:layout_constraintStart_toStartOf="@+id/tvForgotPasswordLinkLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
 
         <TextView
-            android:id="@+id/tvSignupLinkLogin"
-            android:layout_width="121dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="40dp"
-            android:text="        Signup"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="@+id/tvForgotPasswordLinkLogin"
-            app:layout_constraintTop_toBottomOf="@+id/tvForgotPasswordLinkLogin" />
-
-        <TextView
             android:id="@+id/tvForgotPasswordLinkLogin"
-            android:layout_width="117dp"
-            android:layout_height="19dp"
-            android:layout_marginBottom="149dp"
-            android:text="ForgotPassword"
-            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Forgot Password"
             android:textColor="#FFFFFF"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvSignupLinkLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etButtomLogin" />
 
+        <TextView
+            android:id="@+id/tvSignupLinkLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Signup"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvForgotPasswordLinkLogin" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+
+</RelativeLayout>

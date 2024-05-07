@@ -17,13 +17,14 @@
             android:layout_width="300dp"
             android:layout_height="0dp"
             android:layout_marginStart="23dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="23dp"
 
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/ic_3" />
@@ -32,12 +33,14 @@
             android:id="@+id/DetailedMan"
             android:layout_width="220dp"
             android:layout_height="40dp"
+            android:layout_marginBottom="12dp"
             android:text="name"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tvdescreption"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -60,16 +63,16 @@
 
         <TextView
             android:id="@+id/DetailedPhone"
-            android:layout_width="220dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="140dp"
+            android:layout_width="211dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="120dp"
             android:gravity="center"
             android:text="Phone"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -101,9 +104,9 @@
 
         <EditText
             android:id="@+id/tvdescreption"
-            android:layout_width="220dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="84dp"
+            android:layout_width="226dp"
+            android:layout_height="95dp"
+            android:layout_marginBottom="68dp"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
@@ -112,7 +115,7 @@
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/DetailedPhone"
             app:layout_constraintEnd_toEndOf="@+id/DetailedMan"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="@+id/DetailedMan" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -121,12 +124,13 @@
             android:layout_height="58dp"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="16dp"
             android:clickable="true"
             android:src="@android:drawable/ic_dialog_map"
             app:backgroundTint="#9F9BA1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnCall"
+            app:layout_constraintHorizontal_bias="0.739"
             app:layout_constraintStart_toEndOf="@+id/btnWhatsApp" />
 
 

@@ -1,91 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
-    android:backgroundTint="#3EFFFFFF"
-    tools:context=".Fragments.UpdateProfile2">
+    android:background="@drawable/pic2"
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/etFirstnameUserDetailsEdit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/pic2"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="First Name..."
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
-        <EditText
-            android:id="@+id/etFirstnameUserDetailsEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="first name..."
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+    <EditText
+        android:id="@+id/etLastnameUserDetailsEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="Last Name..."
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
-        <EditText
-            android:id="@+id/etLastnameUserDetailsEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="last name..."
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="Email..."
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="email.."
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="Password..."
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:hint="password..."
-            android:inputType="textPassword"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+    <EditText
+        android:id="@+id/etPhoneUserDetailsEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="Phone..."
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
-        <!-- Add the Phone EditText -->
+    <ImageView
+        android:id="@+id/ivUserUserDetailsEdit"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/ic_3" />
 
-        <EditText
-            android:id="@+id/etPhoneUserDetailsEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="phone...."
-            android:inputType="phone"
-            android:minHeight="48dp"
-            android:textAlignment="viewStart"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
-
-        <ImageView
-            android:id="@+id/ivUserUserDetailsEdit"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-
-            android:background="@drawable/ic_3" />
-
-        <!-- android:srcCompat="@android:mipmap/sym_def_app_icon"/> -->
-
-        <Button
-            android:id="@+id/btnUpdateUserDetailsEdit"
-            android:layout_width="207dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#9F9BA1"
-            android:text="UPDATE"
-            android:textColor="#000000" />
-    </LinearLayout>
-</FrameLayout>
+    <Button
+        android:id="@+id/btnUpdateUserDetailsEdit"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#9F9BA1"
+        android:text="UPDATE"
+        android:textColor="#000000" />
+</LinearLayout>

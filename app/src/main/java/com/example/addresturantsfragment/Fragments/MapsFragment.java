@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.addresturantsfragment.DataBase.FirebaseServices;
 import com.example.addresturantsfragment.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -50,6 +51,7 @@ public class MapsFragment extends Fragment implements
     private GoogleMap mMap,mMap2;
     private Marker selectedMarker;
     private Button confirmButton;
+    private FirebaseServices fbs;
     private FusedLocationProviderClient fusedLocationClient;
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -61,6 +63,7 @@ public class MapsFragment extends Fragment implements
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
+        fbs=FirebaseServices.getInstance();
 
         confirmButton = view.findViewById(R.id.confirmButton);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +80,7 @@ public class MapsFragment extends Fragment implements
         Places.initialize(requireContext(), "AIzaSyCdeZFJhwR-TPkGA9rR0S-UJi-YRVBNyos");
 
         SearchView searchView = view.findViewById(R.id.searchView);
+        searchView.setQuery(fbs.getSelectedHotel().getAddress(),false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
