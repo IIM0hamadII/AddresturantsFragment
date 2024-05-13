@@ -115,12 +115,12 @@ public class AddHotelFragment extends Fragment {
         img = getView().findViewById(R.id.ivupload);
         ivUser=getView().findViewById(R.id.DetailedCar);
 
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openGallery();
+                }
+            });
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

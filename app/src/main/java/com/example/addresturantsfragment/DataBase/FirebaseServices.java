@@ -27,21 +27,7 @@ public class FirebaseServices {
     private User currentUser;
     private Hotel selectedHotel;
     private boolean userChangeFlag;
-    public Hotel getSelectedHotel() {
-        return selectedHotel;
-    }
 
-    public void setSelectedHotel(Hotel selectedHotel) {
-        this.selectedHotel = selectedHotel;
-    }
-
-    public Uri getSelectedImageURL() {
-        return selectedImageURL;
-    }
-
-    public void setSelectedImageURL(Uri selectedImageURL) {
-        this.selectedImageURL = selectedImageURL;
-    }
 
     public  FirebaseServices ()
     {
@@ -68,6 +54,10 @@ public class FirebaseServices {
 
     public FirebaseFirestore getFire() {
         return fire;
+    }
+    public static FirebaseServices reloadInstance(){
+        instance=new FirebaseServices();
+        return instance;
     }
 
     public static void setInstance(FirebaseServices instance) {
@@ -98,11 +88,22 @@ public class FirebaseServices {
         return instance;
     }
 
-    public static FirebaseServices reloadInstance(){
-        instance=new FirebaseServices();
-        return instance;
+
+    public Hotel getSelectedHotel() {
+        return selectedHotel;
     }
 
+    public void setSelectedHotel(Hotel selectedHotel) {
+        this.selectedHotel = selectedHotel;
+    }
+
+    public Uri getSelectedImageURL() {
+        return selectedImageURL;
+    }
+
+    public void setSelectedImageURL(Uri selectedImageURL) {
+        this.selectedImageURL = selectedImageURL;
+    }
     public boolean isUserChangeFlag() {
         return userChangeFlag;
     }
