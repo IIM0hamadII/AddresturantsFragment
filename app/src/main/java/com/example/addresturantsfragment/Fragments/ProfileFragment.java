@@ -76,6 +76,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
     }
     private ImageView Profile;
     private TextView tvName,tvEmail;
@@ -90,6 +91,7 @@ public class ProfileFragment extends Fragment {
         super.onStart();
 
         fbs = FirebaseServices.getInstance();
+
         Profile=getView().findViewById(R.id.Profile);
         tvName=getView().findViewById(R.id.tvName);
         tvEmail=getView().findViewById(R.id.tvEmail);

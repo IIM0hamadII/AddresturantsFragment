@@ -3,12 +3,15 @@ package com.example.addresturantsfragment.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private User userData, user1;
     private ImageView imj;
     Intent btn;
+    private static final String TAG = "MainActivity";
+    private static final int FRAGMENT_CONTAINER_ID = R.id.frameLayout;
 
 
     public BottomNavigationView getBottomNavigationView() {
@@ -53,12 +59,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         init();
     }
 
     private void init() {
 
+        getCacheDir().delete();
+
+// Clear the app's data.
+        getDatabasePath("app_database.db").delete();
+
+// Clear the app's shared preferences.
+        getSharedPreferences("app_preferences", Context.MODE_PRIVATE).edit().clear().apply();
 
           imj=findViewById(R.id.imageView4);
         fbs = FirebaseServices.getInstance();
@@ -66,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
         listType = ListFragmentType.Regular;
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        FirebaseUser user = fbs.getAuth().getCurrentUser();
+        if (user != null) {
+            // User is signed in.
+            gotoHotelList();
+
+        } else {
+            // User is signed out.
+            gotoLoginFragment();
+            bottomNavigationView.setVisibility(View.GONE);
+        }
 
 
 
@@ -75,7 +97,22 @@ public class MainActivity extends AppCompatActivity {
 
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);
 
+                // Get the menu from the navigation view.
+                Menu menu = navigationView.getMenu();
+
+                // Get the admin navigation item.
+                MenuItem adminItem = menu.findItem(R.id.action_add);
+
+                // Check if the user is an admin.
+                if (!isAdmin()) {
+                    // Hide the admin navigation item.
+                    adminItem.setVisible(false);
+                }
+                else {
+                    adminItem.setVisible(true);
+                }
                 Fragment selectedFragment = null;
                 if (item.getItemId() == R.id.action_home) {
 
@@ -123,11 +160,27 @@ public class MainActivity extends AppCompatActivity {
     public User getUserDataObject() {
         return this.userData;
     }
-
+    private boolean isAdmin() {
+        // Replace this with your own logic for checking if the user is an admin.
+        // For example, you could check a list of known admin email addresses.
+        String userEmail = fbs.getAuth().getCurrentUser().getEmail();
+        return userEmail.equals("hamoudy1221h@gmail.com");
+    }
     private void signout() {
+        // Sign out the user from Firebase Authentication.
         fbs.getAuth().signOut();
-        bottomNavigationView.setVisibility(View.INVISIBLE);
-        gotoLoginFragment();
+
+        // Log a message to indicate that the user has signed out.
+        Log.d(TAG, "User signed out.");
+
+        // Clear the back stack and navigate to the login fragment.
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().beginTransaction()
+                .replace(FRAGMENT_CONTAINER_ID, new LoginFragment())
+                .commit();
+
+        // Hide the bottom navigation view.
+        bottomNavigationView.setVisibility(View.GONE);
     }
 
 
