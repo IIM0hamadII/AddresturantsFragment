@@ -64,19 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
 
-        getCacheDir().delete();
-
-// Clear the app's data.
-        getDatabasePath("app_database.db").delete();
-
-// Clear the app's shared preferences.
-        getSharedPreferences("app_preferences", Context.MODE_PRIVATE).edit().clear().apply();
-
-          imj=findViewById(R.id.imageView4);
-        fbs = FirebaseServices.getInstance();
-        imj.setVisibility(View.VISIBLE);
-        listType = ListFragmentType.Regular;
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         FirebaseUser user = fbs.getAuth().getCurrentUser();
         if (user != null) {
@@ -88,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
             gotoLoginFragment();
             bottomNavigationView.setVisibility(View.GONE);
         }
+
+          imj=findViewById(R.id.imageView4);
+        fbs = FirebaseServices.getInstance();
+        imj.setVisibility(View.VISIBLE);
+        listType = ListFragmentType.Regular;
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
 
 
 
