@@ -65,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
 
 
+
+          imj=findViewById(R.id.imageView4);
+        fbs = FirebaseServices.getInstance();
+        imj.setVisibility(View.VISIBLE);
+        listType = ListFragmentType.Regular;
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        fbs.getAuth().signOut();
         FirebaseUser user = fbs.getAuth().getCurrentUser();
         if (user != null) {
             // User is signed in.
@@ -75,13 +83,6 @@ public class MainActivity extends AppCompatActivity {
             gotoLoginFragment();
             bottomNavigationView.setVisibility(View.GONE);
         }
-
-          imj=findViewById(R.id.imageView4);
-        fbs = FirebaseServices.getInstance();
-        imj.setVisibility(View.VISIBLE);
-        listType = ListFragmentType.Regular;
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
 
 
 
