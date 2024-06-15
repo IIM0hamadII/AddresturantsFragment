@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.example.addresturantsfragment.DataBase.FirebaseServices;
 import com.example.addresturantsfragment.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 
 /**
@@ -138,7 +140,23 @@ public class LoginFragment extends Fragment {
         });
     }
     private void setNavigationBarVisible() {
+
         ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
+
+        if(!fsb.getAuth().getCurrentUser().getEmail().equals("hamoudy1221h@gmail.com")){
+
+            // Get the menu from the navigation view.
+            Menu menu = ((MainActivity)getActivity()).getBottomNavigationView().getMenu();
+
+            // Get the admin navigation item.
+            menu.findItem(R.id.action_add).setVisible(false);
+        } else{
+            // Get the menu from the navigation view.
+            Menu menu = ((MainActivity)getActivity()).getBottomNavigationView().getMenu();
+
+            // Get the admin navigation item.
+            menu.findItem(R.id.action_add).setVisible(true);
+        }
     }
     private void gotoSignupFragment(){
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();

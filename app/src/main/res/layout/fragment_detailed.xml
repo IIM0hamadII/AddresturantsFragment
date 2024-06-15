@@ -33,7 +33,7 @@
     <EditText
         android:id="@+id/tvdescreption"
         android:layout_width="match_parent"
-        android:layout_height="177dp"
+        android:layout_height="82dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#9F9BA1"
         android:ems="10"

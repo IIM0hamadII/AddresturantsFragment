@@ -78,12 +78,29 @@ public class MainActivity extends AppCompatActivity {
             // User is signed in.
             gotoHotelList();
 
+            if(!fbs.getAuth().getCurrentUser().getEmail().equals("hamoudy1221h@gmail.com")){
+                BottomNavigationView navbar= findViewById(R.id.bottomNavigationView);
+                // Get the menu from the navigation view.
+                Menu menu = navbar.getMenu();
+
+                // Get the admin navigation item.
+                menu.findItem(R.id.action_add).setVisible(false);
+            } else{
+                BottomNavigationView navbar= findViewById(R.id.bottomNavigationView);
+                // Get the menu from the navigation view.
+                Menu menu = navbar.getMenu();
+
+                // Get the admin navigation item.
+                menu.findItem(R.id.action_add).setVisible(true);
+            }
+
         } else {
             // User is signed out.
             gotoLoginFragment();
             bottomNavigationView.setVisibility(View.GONE);
-        }
+            BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);
 
+        }
 
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -92,25 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);
-
-                // Get the menu from the navigation view.
-                Menu menu = navigationView.getMenu();
-
-                // Get the admin navigation item.
-                MenuItem adminItem = menu.findItem(R.id.action_add);
-
-                // Check if the user is an admin.
-                if (!isAdmin()) {
-                    // Hide the admin navigation item.
-                    adminItem.setVisible(false);
-                }
-                else {
-                    adminItem.setVisible(true);
-                }
                 Fragment selectedFragment = null;
                 if (item.getItemId() == R.id.action_home) {
-
 
                     selectedFragment = new AllHotelsFragment();
                 }
@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         fragmentContainer = findViewById(R.id.frameLayout);
         userData = getUserData();
 

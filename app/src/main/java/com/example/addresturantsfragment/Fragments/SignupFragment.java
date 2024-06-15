@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -244,7 +245,24 @@ public class SignupFragment extends Fragment {
     }
 
     private void setNavigationBarVisible() {
+
         ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
+
+        if(!fbs.getAuth().getCurrentUser().getEmail().equals("hamoudy1221h@gmail.com")){
+
+            // Get the menu from the navigation view.
+            Menu menu = ((MainActivity)getActivity()).getBottomNavigationView().getMenu();
+
+            // Get the admin navigation item.
+            menu.findItem(R.id.action_add).setVisible(false);
+        } else{
+            // Get the menu from the navigation view.
+            Menu menu = ((MainActivity)getActivity()).getBottomNavigationView().getMenu();
+
+            // Get the admin navigation item.
+            menu.findItem(R.id.action_add).setVisible(true);
+        }
+
     }
 }
 
