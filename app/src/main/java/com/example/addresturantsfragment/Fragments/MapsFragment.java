@@ -79,6 +79,7 @@ public class MapsFragment extends Fragment implements
         // Initialize the Places API
         Places.initialize(requireContext(), "AIzaSyCdeZFJhwR-TPkGA9rR0S-UJi-YRVBNyos");
 
+
         SearchView searchView = view.findViewById(R.id.searchView);
         searchView.setQuery(fbs.getSelectedHotel().getAddress(),false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
