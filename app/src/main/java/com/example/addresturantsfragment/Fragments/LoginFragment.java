@@ -138,6 +138,7 @@ public class LoginFragment extends Fragment {
                 });
             }
         });
+
     }
     private void setNavigationBarVisible() {
 
